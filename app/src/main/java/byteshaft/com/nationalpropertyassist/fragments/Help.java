@@ -9,9 +9,6 @@ import android.view.ViewGroup;
 
 import byteshaft.com.nationalpropertyassist.R;
 
-/**
- * Created by shahid on 02/06/2016.
- */
 public class Help extends Fragment {
 
     public View mBaseView;
