@@ -12,7 +12,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import byteshaft.com.nationalpropertyassist.fragments.Help;
+import byteshaft.com.nationalpropertyassist.fragments.JobHistory;
+import byteshaft.com.nationalpropertyassist.fragments.PaymentDetails;
 import byteshaft.com.nationalpropertyassist.fragments.PropertyDetailsFragment;
+import byteshaft.com.nationalpropertyassist.fragments.Settings;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -73,13 +77,18 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_property_details) {
             loadFragment(new PropertyDetailsFragment());
+
         } else if (id == R.id.nav_job_history) {
+            loadFragment(new JobHistory());
 
         } else if (id == R.id.nav_payment_details) {
+            loadFragment(new PaymentDetails());
 
         } else if (id == R.id.nav_settings) {
+            loadFragment(new Settings());
 
         } else if (id == R.id.nav_help) {
+            loadFragment(new Help());
 
         } else if (id == R.id.nav_logout) {
 

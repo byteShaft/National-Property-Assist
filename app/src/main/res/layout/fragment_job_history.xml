@@ -4,10 +4,11 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/tv"
-        android:text="Property details fragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="Job History"
+        android:id="@+id/textView2"
+        android:layout_gravity="center_vertical"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
 
