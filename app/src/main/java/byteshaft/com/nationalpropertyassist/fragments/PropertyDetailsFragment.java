@@ -1,6 +1,5 @@
 package byteshaft.com.nationalpropertyassist.fragments;
 
-import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -10,7 +9,7 @@ import android.view.ViewGroup;
 import byteshaft.com.nationalpropertyassist.R;
 
 
-public class PropertyDetailsFragment extends Fragment {
+public class PropertyDetailsFragment extends android.support.v4.app.Fragment {
 
     public View mBaseView;
 
