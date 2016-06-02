@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_property_details) {
-            // Handle the camera action
+
         } else if (id == R.id.nav_job_history) {
 
         } else if (id == R.id.nav_payment_details) {
