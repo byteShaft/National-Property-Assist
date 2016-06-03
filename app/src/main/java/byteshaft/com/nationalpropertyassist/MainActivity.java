@@ -15,7 +15,7 @@ import android.view.MenuItem;
 import byteshaft.com.nationalpropertyassist.fragments.Help;
 import byteshaft.com.nationalpropertyassist.fragments.JobHistory;
 import byteshaft.com.nationalpropertyassist.fragments.PaymentDetails;
-import byteshaft.com.nationalpropertyassist.fragments.PropertyDetailsFragment;
+import byteshaft.com.nationalpropertyassist.fragments.PropertyDetails;
 import byteshaft.com.nationalpropertyassist.fragments.Settings;
 
 public class MainActivity extends AppCompatActivity
@@ -62,9 +62,9 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_property_details) {
-            loadFragment(new PropertyDetailsFragment());
+            loadFragment(new PropertyDetails());
 
         } else if (id == R.id.nav_job_history) {
             loadFragment(new JobHistory());
