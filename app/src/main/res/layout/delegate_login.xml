@@ -15,14 +15,14 @@
             android:orientation="vertical">
 
             <EditText
-                android:id="@+id/username_entry"
+                android:id="@+id/email_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:background="@drawable/edit_text_bg"
                 android:drawableLeft="@drawable/email"
-                android:drawablePadding="9dp"
                 android:drawableStart="@drawable/email"
+                android:drawablePadding="9dp"
                 android:hint="Email"
                 android:inputType="textPersonName"
                 android:padding="15dp"
@@ -38,8 +38,8 @@
                 android:layout_marginTop="20dp"
                 android:background="@drawable/edit_text_bg"
                 android:drawableLeft="@drawable/password"
-                android:drawablePadding="9dp"
                 android:drawableStart="@drawable/password"
+                android:drawablePadding="9dp"
                 android:hint="Password"
                 android:inputType="textPassword"
                 android:padding="15dp"
@@ -48,7 +48,7 @@
                 android:textSize="14sp" />
 
             <Button
-                android:id="@+id/login_button"
+                android:id="@+id/login"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -58,24 +58,22 @@
                 android:textColor="@color/gray_800"
                 android:textSize="14sp" />
 
-            <Button
-                android:id="@+id/button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/btn_bg"
-                android:hint="Facebook"
-                android:padding="15dp"
-                android:textColor="@color/gray_800"
-                android:textSize="14sp" />
+            <!--<com.facebook.login.widget.LoginButton-->
+                <!--android:id="@+id/login_button"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="40dp"-->
+                <!--android:layout_gravity="center_horizontal"-->
+                <!--android:layout_marginTop="20dp"-->
+                <!--android:layout_marginBottom="30dp" />-->
 
             <TextView
                 android:id="@+id/signup_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
+                android:clickable="true"
                 android:layout_marginBottom="30dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="10dp"
                 android:text="Sign up with email"
                 android:textColor="@color/colorPrimaryDark" />
 
