@@ -1,5 +1,6 @@
 package byteshaft.com.nationalpropertyassist.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import byteshaft.com.nationalpropertyassist.R;
+import byteshaft.com.nationalpropertyassist.activities.AddPropertyDetails;
 
 
 public class PropertyDetails extends android.support.v4.app.Fragment {
@@ -39,6 +41,7 @@ public class PropertyDetails extends android.support.v4.app.Fragment {
         int id = item.getItemId();
         if (id == R.id.action_add) {
             System.out.println("add item");
+            startActivity(new Intent(getActivity(), AddPropertyDetails.class));
             return true;
         }
         return super.onOptionsItemSelected(item);

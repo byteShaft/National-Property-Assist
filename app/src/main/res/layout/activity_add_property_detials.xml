@@ -4,10 +4,132 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".activities.AddPropertyDetails">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_margin="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/et_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/edit_text_bg"
+                android:drawablePadding="9dp"
+                android:hint="Address"
+                android:inputType="textPersonName"
+                android:padding="15dp"
+                android:singleLine="true"
+                android:textColor="@color/gray_800"
+                android:textSize="14sp" />
+
+
+            <EditText
+                android:id="@+id/et_post_code"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/edit_text_bg"
+                android:drawablePadding="9dp"
+                android:hint="Post Code"
+                android:inputType="number"
+                android:padding="15dp"
+                android:singleLine="true"
+                android:textColor="@color/gray_800"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/et_default_property"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/edit_text_bg"
+                android:drawablePadding="9dp"
+                android:hint="Default Property"
+                android:inputType="text"
+                android:padding="15dp"
+                android:singleLine="true"
+                android:textColor="@color/gray_800"
+                android:textSize="14sp" />
+
+
+            <EditText
+                android:id="@+id/et_residential"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/edit_text_bg"
+                android:drawablePadding="9dp"
+                android:hint="Residenial / Commercial"
+                android:inputType="text"
+                android:padding="15dp"
+                android:singleLine="true"
+                android:textColor="@color/gray_800"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/et_owner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/edit_text_bg"
+                android:drawablePadding="9dp"
+                android:hint="Owner / Occupier / Tennanted"
+                android:inputType="text"
+                android:padding="15dp"
+                android:singleLine="true"
+                android:textColor="@color/gray_800"
+                android:textSize="14sp" />
+
+
+            <EditText
+                android:id="@+id/et_property_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/edit_text_bg"
+                android:drawablePadding="9dp"
+                android:hint="Type of Property"
+                android:inputType="textPassword"
+                android:padding="15dp"
+                android:singleLine="true"
+                android:textColor="@color/gray_800"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/et_age_of_property"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/edit_text_bg"
+                android:drawablePadding="9dp"
+                android:hint="Age of Property"
+                android:inputType="text"
+                android:padding="15dp"
+                android:singleLine="true"
+                android:textColor="@color/gray_800"
+                android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/submit_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/btn_bg"
+                android:layout_marginBottom="30dp"
+                android:hint="Add"
+                android:padding="15dp"
+                android:textColor="@color/gray_800"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+    </ScrollView>
 
 </RelativeLayout>

@@ -9,17 +9,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
-import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
 
 import byteshaft.com.nationalpropertyassist.R;
 
-/**
- * Created by husnain on 5/31/16.
- */
 public class LoginActivity extends AppCompatActivity {
 
     private Button mLoginButton;
