@@ -1,10 +1,9 @@
 package byteshaft.com.nationalpropertyassist;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -14,6 +13,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.facebook.FacebookSdk;
+import byteshaft.com.nationalpropertyassist.fragments.Help;
+import byteshaft.com.nationalpropertyassist.fragments.JobHistory;
+import byteshaft.com.nationalpropertyassist.fragments.PaymentDetails;
+import byteshaft.com.nationalpropertyassist.fragments.PropertyDetailsFragment;
+import byteshaft.com.nationalpropertyassist.fragments.Settings;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -72,22 +76,33 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.nav_property_details) {
+            loadFragment(new PropertyDetailsFragment());
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_job_history) {
+            loadFragment(new JobHistory());
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_payment_details) {
+            loadFragment(new PaymentDetails());
 
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_settings) {
+            loadFragment(new Settings());
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_help) {
+            loadFragment(new Help());
+
+        } else if (id == R.id.nav_logout) {
 
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void loadFragment(Fragment fragment) {
+        FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
+        tx.replace(R.id.container, fragment);
+        tx.commit();
     }
 }
