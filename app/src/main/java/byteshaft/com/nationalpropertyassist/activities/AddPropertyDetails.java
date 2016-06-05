@@ -2,6 +2,8 @@ package byteshaft.com.nationalpropertyassist.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 import byteshaft.com.nationalpropertyassist.R;
@@ -15,6 +17,7 @@ public class AddPropertyDetails extends AppCompatActivity {
     private EditText mOwner;
     private EditText mTypeOfProperty;
     private EditText mAgeOfProperty;
+    private Button mSaveButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +31,13 @@ public class AddPropertyDetails extends AppCompatActivity {
         mOwner = (EditText) findViewById(R.id.et_owner);
         mTypeOfProperty = (EditText) findViewById(R.id.et_property_type);
         mAgeOfProperty = (EditText) findViewById(R.id.et_age_of_property);
+        mSaveButton = (Button) findViewById(R.id.save_button);
 
+        mSaveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // TODO: 03/06/2016     
+            }
+        });
     }
 }
