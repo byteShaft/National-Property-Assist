@@ -1,12 +1,26 @@
 package byteshaft.com.nationalpropertyassist.account;
 
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.net.HttpURLConnection;
+
+import byteshaft.com.nationalpropertyassist.AppGlobals;
+import byteshaft.com.nationalpropertyassist.Helpers;
+import byteshaft.com.nationalpropertyassist.MainActivity;
 import byteshaft.com.nationalpropertyassist.R;
+import byteshaft.com.nationalpropertyassist.WebServiceHelper;
 
 
 public class RegistrationActivity extends AppCompatActivity {
@@ -16,13 +30,17 @@ public class RegistrationActivity extends AppCompatActivity {
     private EditText mLastName;
     private EditText mEmailAddress;
     private EditText mMobileNumber;
+    private EditText mHomeNumber;
     private EditText mPassword;
 
     private String mFname;
     private String mLname;
-    private String mEmail;
+    public static String mEmail;
     private String mMobile;
+    private String mHome;
     private String mPasswordEntry;
+
+    HttpURLConnection connection;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,15 +50,35 @@ public class RegistrationActivity extends AppCompatActivity {
         mLastName = (EditText) findViewById(R.id.last_name);
         mEmailAddress = (EditText) findViewById(R.id.email);
         mMobileNumber = (EditText) findViewById(R.id.mobile_number);
+        mHomeNumber = (EditText) findViewById(R.id.home_number);
         mPassword = (EditText) findViewById(R.id.password);
         mRegisterButton = (Button) findViewById(R.id.register_button);
         mRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                validateEditText();
+                System.out.println(validateEditText());
+                if (!validateEditText()) {
+                    Toast.makeText(getApplicationContext(), "invalid credentials",
+                            Toast.LENGTH_SHORT).show();
+                } else {
+                    new RegistrationTask().execute();
+                }
 
             }
         });
+
+//        Intent intent = getIntent();
+//        String first_name = intent.getStringExtra("first_name");
+//        String last_name = intent.getStringExtra("last_name");
+//        String email = intent.getStringExtra("email");
+//
+        mFirstName.setText(LoginActivity.first_name);
+        mLastName.setText(LoginActivity.last_name);
+        mEmailAddress.setText(LoginActivity.email);
+
+        mFname = LoginActivity.first_name;
+        mLname = LoginActivity.last_name;
+        mEmail = LoginActivity.email;
     }
 
     private boolean validateEditText() {
@@ -49,8 +87,16 @@ public class RegistrationActivity extends AppCompatActivity {
         mFname = mFirstName.getText().toString();
         mLname = mLastName.getText().toString();
         mMobile = mMobileNumber.getText().toString();
+        mHome = mHomeNumber.getText().toString();
         mPasswordEntry = mPassword.getText().toString();
         mEmail = mEmailAddress.getText().toString();
+
+        System.out.println(mFname);
+        System.out.println(mLname);
+        System.out.println(mEmail);
+        System.out.println(mMobile);
+        System.out.println(mHome);
+        System.out.println(mPasswordEntry);
 
         if (mFname.trim().isEmpty() || mFname.length() < 3) {
             mFirstName.setError("enter at least 3 characters");
@@ -80,6 +126,13 @@ public class RegistrationActivity extends AppCompatActivity {
             mMobileNumber.setError(null);
         }
 
+        if (mHome.trim().isEmpty() || mHome.length() < 3) {
+            mHomeNumber.setError("Enter Home Number");
+            valid = false;
+        } else {
+            mHomeNumber.setError(null);
+        }
+
         if (mEmail.trim().isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(mEmail).matches()) {
             mEmailAddress.setError("please provide a valid email");
             valid = false;
@@ -87,5 +140,75 @@ public class RegistrationActivity extends AppCompatActivity {
             mEmailAddress.setError(null);
         }
         return valid;
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
+
+    class RegistrationTask extends AsyncTask<String, String, String> {
+
+        private boolean noInternet = false;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            WebServiceHelper.showProgressDialog(RegistrationActivity.this, "Registering");
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            JSONObject jsonObject;
+            if (WebServiceHelper.isNetworkAvailable() && WebServiceHelper.isInternetWorking()) {
+                try {
+                    jsonObject = WebServiceHelper.registerUser(mFname, mLname, mEmail, mMobile, mHome
+                            , mPasswordEntry);
+                    if (AppGlobals.getResponseCode() == HttpURLConnection.HTTP_CREATED) {
+                        System.out.println(jsonObject + "working");
+                        String first_name = jsonObject.getString(AppGlobals.KEY_FIRSTNAME);
+                        String last_name = jsonObject.getString(AppGlobals.KEY_LASTNAME);
+                        String email = jsonObject.getString(AppGlobals.KEY_EMAIL);
+                        String mobile_phone = jsonObject.getString(AppGlobals.KEY_MOBILEPHONE);
+                        String home_phone = jsonObject.getString(AppGlobals.KEY_HOMEPHONE);
+
+
+                        //saving values
+                        Helpers.saveDataToSharedPreferences(AppGlobals.KEY_FIRSTNAME, first_name);
+                        Log.i("First name", " " + Helpers.getStringFromSharedPreferences(AppGlobals.KEY_FIRSTNAME));
+                        Helpers.saveDataToSharedPreferences(AppGlobals.KEY_LASTNAME, last_name);
+                        Helpers.saveDataToSharedPreferences(AppGlobals.KEY_EMAIL, email);
+                        Helpers.saveDataToSharedPreferences(AppGlobals.KEY_MOBILEPHONE, mobile_phone);
+                        Helpers.saveDataToSharedPreferences(AppGlobals.KEY_HOMEPHONE, home_phone);
+                        Helpers.saveUserLogin(true);
+                    }
+                } catch (IOException | JSONException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                noInternet = true;
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String response) {
+            super.onPostExecute(response);
+            WebServiceHelper.dismissProgressDialog();
+            if (noInternet) {
+                Helpers.alertDialog(RegistrationActivity.this, "Connection error",
+                        "Check your internet connection");
+            }
+            if (AppGlobals.getResponseCode() == HttpURLConnection.HTTP_CREATED) {
+                Toast.makeText(AppGlobals.getContext(),
+                        "Activation code has been sent to you! please check your Email",
+                        Toast.LENGTH_LONG).show();
+                startActivity(new Intent(getApplicationContext(), CodeConfirmationActivity.class));
+            } else if (AppGlobals.getResponseCode() == HttpURLConnection.HTTP_BAD_REQUEST) {
+                Toast.makeText(AppGlobals.getContext(), "Registration failed. Email already in use",
+                        Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }
