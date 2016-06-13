@@ -23,6 +23,7 @@ public class AppGlobals extends Application {
         super.onCreate();
         sContext = getApplicationContext();
     }
+
     public static Context getContext() {
         return sContext;
     }
