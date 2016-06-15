@@ -1,9 +1,5 @@
 package byteshaft.com.nationalpropertyassist;
 
-/**
- * Created by husnain on 6/13/16.
- */
-
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
@@ -37,6 +33,17 @@ public class Helpers {
     public static boolean isUserLoggedIn() {
         SharedPreferences sharedPreferences = getPreferenceManager();
         return sharedPreferences.getBoolean("activation_key", false);
+    }
+
+    public static void detailsStatus(boolean value) {
+        SharedPreferences sharedPreferences = getPreferenceManager();
+        sharedPreferences.edit().putBoolean(AppGlobals.KEY_USER_DETAILS, value).apply();
+    }
+
+    public static boolean areDetailsSaved() {
+        SharedPreferences sharedPreferences = getPreferenceManager();
+        return sharedPreferences.getBoolean(AppGlobals.KEY_USER_DETAILS, false);
+
     }
 
     public static void alertDialog(Activity activity, String title, String msg) {
