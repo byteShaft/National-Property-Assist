@@ -1,6 +1,6 @@
 
 
-package byteshaft.com.nationalpropertyassist;
+package byteshaft.com.nationalpropertyassist.utils;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -8,8 +8,10 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
-import byteshaft.com.nationalpropertyassist.AppGlobals;
-import byteshaft.com.nationalpropertyassist.Helpers;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,8 +19,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import org.json.JSONException;
-import org.json.JSONObject;
+
+import byteshaft.com.nationalpropertyassist.AppGlobals;
 
 public class WebServiceHelper {
     private static ProgressDialog progressDialog;

@@ -1,4 +1,4 @@
-package byteshaft.com.nationalpropertyassist;
+package byteshaft.com.nationalpropertyassist.utils;
 
 import android.app.Activity;
 import android.content.DialogInterface;
@@ -6,10 +6,9 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 
+import byteshaft.com.nationalpropertyassist.AppGlobals;
 
 public class Helpers {
-    public Helpers() {
-    }
 
     public static SharedPreferences getPreferenceManager() {
         return PreferenceManager.getDefaultSharedPreferences(AppGlobals.getContext());
@@ -27,10 +26,20 @@ public class Helpers {
 
     public static void saveUserLogin(boolean value) {
         SharedPreferences sharedPreferences = getPreferenceManager();
-        sharedPreferences.edit().putBoolean("activation_key", value).apply();
+        sharedPreferences.edit().putBoolean("user_login", value).apply();
     }
 
     public static boolean isUserLoggedIn() {
+        SharedPreferences sharedPreferences = getPreferenceManager();
+        return sharedPreferences.getBoolean("user_login", false);
+    }
+
+    public static void setUserActive(boolean value) {
+        SharedPreferences sharedPreferences = getPreferenceManager();
+        sharedPreferences.edit().putBoolean("activation_key", value).apply();
+    }
+
+    public static boolean isUserActive() {
         SharedPreferences sharedPreferences = getPreferenceManager();
         return sharedPreferences.getBoolean("activation_key", false);
     }

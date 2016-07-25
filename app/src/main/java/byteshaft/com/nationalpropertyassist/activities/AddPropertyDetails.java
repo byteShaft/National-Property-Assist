@@ -8,7 +8,7 @@ import android.widget.EditText;
 
 import byteshaft.com.nationalpropertyassist.R;
 
-public class AddPropertyDetails extends AppCompatActivity {
+public class AddPropertyDetails extends AppCompatActivity implements View.OnClickListener {
 
     private EditText mAddress;
     private EditText mPostCode;
@@ -32,12 +32,15 @@ public class AddPropertyDetails extends AppCompatActivity {
         mTypeOfProperty = (EditText) findViewById(R.id.et_property_type);
         mAgeOfProperty = (EditText) findViewById(R.id.et_age_of_property);
         mSaveButton = (Button) findViewById(R.id.save_button);
+        mSaveButton.setOnClickListener(this);
+    }
 
-        mSaveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // TODO: 03/06/2016     
-            }
-        });
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.save_button:
+                
+                break;
+        }
     }
 }
