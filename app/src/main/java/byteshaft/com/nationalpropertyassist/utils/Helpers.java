@@ -44,6 +44,17 @@ public class Helpers {
         return sharedPreferences.getBoolean("activation_key", false);
     }
 
+    public static void detailsStatus(boolean value) {
+        SharedPreferences sharedPreferences = getPreferenceManager();
+        sharedPreferences.edit().putBoolean(AppGlobals.KEY_USER_DETAILS, value).apply();
+    }
+
+    public static boolean areDetailsSaved() {
+        SharedPreferences sharedPreferences = getPreferenceManager();
+        return sharedPreferences.getBoolean(AppGlobals.KEY_USER_DETAILS, false);
+
+    }
+
     public static void alertDialog(Activity activity, String title, String msg) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(activity);
         alertDialogBuilder.setTitle(title);

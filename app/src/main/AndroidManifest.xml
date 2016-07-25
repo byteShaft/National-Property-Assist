@@ -36,6 +36,19 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity android:name=".account.RegistrationActivity" />
         <activity android:name=".activities.AssistMain"/>
+
+        <activity android:name=".activities.DrainAssistActivity" />
+        <activity android:name=".activities.BuildingAssistActivity" />
+        <activity android:name=".activities.HomeAssistActivity" />
+        <activity android:name=".activities.WaterAssistActivity" />
+        <activity android:name=".activities.PlumberActivity" />
+
+        <activity android:name=".drainassist.EmergencyUnblockActivity" />
+        <activity android:name=".drainassist.DrainageRepairsActivity" />
+        <activity android:name=".drainassist.DrainageSurveyActivity" />
+        <activity android:name=".drainassist.MaintenanceActivity" />
+        <activity android:name=".drainassist.NewInstallationActivity" />
+        <activity android:name=".drainassist.SepticOrTreatmentTankActivity" />
     </application>
 
 </manifest>
