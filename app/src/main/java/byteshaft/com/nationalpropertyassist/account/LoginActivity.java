@@ -28,10 +28,10 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 
 import byteshaft.com.nationalpropertyassist.AppGlobals;
-import byteshaft.com.nationalpropertyassist.Helpers;
+import byteshaft.com.nationalpropertyassist.utils.Helpers;
 import byteshaft.com.nationalpropertyassist.MainActivity;
 import byteshaft.com.nationalpropertyassist.R;
-import byteshaft.com.nationalpropertyassist.WebServiceHelper;
+import byteshaft.com.nationalpropertyassist.utils.WebServiceHelper;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -41,14 +41,11 @@ public class LoginActivity extends AppCompatActivity {
     private TextView mSignUpText;
     private CallbackManager callbackManager;
     private LoginButton fbLoginButton;
-
     private String mPasswordEntry;
     private String mEmail;
-
     public static String first_name;
     public static String last_name;
     public static String email;
-
     public JSONObject jsonObject;
 
     @Override
@@ -56,9 +53,6 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.delegate_login);
-        if (!Helpers.isUserLoggedIn()) {
-            startActivity(new Intent(getApplicationContext(), MainActivity.class));
-        }
         callbackManager = CallbackManager.Factory.create();
         mEmailAddress = (EditText) findViewById(R.id.email_address);
         mPassword = (EditText) findViewById(R.id.password_entry);
@@ -94,7 +88,11 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 System.out.println(validate());
-                new LoginTask().execute();
+                if (validate()) {
+                    new  LoginTask().execute();
+                } else {
+                    Toast.makeText(LoginActivity.this, "please fix the following errors", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -102,15 +100,8 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        MainActivity.getInstance().finish();
         finish();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        if (!Helpers.isUserLoggedIn()) {
-            finish();
-        }
     }
 
     @Override
@@ -201,7 +192,7 @@ public class LoginActivity extends AppCompatActivity {
             if (noInternet) {
                 Helpers.alertDialog(LoginActivity.this, "Connection error",
                         "Check your internet connection");
-            } else if (AppGlobals.getResponseCode() == HttpURLConnection.HTTP_FORBIDDEN) {
+            }  else if (AppGlobals.getResponseCode() == HttpURLConnection.HTTP_FORBIDDEN) {
                 Toast.makeText(AppGlobals.getContext(), "Login Failed! Account not activated",
                         Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(getApplicationContext(), CodeConfirmationActivity.class));

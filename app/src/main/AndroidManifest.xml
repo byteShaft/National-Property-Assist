@@ -4,6 +4,8 @@
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
+
     <application
         android:name=".AppGlobals"
         android:allowBackup="true"
@@ -18,16 +20,14 @@
             android:name=".MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
-        </activity>
-        <activity android:name=".account.CodeConfirmationActivity">
-        </activity>
-        <activity android:name=".account.LoginActivity">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
+        <activity android:name=".account.CodeConfirmationActivity"/>
+        <activity android:name=".account.LoginActivity"/>
         <activity android:name=".activities.AddPropertyDetails" />
         <activity
             android:name="com.facebook.FacebookActivity"
@@ -35,7 +35,20 @@
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity android:name=".account.RegistrationActivity" />
-        <activity android:name=".activities.AssistMain"></activity>
+        <activity android:name=".activities.AssistMain"/>
+
+        <activity android:name=".activities.DrainAssistActivity" />
+        <activity android:name=".activities.BuildingAssistActivity" />
+        <activity android:name=".activities.HomeAssistActivity" />
+        <activity android:name=".activities.WaterAssistActivity" />
+        <activity android:name=".activities.PlumberActivity" />
+
+        <activity android:name=".drainassist.EmergencyUnblockActivity" />
+        <activity android:name=".drainassist.DrainageRepairsActivity" />
+        <activity android:name=".drainassist.DrainageSurveyActivity" />
+        <activity android:name=".drainassist.MaintenanceActivity" />
+        <activity android:name=".drainassist.NewInstallationActivity" />
+        <activity android:name=".drainassist.SepticOrTreatmentTankActivity" />
     </application>
 
 </manifest>

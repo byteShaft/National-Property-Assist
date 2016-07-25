@@ -2,10 +2,8 @@ package byteshaft.com.nationalpropertyassist.account;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.SyncRequest;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -19,21 +17,16 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 
 import byteshaft.com.nationalpropertyassist.AppGlobals;
-import byteshaft.com.nationalpropertyassist.Helpers;
+import byteshaft.com.nationalpropertyassist.utils.Helpers;
 import byteshaft.com.nationalpropertyassist.MainActivity;
 import byteshaft.com.nationalpropertyassist.R;
-import byteshaft.com.nationalpropertyassist.WebServiceHelper;
-import byteshaft.com.nationalpropertyassist.fragments.Help;
+import byteshaft.com.nationalpropertyassist.utils.WebServiceHelper;
 
-/**
- * Created by husnain on 6/7/16.
- */
 public class CodeConfirmationActivity extends Activity {
 
     private Button mSubmitButton;
     private EditText mEmail;
     private EditText mCode;
-
     private String mConfirmationEmail;
     private String mConformationCode;
 
@@ -127,6 +120,7 @@ public class CodeConfirmationActivity extends Activity {
         protected void onPostExecute(String aString) {
             super.onPostExecute(aString);
             WebServiceHelper.dismissProgressDialog();
+            mSubmitButton.setEnabled(true);
             if (noInternet) {
                 Helpers.alertDialog(CodeConfirmationActivity.this, "Connection error",
                         "Check your internet connection");

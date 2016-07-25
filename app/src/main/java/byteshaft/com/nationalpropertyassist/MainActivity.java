@@ -1,5 +1,6 @@
 package byteshaft.com.nationalpropertyassist;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -12,18 +13,33 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import byteshaft.com.nationalpropertyassist.account.CodeConfirmationActivity;
+import byteshaft.com.nationalpropertyassist.account.LoginActivity;
 import byteshaft.com.nationalpropertyassist.fragments.Help;
 import byteshaft.com.nationalpropertyassist.fragments.JobHistory;
 import byteshaft.com.nationalpropertyassist.fragments.PaymentDetails;
 import byteshaft.com.nationalpropertyassist.fragments.PropertyDetails;
 import byteshaft.com.nationalpropertyassist.fragments.Settings;
+import byteshaft.com.nationalpropertyassist.utils.Helpers;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private static MainActivity sInstance;
+
+    public static MainActivity getInstance() {
+        return sInstance;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sInstance = this;
+        if (!Helpers.isUserLoggedIn()) {
+            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+        } else if (!Helpers.isUserActive()) {
+            startActivity(new Intent(getApplicationContext(), CodeConfirmationActivity.class));
+        }
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
