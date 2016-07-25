@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@mipmap/test"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -52,11 +54,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:background="@drawable/btn_bg"
-                android:hint="Login"
-                android:padding="15dp"
-                android:textColor="@color/gray_800"
-                android:textSize="14sp" />
+                android:theme="@style/AppTheme.Button"
+                android:text="Login" />
 
             <com.facebook.login.widget.LoginButton
                 android:id="@+id/login_button"
@@ -72,10 +71,11 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
                 android:clickable="true"
+                android:textSize="20sp"
                 android:layout_marginBottom="30dp"
                 android:layout_marginTop="10dp"
                 android:text="Sign up with email"
-                android:textColor="@color/colorPrimaryDark" />
+                android:textStyle="bold" />
 
         </LinearLayout>
     </ScrollView>
