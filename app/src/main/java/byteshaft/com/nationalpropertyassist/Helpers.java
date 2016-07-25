@@ -31,12 +31,12 @@ public class Helpers {
 
     public static void saveUserLogin(boolean value) {
         SharedPreferences sharedPreferences = getPreferenceManager();
-        sharedPreferences.edit().putBoolean("activation_key", value).apply();
+        sharedPreferences.edit().putBoolean(AppGlobals.KEY_USER_LOGIN, value).apply();
     }
 
     public static boolean isUserLoggedIn() {
         SharedPreferences sharedPreferences = getPreferenceManager();
-        return sharedPreferences.getBoolean("activation_key", false);
+        return sharedPreferences.getBoolean(AppGlobals.KEY_USER_LOGIN, false);
     }
 
     public static void alertDialog(Activity activity, String title, String msg) {
