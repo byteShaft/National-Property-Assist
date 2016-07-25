@@ -7,8 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import byteshaft.com.nationalpropertyassist.Helpers;
 import byteshaft.com.nationalpropertyassist.R;
+import byteshaft.com.nationalpropertyassist.utils.Helpers;
 
 public class MaintenanceActivity extends Activity {
 
