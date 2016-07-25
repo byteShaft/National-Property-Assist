@@ -17,10 +17,9 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 
 import byteshaft.com.nationalpropertyassist.AppGlobals;
-import byteshaft.com.nationalpropertyassist.Helpers;
-import byteshaft.com.nationalpropertyassist.MainActivity;
+import byteshaft.com.nationalpropertyassist.utils.Helpers;
 import byteshaft.com.nationalpropertyassist.R;
-import byteshaft.com.nationalpropertyassist.WebServiceHelper;
+import byteshaft.com.nationalpropertyassist.utils.WebServiceHelper;
 
 
 public class RegistrationActivity extends AppCompatActivity {
@@ -39,8 +38,7 @@ public class RegistrationActivity extends AppCompatActivity {
     private String mMobile;
     private String mHome;
     private String mPasswordEntry;
-
-    HttpURLConnection connection;
+    private HttpURLConnection connection;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -172,7 +170,6 @@ public class RegistrationActivity extends AppCompatActivity {
                         String email = jsonObject.getString(AppGlobals.KEY_EMAIL);
                         String mobile_phone = jsonObject.getString(AppGlobals.KEY_MOBILEPHONE);
                         String home_phone = jsonObject.getString(AppGlobals.KEY_HOMEPHONE);
-
 
                         //saving values
                         Helpers.saveDataToSharedPreferences(AppGlobals.KEY_FIRSTNAME, first_name);
