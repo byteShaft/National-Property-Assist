@@ -199,8 +199,9 @@ public class RegistrationActivity extends AppCompatActivity {
             }
             if (AppGlobals.getResponseCode() == HttpURLConnection.HTTP_CREATED) {
                 Toast.makeText(AppGlobals.getContext(),
-                        "Activation code has been sent to you! please check your Email",
+                        "Activation code has been sent to you! Please check your Email",
                         Toast.LENGTH_LONG).show();
+                finish();
                 startActivity(new Intent(getApplicationContext(), CodeConfirmationActivity.class));
             } else if (AppGlobals.getResponseCode() == HttpURLConnection.HTTP_BAD_REQUEST) {
                 Toast.makeText(AppGlobals.getContext(), "Registration failed. Email already in use",

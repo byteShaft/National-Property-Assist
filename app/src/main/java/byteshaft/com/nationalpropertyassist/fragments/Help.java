@@ -1,6 +1,5 @@
 package byteshaft.com.nationalpropertyassist.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import byteshaft.com.nationalpropertyassist.R;
-import byteshaft.com.nationalpropertyassist.activities.AssistMain;
 
 public class Help extends Fragment {
 
@@ -25,7 +23,7 @@ public class Help extends Fragment {
         testButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getActivity(), AssistMain.class));
+//                startActivity(new Intent(getActivity(), AssistMain.class));
             }
         });
 
