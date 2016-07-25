@@ -15,6 +15,7 @@ import android.view.MenuItem;
 
 import byteshaft.com.nationalpropertyassist.account.CodeConfirmationActivity;
 import byteshaft.com.nationalpropertyassist.account.LoginActivity;
+import byteshaft.com.nationalpropertyassist.activities.AssistMain;
 import byteshaft.com.nationalpropertyassist.fragments.Help;
 import byteshaft.com.nationalpropertyassist.fragments.JobHistory;
 import byteshaft.com.nationalpropertyassist.fragments.PaymentDetails;
@@ -51,6 +52,7 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        loadFragment(new AssistMain());
     }
 
     @Override
@@ -108,6 +110,8 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_logout) {
 
+        } else if (id == R.id.nav_np_assist) {
+            loadFragment(new AssistMain());
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

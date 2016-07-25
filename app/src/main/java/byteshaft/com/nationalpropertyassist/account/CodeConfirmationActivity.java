@@ -129,6 +129,8 @@ public class CodeConfirmationActivity extends Activity {
                 Toast.makeText(AppGlobals.getContext(),
                         "Confirmation successful",
                         Toast.LENGTH_LONG).show();
+                Helpers.setUserActive(true);
+                finish();
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
             } else {
                 Toast.makeText(AppGlobals.getContext(),
