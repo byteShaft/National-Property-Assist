@@ -9,8 +9,8 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
-import byteshaft.com.nationalpropertyassist.Helpers;
 import byteshaft.com.nationalpropertyassist.R;
+import byteshaft.com.nationalpropertyassist.utils.Helpers;
 
 public class DrainageRepairsActivity extends Activity implements RadioGroup.OnCheckedChangeListener {
 
