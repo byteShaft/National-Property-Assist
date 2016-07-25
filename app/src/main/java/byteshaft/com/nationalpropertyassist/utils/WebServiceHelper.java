@@ -23,6 +23,7 @@ import java.net.URL;
 import byteshaft.com.nationalpropertyassist.AppGlobals;
 
 public class WebServiceHelper {
+
     private static ProgressDialog progressDialog;
 
     public WebServiceHelper() {

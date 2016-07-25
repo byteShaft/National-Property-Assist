@@ -14,7 +14,7 @@ public class AppGlobals extends Application {
     public static final String KEY_MOBILEPHONE = "mobile_phone";
     public static final String KEY_HOMEPHONE = "home_phone";
     public static final String USER_ACTIVATION_KEY = "activation_key";
-    public static final String KEY_USER_LOGIN = "activation_key";
+    public static final String KEY_USER_LOGIN = "user_login";
     public static int responseCode = 0;
     public static int readresponseCode = 0;
     public static final String KEY_USER_DETAILS = "user_details";

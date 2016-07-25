@@ -64,11 +64,6 @@ public class RegistrationActivity extends AppCompatActivity {
 
             }
         });
-
-//        Intent intent = getIntent();
-//        String first_name = intent.getStringExtra("first_name");
-//        String last_name = intent.getStringExtra("last_name");
-//        String email = intent.getStringExtra("email");
 //
         mFirstName.setText(LoginActivity.first_name);
         mLastName.setText(LoginActivity.last_name);

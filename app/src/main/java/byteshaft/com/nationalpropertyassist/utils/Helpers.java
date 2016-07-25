@@ -26,12 +26,12 @@ public class Helpers {
 
     public static void saveUserLogin(boolean value) {
         SharedPreferences sharedPreferences = getPreferenceManager();
-        sharedPreferences.edit().putBoolean("user_login", value).apply();
+        sharedPreferences.edit().putBoolean(AppGlobals.KEY_USER_LOGIN, value).apply();
     }
 
     public static boolean isUserLoggedIn() {
         SharedPreferences sharedPreferences = getPreferenceManager();
-        return sharedPreferences.getBoolean("user_login", false);
+        return sharedPreferences.getBoolean(AppGlobals.KEY_USER_LOGIN, false);
     }
 
     public static void setUserActive(boolean value) {
