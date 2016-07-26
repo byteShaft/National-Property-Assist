@@ -2,6 +2,8 @@ package byteshaft.com.nationalpropertyassist;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -14,6 +16,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
+
+import com.github.siyamed.shapeimageview.CircularImageView;
+
+import java.io.FileNotFoundException;
+import java.util.Random;
 
 import byteshaft.com.nationalpropertyassist.account.CodeConfirmationActivity;
 import byteshaft.com.nationalpropertyassist.account.LoginActivity;
@@ -23,12 +32,16 @@ import byteshaft.com.nationalpropertyassist.fragments.JobHistory;
 import byteshaft.com.nationalpropertyassist.fragments.PaymentDetails;
 import byteshaft.com.nationalpropertyassist.fragments.PropertyDetails;
 import byteshaft.com.nationalpropertyassist.fragments.Settings;
+import byteshaft.com.nationalpropertyassist.utils.BitmapWithCharacter;
 import byteshaft.com.nationalpropertyassist.utils.Helpers;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private static MainActivity sInstance;
+    private View header;
+    private TextView mName;
+    private TextView mEmail;
 
     public static MainActivity getInstance() {
         return sInstance;
@@ -55,6 +68,36 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        header = navigationView.getHeaderView(0);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mName = (TextView) header.findViewById(R.id.nav_user_name);
+        mEmail = (TextView) header.findViewById(R.id.nav_user_email);
+        if (!Helpers.getStringFromSharedPreferences(AppGlobals.KEY_FIRSTNAME).equals("")) {
+            mName.setText(Helpers.getStringFromSharedPreferences(AppGlobals.KEY_FIRSTNAME));
+            System.out.println(mName);
+        } else {
+            mName.setText("username");
+        }
+        if (!Helpers.getStringFromSharedPreferences(AppGlobals.KEY_EMAIL).equals("")) {
+            mEmail.setText(Helpers.getStringFromSharedPreferences(AppGlobals.KEY_EMAIL));
+        } else {
+            mEmail.setText("abc@xyz.com");
+        }
+
+        CircularImageView circularImageView = (CircularImageView) header.findViewById(R.id.imageView);
+        if (Helpers.isUserLoggedIn()) {
+            final Resources res = getResources();
+            int[] array = getResources().getIntArray(R.array.letter_tile_colors);
+            final BitmapWithCharacter tileProvider = new BitmapWithCharacter();
+            final Bitmap letterTile = tileProvider.getLetterTile(Helpers.
+                            getStringFromSharedPreferences(AppGlobals.KEY_FIRSTNAME),
+                    String.valueOf(array[new Random().nextInt(array.length)]), 100, 100);
+            circularImageView.setImageBitmap(letterTile);
+        }
         loadFragment(new AssistMain());
     }
 
