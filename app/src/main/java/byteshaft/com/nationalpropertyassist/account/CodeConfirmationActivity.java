@@ -54,6 +54,13 @@ public class CodeConfirmationActivity extends Activity {
         mConfirmationEmail = RegistrationActivity.mEmail;
     }
 
+    @Override
+    public void onBackPressed() {
+        finish();
+        MainActivity.getInstance().finish();
+        super.onBackPressed();
+    }
+
     public boolean validateConfirmationCode() {
         boolean valid = true;
         if (mConformationCode.isEmpty() || mConformationCode.length() < 4) {
