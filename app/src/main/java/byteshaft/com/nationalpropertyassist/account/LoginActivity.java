@@ -188,7 +188,6 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String response) {
             super.onPostExecute(response);
-            WebServiceHelper.dismissProgressDialog();
             if (noInternet) {
                 Helpers.alertDialog(LoginActivity.this, "Connection error",
                         "Check your internet connection");
@@ -199,10 +198,9 @@ public class LoginActivity extends AppCompatActivity {
             } else if (AppGlobals.getResponseCode() == HttpURLConnection.HTTP_OK) {
                 Helpers.saveDataToSharedPreferences(AppGlobals.KEY_USER_TOKEN, response);
                 Log.i("Token", " " + Helpers.getStringFromSharedPreferences(AppGlobals.KEY_USER_TOKEN));
-                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                Helpers.setUserActive(true);
                 new GetUserDataTask().execute();
                 Helpers.saveUserLogin(true);
-                finish();
             } else {
                 Toast.makeText(AppGlobals.getContext(), "Login Failed! Invalid Email or Password",
                         Toast.LENGTH_SHORT).show();
@@ -220,7 +218,6 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... params) {
             JSONObject jsonObject;
-
             try {
                 jsonObject = WebServiceHelper.userData();
                 if (AppGlobals.getResponseCode() == HttpURLConnection.HTTP_OK) {
@@ -230,8 +227,6 @@ public class LoginActivity extends AppCompatActivity {
                     String email = jsonObject.getString(AppGlobals.KEY_EMAIL);
                     String mobile_phone = jsonObject.getString(AppGlobals.KEY_MOBILEPHONE);
                     String home_phone = jsonObject.getString(AppGlobals.KEY_HOMEPHONE);
-
-
                     //saving values
                     Helpers.saveDataToSharedPreferences(AppGlobals.KEY_FIRSTNAME, first_name);
                     Log.i("First name", " " + Helpers.getStringFromSharedPreferences(AppGlobals.KEY_FIRSTNAME));
@@ -251,6 +246,9 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+            WebServiceHelper.dismissProgressDialog();
+            finish();
+            startActivity(new Intent(getApplicationContext(), MainActivity.class));
 
         }
     }
