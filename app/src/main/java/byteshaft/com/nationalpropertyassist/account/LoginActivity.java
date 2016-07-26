@@ -210,7 +210,7 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    class GetUserDataTask extends AsyncTask<Void, String, Void> {
+    public static class GetUserDataTask extends AsyncTask<Void, String, Void> {
 
         @Override
         protected void onPreExecute() {
@@ -240,7 +240,6 @@ public class LoginActivity extends AppCompatActivity {
                     Helpers.saveDataToSharedPreferences(AppGlobals.KEY_MOBILEPHONE, mobile_phone);
                     Helpers.saveDataToSharedPreferences(AppGlobals.KEY_HOMEPHONE, home_phone);
                     Helpers.saveUserLogin(true);
-                    finish();
                 }
             } catch (IOException | JSONException e) {
                 e.printStackTrace();

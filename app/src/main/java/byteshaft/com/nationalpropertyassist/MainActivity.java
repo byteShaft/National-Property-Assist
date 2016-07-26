@@ -11,6 +11,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.ThemedSpinnerAdapter;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -72,6 +73,11 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
+        if (Helpers.isUserLoggedIn() && Helpers.isUserActive()) {
+            if (Helpers.getStringFromSharedPreferences(AppGlobals.KEY_EMAIL).equals("")) {
+                new LoginActivity.GetUserDataTask().execute();
+            }
+        }
         mName = (TextView) header.findViewById(R.id.nav_user_name);
         mEmail = (TextView) header.findViewById(R.id.nav_user_email);
         if (!Helpers.getStringFromSharedPreferences(AppGlobals.KEY_FIRSTNAME).equals("")) {
