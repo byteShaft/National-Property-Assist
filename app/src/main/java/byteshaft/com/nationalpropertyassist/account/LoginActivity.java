@@ -47,10 +47,18 @@ public class LoginActivity extends AppCompatActivity {
     public static String last_name;
     public static String email;
     public JSONObject jsonObject;
+    private static LoginActivity sInstance;
+    private static boolean isForeGround = false;
+
+
+    public static LoginActivity getInstance() {
+        return sInstance;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sInstance = this;
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.delegate_login);
         callbackManager = CallbackManager.Factory.create();
@@ -95,6 +103,18 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        isForeGround = true;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        isForeGround = false;
     }
 
     @Override
@@ -189,9 +209,11 @@ public class LoginActivity extends AppCompatActivity {
         protected void onPostExecute(String response) {
             super.onPostExecute(response);
             if (noInternet) {
+                WebServiceHelper.dismissProgressDialog();
                 Helpers.alertDialog(LoginActivity.this, "Connection error",
                         "Check your internet connection");
             }  else if (AppGlobals.getResponseCode() == HttpURLConnection.HTTP_FORBIDDEN) {
+                WebServiceHelper.dismissProgressDialog();
                 Toast.makeText(AppGlobals.getContext(), "Login Failed! Account not activated",
                         Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(getApplicationContext(), CodeConfirmationActivity.class));
@@ -202,13 +224,14 @@ public class LoginActivity extends AppCompatActivity {
                 new GetUserDataTask().execute();
                 Helpers.saveUserLogin(true);
             } else {
+                WebServiceHelper.dismissProgressDialog();
                 Toast.makeText(AppGlobals.getContext(), "Login Failed! Invalid Email or Password",
                         Toast.LENGTH_SHORT).show();
             }
         }
     }
 
-    class GetUserDataTask extends AsyncTask<Void, String, Void> {
+    public static class GetUserDataTask extends AsyncTask<Void, String, Void> {
 
         @Override
         protected void onPreExecute() {
@@ -235,7 +258,6 @@ public class LoginActivity extends AppCompatActivity {
                     Helpers.saveDataToSharedPreferences(AppGlobals.KEY_MOBILEPHONE, mobile_phone);
                     Helpers.saveDataToSharedPreferences(AppGlobals.KEY_HOMEPHONE, home_phone);
                     Helpers.saveUserLogin(true);
-                    finish();
                 }
             } catch (IOException | JSONException e) {
                 e.printStackTrace();
@@ -246,9 +268,12 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            WebServiceHelper.dismissProgressDialog();
-            finish();
-            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+            if (isForeGround) {
+                WebServiceHelper.dismissProgressDialog();
+                LoginActivity.getInstance().finish();
+                LoginActivity.getInstance().startActivity(new Intent(LoginActivity.getInstance().
+                        getApplicationContext(), MainActivity.class));
+            }
 
         }
     }
