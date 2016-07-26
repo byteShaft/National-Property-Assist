@@ -58,13 +58,18 @@ public class Helpers {
     public static void alertDialog(Activity activity, String title, String msg) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(activity);
         alertDialogBuilder.setTitle(title);
-        alertDialogBuilder.setMessage(msg).setCancelable(false).setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+        alertDialogBuilder.setMessage(msg).setCancelable(false).setPositiveButton("Ok",
+                new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 dialog.dismiss();
             }
         });
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
+    }
+
+    public static void clearSaveData() {
+        getPreferenceManager().edit().clear().apply();
     }
 }
 
