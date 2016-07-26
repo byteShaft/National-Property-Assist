@@ -195,7 +195,6 @@ public class LoginActivity extends AppCompatActivity {
             if (WebServiceHelper.isNetworkAvailable() && WebServiceHelper.isInternetWorking()) {
                 try {
                     data = WebServiceHelper.userLogin(mEmail, mPasswordEntry);
-//                    System.out.println(data);
                 } catch (IOException | JSONException e) {
                     e.printStackTrace();
                 }
@@ -271,8 +270,6 @@ public class LoginActivity extends AppCompatActivity {
             if (isForeGround) {
                 WebServiceHelper.dismissProgressDialog();
                 LoginActivity.getInstance().finish();
-                LoginActivity.getInstance().startActivity(new Intent(LoginActivity.getInstance().
-                        getApplicationContext(), MainActivity.class));
             }
 
         }
