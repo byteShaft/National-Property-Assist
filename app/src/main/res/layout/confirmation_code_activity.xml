@@ -3,7 +3,8 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:background="@mipmap/test"
     android:id="@+id/layout_code_confirmation"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@mipmap/test">
 
 
     <ScrollView
@@ -27,7 +28,7 @@
                 android:textColor="@color/gray_800"
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="100dp"
-                android:textSize="16dp"
+                android:textSize="24sp"
                 android:text="Security Confirmation"/>
 
             <EditText
