@@ -54,6 +54,13 @@ public class CodeConfirmationActivity extends Activity {
         mConfirmationEmail = RegistrationActivity.mEmail;
     }
 
+    @Override
+    public void onBackPressed() {
+        finish();
+        MainActivity.getInstance().finish();
+        super.onBackPressed();
+    }
+
     public boolean validateConfirmationCode() {
         boolean valid = true;
         if (mConformationCode.isEmpty() || mConformationCode.length() < 4) {
@@ -129,6 +136,8 @@ public class CodeConfirmationActivity extends Activity {
                 Toast.makeText(AppGlobals.getContext(),
                         "Confirmation successful",
                         Toast.LENGTH_LONG).show();
+                Helpers.setUserActive(true);
+                finish();
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
             } else {
                 Toast.makeText(AppGlobals.getContext(),

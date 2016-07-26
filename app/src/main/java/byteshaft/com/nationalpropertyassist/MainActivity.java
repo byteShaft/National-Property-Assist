@@ -24,6 +24,7 @@ import java.util.Random;
 
 import byteshaft.com.nationalpropertyassist.account.CodeConfirmationActivity;
 import byteshaft.com.nationalpropertyassist.account.LoginActivity;
+import byteshaft.com.nationalpropertyassist.activities.AssistMain;
 import byteshaft.com.nationalpropertyassist.fragments.Help;
 import byteshaft.com.nationalpropertyassist.fragments.JobHistory;
 import byteshaft.com.nationalpropertyassist.fragments.PaymentDetails;
@@ -49,6 +50,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         sInstance = this;
         if (!Helpers.isUserLoggedIn()) {
+            finish();
             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
         } else if (!Helpers.isUserActive()) {
             startActivity(new Intent(getApplicationContext(), CodeConfirmationActivity.class));
@@ -94,6 +96,7 @@ public class MainActivity extends AppCompatActivity
                     String.valueOf(array[new Random().nextInt(array.length)]), 100, 100);
             circularImageView.setImageBitmap(letterTile);
         }
+        loadFragment(new AssistMain());
     }
 
     @Override
@@ -151,6 +154,8 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_logout) {
 
+        } else if (id == R.id.nav_np_assist) {
+            loadFragment(new AssistMain());
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
