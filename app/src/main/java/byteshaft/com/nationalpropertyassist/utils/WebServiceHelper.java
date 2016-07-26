@@ -89,7 +89,7 @@ public class WebServiceHelper {
         JSONObject object = new JSONObject();
 
         try {
-            object.put("username", email);
+            object.put("email", email);
             object.put("password", password);
         } catch (JSONException var4) {
             var4.printStackTrace();
