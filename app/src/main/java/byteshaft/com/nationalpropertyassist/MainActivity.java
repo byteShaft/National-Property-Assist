@@ -52,7 +52,6 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         sInstance = this;
         if (!Helpers.isUserLoggedIn()) {
-            finish();
             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
         } else if (!Helpers.isUserActive()) {
             startActivity(new Intent(getApplicationContext(), CodeConfirmationActivity.class));
