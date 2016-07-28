@@ -72,11 +72,17 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
+        if (Helpers.isUserLoggedIn() && Helpers.isUserActive()) {
+            if (Helpers.getStringFromSharedPreferences(AppGlobals.KEY_EMAIL).equals("")) {
+                new LoginActivity.GetUserDataTask().execute();
+            }
+        }
         mName = (TextView) header.findViewById(R.id.nav_user_name);
         mEmail = (TextView) header.findViewById(R.id.nav_user_email);
         if (!Helpers.getStringFromSharedPreferences(AppGlobals.KEY_FIRSTNAME).equals("")) {
-            mName.setText(Helpers.getStringFromSharedPreferences(AppGlobals.KEY_FIRSTNAME));
-            System.out.println(mName);
+            String simpleName = Helpers.getStringFromSharedPreferences(AppGlobals.KEY_FIRSTNAME);
+            String firstUpperCaseName = simpleName.substring(0, 1).toUpperCase() + simpleName.substring(1);
+            mName.setText(firstUpperCaseName);
         } else {
             mName.setText("username");
         }
