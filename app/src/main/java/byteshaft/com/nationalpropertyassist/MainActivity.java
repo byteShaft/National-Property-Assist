@@ -21,7 +21,6 @@ import android.widget.TextView;
 
 import com.github.siyamed.shapeimageview.CircularImageView;
 
-import java.io.FileNotFoundException;
 import java.util.Random;
 
 import byteshaft.com.nationalpropertyassist.account.CodeConfirmationActivity;
@@ -164,6 +163,11 @@ public class MainActivity extends AppCompatActivity
                             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                         }
                     });
+            alertDialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                }
+            });
             AlertDialog alertDialog = alertDialogBuilder.create();
             alertDialog.show();
 
