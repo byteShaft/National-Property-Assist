@@ -5,6 +5,7 @@ package byteshaft.com.nationalpropertyassist.utils;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
@@ -32,7 +33,7 @@ public class WebServiceHelper {
     public static HttpURLConnection openConnectionForUrl(String targetUrl, String method) throws IOException {
         URL url = new URL(targetUrl);
         System.out.println(targetUrl);
-        HttpURLConnection connection = (HttpURLConnection)url.openConnection();
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestProperty("Content-Type", "application/json");
         connection.setRequestProperty("charset", "utf-8");
         connection.setRequestMethod(method);
@@ -47,42 +48,7 @@ public class WebServiceHelper {
         sendRequestData(connection, data);
         AppGlobals.setResponseCode(connection.getResponseCode());
         JSONObject jsonObj = readResponse(connection);
-        return (String)jsonObj.get("token");
-    }
-
-    public static JSONObject userData() throws IOException, JSONException {
-        String urlMe = "http://178.62.37.43:8000/api/me";
-        URL url = new URL(urlMe);
-        HttpURLConnection connection = (HttpURLConnection)url.openConnection();
-        connection.setRequestProperty("Content-Type", "application/json");
-        connection.setRequestMethod("GET");
-        connection.setRequestProperty("charset", "utf-8");
-        connection.setRequestProperty("Authorization", "Token " + Helpers.getStringFromSharedPreferences("token"));
-        AppGlobals.setResponseCode(connection.getResponseCode());
-        return readResponse(connection);
-    }
-
-    public static JSONObject registerUser(String firstname, String lastname, String email, String homephone, String mobilephone, String password) throws IOException, JSONException {
-        String data = getRegistrationData(firstname, lastname, homephone, mobilephone, email, password);
-        System.out.println(data);
-        String url = "http://178.62.37.43:8000/api/register";
-        HttpURLConnection connection = openConnectionForUrl(url, "POST");
-        sendRequestData(connection, data);
-        AppGlobals.setResponseCode(connection.getResponseCode());
-        System.out.println(connection.getResponseCode());
-        return readResponse(connection);
-    }
-
-    public static JSONObject ActivationCodeConfirmation(String email, String activationKey) throws IOException, JSONException {
-        String data = getUserConfirmationData(email, activationKey);
-        System.out.println(data);
-        String url = "http://178.62.37.43:8000/api/activate";
-        HttpURLConnection connection = openConnectionForUrl(url, "POST");
-        sendRequestData(connection, data);
-        System.out.println(data);
-        AppGlobals.setResponseCode(connection.getResponseCode());
-        System.out.println(connection.getResponseCode());
-        return readResponse(connection);
+        return (String) jsonObj.get("token");
     }
 
     public static String getLoginData(String email, String password) {
@@ -98,6 +64,70 @@ public class WebServiceHelper {
         return object.toString();
     }
 
+    public static JSONObject userData() throws IOException, JSONException {
+        String urlMe = "http://178.62.37.43:8000/api/me";
+        URL url = new URL(urlMe);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestProperty("Content-Type", "application/json");
+        connection.setRequestMethod("GET");
+        connection.setRequestProperty("charset", "utf-8");
+        connection.setRequestProperty("Authorization", "Token " + Helpers.getStringFromSharedPreferences("token"));
+        AppGlobals.setResponseCode(connection.getResponseCode());
+        return readResponse(connection);
+    }
+
+    public static JSONObject addPropertyDetails(String address,
+                                                int propertyAge,
+                                                int postCode,
+                                                int PropertyResidentialOrCommercial,
+                                                int typeOfProperty) throws IOException, JSONException {
+        String data = getAddPropertyDetailsData(
+                address,
+                propertyAge,
+                PropertyResidentialOrCommercial,
+                typeOfProperty,
+                postCode);
+        System.out.println(data);
+        String url = "http://178.62.37.43:8000/api/properties";
+        HttpURLConnection connection = openConnectionForUrl(url, "POST");
+        connection.setRequestProperty("Authorization", "Token " +
+                Helpers.getStringFromSharedPreferences("token"));
+        sendRequestData(connection, data);
+        AppGlobals.setResponseCode(connection.getResponseCode());
+        System.out.println(connection.getResponseCode());
+        return readResponse(connection);
+    }
+
+    public static String getAddPropertyDetailsData(String address,
+                                                   int propertyAge,
+                                                   int PropertyResidentialOrCommercial,
+                                                   int typeOfProperty,
+                                                   int postCode) {
+        JSONObject object = new JSONObject();
+
+        try {
+            object.put("address", address);
+            object.put("age", propertyAge);
+            object.put("category_primary", PropertyResidentialOrCommercial);
+            object.put("category_secondary", typeOfProperty);
+            object.put("postcode", postCode);
+        } catch (JSONException var8) {
+            var8.printStackTrace();
+        }
+        return object.toString();
+    }
+
+    public static JSONObject registerUser(String firstname, String lastname, String email, String homephone, String mobilephone, String password) throws IOException, JSONException {
+        String data = getRegistrationData(firstname, lastname, homephone, mobilephone, email, password);
+        System.out.println(data);
+        String url = "http://178.62.37.43:8000/api/register";
+        HttpURLConnection connection = openConnectionForUrl(url, "POST");
+        sendRequestData(connection, data);
+        AppGlobals.setResponseCode(connection.getResponseCode());
+        System.out.println(connection.getResponseCode());
+        return readResponse(connection);
+    }
+
     public static String getRegistrationData(String firstname, String lastname, String mobilephone, String homephone, String email, String password) {
         JSONObject object = new JSONObject();
 
@@ -111,8 +141,19 @@ public class WebServiceHelper {
         } catch (JSONException var8) {
             var8.printStackTrace();
         }
-
         return object.toString();
+    }
+
+    public static JSONObject ActivationCodeConfirmation(String email, String activationKey) throws IOException, JSONException {
+        String data = getUserConfirmationData(email, activationKey);
+        System.out.println(data);
+        String url = "http://178.62.37.43:8000/api/activate";
+        HttpURLConnection connection = openConnectionForUrl(url, "POST");
+        sendRequestData(connection, data);
+        System.out.println(data);
+        AppGlobals.setResponseCode(connection.getResponseCode());
+        System.out.println(connection.getResponseCode());
+        return readResponse(connection);
     }
 
     public static String getUserConfirmationData(String email, String activationKey) {
@@ -142,7 +183,7 @@ public class WebServiceHelper {
         StringBuilder response = new StringBuilder();
 
         String line;
-        while((line = rd.readLine()) != null) {
+        while ((line = rd.readLine()) != null) {
             response.append(line);
             response.append('\r');
         }
@@ -163,7 +204,7 @@ public class WebServiceHelper {
 
         try {
             URL e = new URL("https://google.com");
-            HttpURLConnection connection = (HttpURLConnection)e.openConnection();
+            HttpURLConnection connection = (HttpURLConnection) e.openConnection();
             connection.setConnectTimeout(10000);
             connection.connect();
             success = connection.getResponseCode() == 200;
@@ -184,7 +225,7 @@ public class WebServiceHelper {
     }
 
     public static void dismissProgressDialog() {
-        if(progressDialog != null) {
+        if (progressDialog != null) {
             progressDialog.dismiss();
         }
 
