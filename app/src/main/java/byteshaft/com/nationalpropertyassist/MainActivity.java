@@ -13,7 +13,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.ThemedSpinnerAdapter;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,7 +21,6 @@ import android.widget.TextView;
 
 import com.github.siyamed.shapeimageview.CircularImageView;
 
-import java.io.FileNotFoundException;
 import java.util.Random;
 
 import byteshaft.com.nationalpropertyassist.account.CodeConfirmationActivity;
@@ -82,8 +80,9 @@ public class MainActivity extends AppCompatActivity
         mName = (TextView) header.findViewById(R.id.nav_user_name);
         mEmail = (TextView) header.findViewById(R.id.nav_user_email);
         if (!Helpers.getStringFromSharedPreferences(AppGlobals.KEY_FIRSTNAME).equals("")) {
-            mName.setText(Helpers.getStringFromSharedPreferences(AppGlobals.KEY_FIRSTNAME));
-            System.out.println(mName);
+            String simpleName = Helpers.getStringFromSharedPreferences(AppGlobals.KEY_FIRSTNAME);
+            String firstUpperCaseName = simpleName.substring(0, 1).toUpperCase() + simpleName.substring(1);
+            mName.setText(firstUpperCaseName);
         } else {
             mName.setText("username");
         }
@@ -170,6 +169,11 @@ public class MainActivity extends AppCompatActivity
                             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                         }
                     });
+            alertDialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                }
+            });
             AlertDialog alertDialog = alertDialogBuilder.create();
             alertDialog.show();
 
