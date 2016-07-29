@@ -5,7 +5,6 @@ package byteshaft.com.nationalpropertyassist.utils;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
@@ -90,12 +89,42 @@ public class WebServiceHelper {
         System.out.println(data);
         String url = "http://178.62.37.43:8000/api/properties";
         HttpURLConnection connection = openConnectionForUrl(url, "POST");
-        connection.setRequestProperty("Authorization", "Token " +
-                Helpers.getStringFromSharedPreferences("token"));
+        connection.setRequestProperty("Authorization", "Token " + Helpers.getStringFromSharedPreferences("token"));
         sendRequestData(connection, data);
         AppGlobals.setResponseCode(connection.getResponseCode());
         System.out.println(connection.getResponseCode());
         return readResponse(connection);
+    }
+
+    public static JSONObject addServices(String description,
+                                                String purpose) throws IOException, JSONException {
+        String data = getServicesData(
+                description,
+                purpose);
+        System.out.println(data);
+        String url = "http://178.62.37.43:8000/api/services";
+        HttpURLConnection connection = openConnectionForUrl(url, "POST");
+        connection.setRequestProperty("Authorization", "Token " + Helpers.getStringFromSharedPreferences("token"));
+        sendRequestData(connection, data);
+        AppGlobals.setResponseCode(connection.getResponseCode());
+        System.out.println(connection.getResponseCode());
+        return readResponse(connection);
+    }
+
+    public static String getServicesData(
+            String description,
+            String purpose) {
+        JSONObject object = new JSONObject();
+        Log.e("TAG", " test" +Helpers.getStringFromSharedPreferences("postcode"));
+
+        try {
+            object.put("description", description);
+            object.put("purpose", purpose);
+            object.put("site", Integer.valueOf(Helpers.getStringFromSharedPreferences("id")));
+        } catch (JSONException var8) {
+            var8.printStackTrace();
+        }
+        return object.toString();
     }
 
     public static String getAddPropertyDetailsData(String address,
@@ -215,8 +244,8 @@ public class WebServiceHelper {
         return success;
     }
 
-    public static void showProgressDialog(Activity context, String message) {
-        progressDialog = new ProgressDialog(context);
+    public static void showProgressDialog(Activity activity, String message) {
+        progressDialog = new ProgressDialog(activity);
         progressDialog.setMessage(message);
         progressDialog.setCancelable(false);
         progressDialog.setIndeterminate(true);

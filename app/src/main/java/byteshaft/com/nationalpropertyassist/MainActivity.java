@@ -165,7 +165,6 @@ public class MainActivity extends AppCompatActivity
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             Helpers.clearSaveData();
-                            finish();
                             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                         }
                     });
