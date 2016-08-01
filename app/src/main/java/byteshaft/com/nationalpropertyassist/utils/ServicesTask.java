@@ -23,7 +23,7 @@ public class ServicesTask extends AsyncTask<String,String,String> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        WebServiceHelper.showProgressDialog(mActivity, "Please wait");
+        WebServiceHelper.showProgressDialog(mActivity, "Sending assist request \n please wait..");
     }
 
     @Override
@@ -32,6 +32,7 @@ public class ServicesTask extends AsyncTask<String,String,String> {
         if (WebServiceHelper.isNetworkAvailable() && WebServiceHelper.isInternetWorking()) {
             try {
                 jsonObject = WebServiceHelper.addServices(mDescription, mPurpose);
+                mActivity.finish();
             } catch (IOException | JSONException e) {
                 e.printStackTrace();
             }
