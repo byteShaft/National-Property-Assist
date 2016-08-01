@@ -16,13 +16,11 @@ public class HomeAssistActivity extends Activity implements RadioGroup.OnChecked
     EditText details;
     Button submitButton;
     private String mRadioText;
-    private String mReceverEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_home_assist);
-        mReceverEmail = getString(R.string.email_string);
         radioGroup = (RadioGroup) findViewById(R.id.radio_group);
         details = (EditText) findViewById(R.id.home_assist_et);
         submitButton = (Button) findViewById(R.id.submit);
