@@ -24,6 +24,7 @@ public class AddPropertyDetails extends AppCompatActivity implements View.OnClic
     private EditText mResidential;
     private EditText mTypeOfProperty;
     private EditText mAgeOfProperty;
+
     private Button mSaveButton;
 
 

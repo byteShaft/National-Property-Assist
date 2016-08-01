@@ -5,7 +5,6 @@ package byteshaft.com.nationalpropertyassist.utils;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
@@ -102,7 +101,8 @@ public class WebServiceHelper {
                                                    int propertyAge,
                                                    int PropertyResidentialOrCommercial,
                                                    int typeOfProperty,
-                                                   int postCode) {
+                                                   int postCode
+    ) {
         JSONObject object = new JSONObject();
 
         try {
@@ -117,7 +117,13 @@ public class WebServiceHelper {
         return object.toString();
     }
 
-    public static JSONObject registerUser(String firstname, String lastname, String email, String homephone, String mobilephone, String password) throws IOException, JSONException {
+    public static JSONObject registerUser(String firstname,
+                                          String lastname,
+                                          String email,
+                                          String homephone,
+                                          String mobilephone,
+                                          String password
+    ) throws IOException, JSONException {
         String data = getRegistrationData(firstname, lastname, homephone, mobilephone, email, password);
         System.out.println(data);
         String url = "http://178.62.37.43:8000/api/register";
@@ -128,7 +134,13 @@ public class WebServiceHelper {
         return readResponse(connection);
     }
 
-    public static String getRegistrationData(String firstname, String lastname, String mobilephone, String homephone, String email, String password) {
+    public static String getRegistrationData(String firstname,
+                                             String lastname,
+                                             String mobilephone,
+                                             String homephone,
+                                             String email,
+                                             String password
+    ) {
         JSONObject object = new JSONObject();
 
         try {
@@ -144,7 +156,10 @@ public class WebServiceHelper {
         return object.toString();
     }
 
-    public static JSONObject ActivationCodeConfirmation(String email, String activationKey) throws IOException, JSONException {
+    public static JSONObject ActivationCodeConfirmation(
+            String email,
+            String activationKey
+    ) throws IOException, JSONException {
         String data = getUserConfirmationData(email, activationKey);
         System.out.println(data);
         String url = "http://178.62.37.43:8000/api/activate";
