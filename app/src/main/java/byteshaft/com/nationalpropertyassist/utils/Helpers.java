@@ -24,6 +24,16 @@ public class Helpers {
         return sharedPreferences.getString(key, "");
     }
 
+    public static void saveInt(String key, Integer value) {
+        SharedPreferences sharedPreferences = getPreferenceManager();
+        sharedPreferences.edit().putInt(key, value).apply();
+    }
+
+    public static Integer getInt(String key){
+        SharedPreferences sharedPreferences = getPreferenceManager();
+        return sharedPreferences.getInt(key, 0);
+    }
+
     public static void saveUserLogin(boolean value) {
         SharedPreferences sharedPreferences = getPreferenceManager();
         sharedPreferences.edit().putBoolean(AppGlobals.KEY_USER_LOGIN, value).apply();

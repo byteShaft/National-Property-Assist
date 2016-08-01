@@ -1,7 +1,6 @@
 package byteshaft.com.nationalpropertyassist.drainassist;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,17 +9,17 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import byteshaft.com.nationalpropertyassist.R;
-import byteshaft.com.nationalpropertyassist.utils.Helpers;
+import byteshaft.com.nationalpropertyassist.utils.ServicesTask;
 
 public class DrainageRepairsActivity extends Activity implements RadioGroup.OnCheckedChangeListener {
 
     private Button button_submit;
     private RadioGroup radioGroup;
-    private EditText editText;
+    private EditText details;
     private RadioButton radioButton;
     private String details_text;
     private String mRecoveryEmail;
-    private String radio_button_Text;
+    private String mRadioText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,24 +28,13 @@ public class DrainageRepairsActivity extends Activity implements RadioGroup.OnCh
         mRecoveryEmail = getString(R.string.email_string);
         radioGroup = (RadioGroup) findViewById(R.id.radio_group);
         button_submit = (Button) findViewById(R.id.submit);
-        editText = (EditText) findViewById(R.id.drainage_repairs_et);
+        details = (EditText) findViewById(R.id.drainage_repairs_et);
         radioGroup.setOnCheckedChangeListener(this);
-
-        details_text = editText.getText().toString();
-
         button_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String finalMessage = Helpers.getStringFromSharedPreferences("basic") +
-                        editText.getText().toString();
-                System.out.println(radio_button_Text + finalMessage);
-
-                Intent intent = new Intent(Intent.ACTION_SEND);
-                intent.setType("message/rfc822");
-                intent.putExtra(Intent.EXTRA_EMAIL, new String[] {mRecoveryEmail});
-                intent.putExtra(Intent.EXTRA_SUBJECT, radio_button_Text);
-                intent.putExtra(Intent.EXTRA_TEXT, finalMessage);
-                startActivity(Intent.createChooser(intent, "Send Email"));
+                String description = details.getText().toString();
+                new ServicesTask(DrainageRepairsActivity.this, description, mRadioText).execute();
             }
         });
     }
@@ -54,7 +42,7 @@ public class DrainageRepairsActivity extends Activity implements RadioGroup.OnCh
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
         radioButton = (RadioButton) findViewById(checkedId);
-        radio_button_Text = radioButton.getText().toString();
-        System.out.println(radio_button_Text);
+        mRadioText = radioButton.getText().toString();
+        System.out.println(mRadioText);
     }
 }

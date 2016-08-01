@@ -120,7 +120,7 @@ public class WebServiceHelper {
         try {
             object.put("description", description);
             object.put("purpose", purpose);
-            object.put("site", Integer.valueOf(Helpers.getStringFromSharedPreferences("id")));
+            object.put("site", Helpers.getInt("id"));
         } catch (JSONException var8) {
             var8.printStackTrace();
         }
