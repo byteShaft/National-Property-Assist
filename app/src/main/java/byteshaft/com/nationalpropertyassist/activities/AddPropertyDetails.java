@@ -12,7 +12,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.net.HttpURLConnection;
 
+import byteshaft.com.nationalpropertyassist.AppGlobals;
 import byteshaft.com.nationalpropertyassist.R;
 import byteshaft.com.nationalpropertyassist.utils.Helpers;
 import byteshaft.com.nationalpropertyassist.utils.WebServiceHelper;
@@ -113,7 +115,7 @@ public class AddPropertyDetails extends AppCompatActivity implements View.OnClic
         return valid;
     }
 
-    class PropertyDetailsTask extends AsyncTask<String, String, String> {
+    class PropertyDetailsTask extends AsyncTask<String, String, JSONObject> {
 
         private boolean noInternet = false;
 
@@ -124,8 +126,8 @@ public class AddPropertyDetails extends AppCompatActivity implements View.OnClic
         }
 
         @Override
-        protected String doInBackground(String... params) {
-            JSONObject jsonObject = null;
+        protected JSONObject doInBackground(String... params) {
+            JSONObject jsonObject = new JSONObject();
 
             if (WebServiceHelper.isNetworkAvailable() && WebServiceHelper.isInternetWorking()) {
                 try {
@@ -138,20 +140,29 @@ public class AddPropertyDetails extends AppCompatActivity implements View.OnClic
                 } catch (IOException | JSONException e) {
                     e.printStackTrace();
                 }
-                System.out.println(jsonObject);
             } else {
                 noInternet = true;
             }
-            return null;
+            return jsonObject;
         }
 
         @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
+        protected void onPostExecute(JSONObject jsonObject) {
+            super.onPostExecute(jsonObject);
             WebServiceHelper.dismissProgressDialog();
             if (noInternet) {
                 Helpers.alertDialog(AddPropertyDetails.this, "Connection error",
                         "Check your internet connection");
+            } else if (AppGlobals.getResponseCode() == HttpURLConnection.HTTP_CREATED) {
+                Helpers.saveDataToSharedPreferences("type_of_property", mTypeOfPropertyString);
+                Helpers.saveDataToSharedPreferences("postcode", mPostCodeString);
+                Helpers.saveDataToSharedPreferences("residential", mResidentialString);
+                Helpers.saveDataToSharedPreferences("age_of_property", mAgeOfPropertyString);
+                try {
+                    Helpers.saveDataToSharedPreferences("id", jsonObject.getString("id"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

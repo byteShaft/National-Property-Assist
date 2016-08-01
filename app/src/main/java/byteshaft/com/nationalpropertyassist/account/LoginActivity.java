@@ -267,6 +267,7 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+            System.out.println(isForeGround);
             if (isForeGround) {
                 WebServiceHelper.dismissProgressDialog();
                 LoginActivity.getInstance().finish();
