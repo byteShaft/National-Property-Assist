@@ -18,7 +18,6 @@ import java.net.HttpURLConnection;
 import byteshaft.com.nationalpropertyassist.AppGlobals;
 import byteshaft.com.nationalpropertyassist.R;
 import byteshaft.com.nationalpropertyassist.database.AddPropertyDetailsDatabase;
-import byteshaft.com.nationalpropertyassist.database.DatabaseConstants;
 import byteshaft.com.nationalpropertyassist.utils.Helpers;
 import byteshaft.com.nationalpropertyassist.utils.WebServiceHelper;
 
@@ -31,7 +30,6 @@ public class AddPropertyDetails extends AppCompatActivity implements View.OnClic
     private EditText mAgeOfProperty;
 
     private Button mSaveButton;
-
 
     private String mAddressString;
     private String mPostCodeString;
@@ -164,6 +162,8 @@ public class AddPropertyDetails extends AppCompatActivity implements View.OnClic
                 String addpropertyId = null;
                 try {
                     addpropertyId = jsonObject.getString("id");
+
+//                    Helpers.saveInt("id", jsonObject.getInt("id"));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
