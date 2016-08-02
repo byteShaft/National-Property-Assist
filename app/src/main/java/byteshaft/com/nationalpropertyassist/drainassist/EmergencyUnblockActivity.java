@@ -18,6 +18,7 @@ public class EmergencyUnblockActivity extends Activity implements RadioGroup.OnC
     private EditText details;
     private RadioButton radioButton;
     private String mRadioText;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

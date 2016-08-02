@@ -18,14 +18,12 @@ public class SepticOrTreatmentTankActivity extends Activity implements RadioGrou
     private EditText details;
     private RadioButton radioButton;
     private String details_text;
-    private String mReceverEmail;
     private String mRadioText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.septic_or_treatment_tank_activity);
-        mReceverEmail = getString(R.string.email_string);
         radioGroup = (RadioGroup) findViewById(R.id.radio_group);
         button_submit = (Button) findViewById(R.id.submit);
         details = (EditText) findViewById(R.id.septic_or_treatment_tank_et);

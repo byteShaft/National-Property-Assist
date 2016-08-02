@@ -28,13 +28,11 @@ public class AddPropertyDetails extends AppCompatActivity implements View.OnClic
     private EditText mAgeOfProperty;
     private Button mSaveButton;
 
-
     private String mAddressString;
     private String mPostCodeString;
     private String mResidentialString;
     private String mTypeOfPropertyString;
     private String mAgeOfPropertyString;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -158,7 +156,6 @@ public class AddPropertyDetails extends AppCompatActivity implements View.OnClic
                 Helpers.saveDataToSharedPreferences("residential", mResidentialString);
                 Helpers.saveDataToSharedPreferences("age_of_property", mAgeOfPropertyString);
                 try {
-//                    Helpers.saveDataToSharedPreferences("id", jsonObject.getString("id"));
                     Helpers.saveInt("id", jsonObject.getInt("id"));
                 } catch (JSONException e) {
                     e.printStackTrace();

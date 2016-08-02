@@ -17,13 +17,11 @@ public class PlumberActivity extends Activity implements RadioGroup.OnCheckedCha
     private EditText details;
     private Button submitButton;
     private String mRadioText;
-    private String mReceverEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_plumber_assist);
-        mReceverEmail = getString(R.string.email_string);
         radioGroup = (RadioGroup) findViewById(R.id.radio_group);
         details = (EditText) findViewById(R.id.plumber_assist_et);
         submitButton = (Button) findViewById(R.id.submit);
