@@ -17,14 +17,12 @@ public class NewInstallationActivity extends Activity implements RadioGroup.OnCh
     private RadioGroup radioGroup;
     private EditText details;
     private RadioButton radioButton;
-    private String mRecoveryEmail;
     private String mRadioText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_installation_activity);
-        mRecoveryEmail = getString(R.string.email_string);
         radioGroup = (RadioGroup) findViewById(R.id.radio_group);
         button_submit = (Button) findViewById(R.id.submit);
         details = (EditText) findViewById(R.id.new_installation_et);

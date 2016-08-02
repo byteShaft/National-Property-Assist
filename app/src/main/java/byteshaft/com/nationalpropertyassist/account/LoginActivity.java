@@ -50,7 +50,6 @@ public class LoginActivity extends AppCompatActivity {
     private static LoginActivity sInstance;
     private static boolean isForeGround = false;
 
-
     public static LoginActivity getInstance() {
         return sInstance;
     }

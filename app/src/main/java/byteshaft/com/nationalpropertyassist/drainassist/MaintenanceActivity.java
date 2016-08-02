@@ -14,13 +14,11 @@ public class MaintenanceActivity extends Activity {
     private Button submit_button;
     private EditText details;
     private String mRadioText = "Scale Removal";
-    private String mRecoveryEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.maintenance_activity);
-        mRecoveryEmail = getString(R.string.email_string);
         submit_button = (Button) findViewById(R.id.submit);
         details = (EditText) findViewById(R.id.maintenance_et);
         submit_button.setOnClickListener(new View.OnClickListener() {

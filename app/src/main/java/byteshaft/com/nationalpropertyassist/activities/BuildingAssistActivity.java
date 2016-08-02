@@ -17,14 +17,11 @@ public class BuildingAssistActivity extends Activity implements RadioGroup.OnChe
     private Button submitButton;
     private RadioGroup radioGroup;
     private String mRadioText;
-    private String mReceverEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_building_assist);
-        mReceverEmail = getString(R.string.email_string);
-
         details = (EditText) findViewById(R.id.building_assist_et);
         submitButton = (Button) findViewById(R.id.submit);
         radioGroup = (RadioGroup) findViewById(R.id.radio_group);

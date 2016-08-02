@@ -12,19 +12,15 @@ import byteshaft.com.nationalpropertyassist.utils.ServicesTask;
 
 public class WaterAssistActivity extends Activity implements RadioGroup.OnCheckedChangeListener, View.OnClickListener {
 
-
     private RadioGroup radioGroup;
     private EditText details;
     private Button submitButton;
     private String mRadioText;
-    private String mReceverEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_water_assist);
-        mReceverEmail = getString(R.string.email_string);
-
         radioGroup = (RadioGroup) findViewById(R.id.radio_group);
         details = (EditText) findViewById(R.id.water_assist_et);
         submitButton = (Button) findViewById(R.id.submit);

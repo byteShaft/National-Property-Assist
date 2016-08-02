@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/National-Property-Assist.iml" filepath="$PROJECT_DIR$/National-Property-Assist.iml" />
       <module fileurl="file://$PROJECT_DIR$/NationalPropertyAssist.iml" filepath="$PROJECT_DIR$/NationalPropertyAssist.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
