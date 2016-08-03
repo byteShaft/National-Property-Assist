@@ -3,25 +3,45 @@ package byteshaft.com.nationalpropertyassist.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import byteshaft.com.nationalpropertyassist.R;
 import byteshaft.com.nationalpropertyassist.activities.AddPropertyDetails;
+import byteshaft.com.nationalpropertyassist.database.AddPropertyDetailsDatabase;
 
 
 public class PropertyDetails extends android.support.v4.app.Fragment {
 
     public View mBaseView;
+    private CustomView mViewHolder;
+    private RecyclerView mRecyclerView;
+    private PropertyDetailsAdapter mDetailsAdapter;
+    private AddPropertyDetailsDatabase database;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mBaseView = inflater.inflate(R.layout.fragment_property_details, container, false);
+        database = new AddPropertyDetailsDatabase(getActivity().getApplicationContext());
+        mDetailsAdapter = new PropertyDetailsAdapter(database.getAllRecords());
+        mRecyclerView = (RecyclerView) mBaseView.findViewById(R.id.property_details_list);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+        mRecyclerView.setLayoutManager(linearLayoutManager);
+        mRecyclerView.canScrollVertically(1);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setAdapter(mDetailsAdapter);
         return mBaseView;
     }
 
@@ -45,5 +65,67 @@ public class PropertyDetails extends android.support.v4.app.Fragment {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    /// Adapter
+
+    class PropertyDetailsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+
+        private ArrayList<HashMap> data;
+
+        public PropertyDetailsAdapter(ArrayList<HashMap> data) {
+            this.data = data;
+
+        }
+
+        @Override
+        public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            View view;
+            Log.i("TAG", "loading one");
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.details_delegate,
+                    parent, false);
+            mViewHolder = new CustomView(view);
+            return mViewHolder;
+        }
+
+        @Override
+        public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+            mViewHolder.address.setText(
+                    "Address: " + (CharSequence) data.get(position).get("address"));
+            mViewHolder.ageOfProperty.setText(
+                    "Age of Property:  " + (CharSequence) data.get(position).get("property_age"));
+            mViewHolder.typeOfProperty.setText(
+                    "Type of Property: " + (CharSequence) data.get(position).get("property_type"));
+            mViewHolder.postCode.setText
+                    ("Postal code: " + (CharSequence) data.get(position).get("postal_code"));
+            mViewHolder.residential.setText
+                    ("Residential/Commercial: " + (CharSequence) data.get(position).get("commercial"));
+            mViewHolder.typeOfProperty.setText(
+                    "Type of Property:  " + (CharSequence) data.get(position).get("property_type"));
+        }
+
+        @Override
+        public int getItemCount() {
+            return data.size();
+        }
+    }
+
+    // custom class getting view cardList by giving view in constructor.
+    public class CustomView extends RecyclerView.ViewHolder {
+
+        private TextView address;
+        private TextView postCode;
+        private TextView residential;
+        private TextView typeOfProperty;
+        private TextView ageOfProperty;
+
+        public CustomView(View itemView) {
+            super(itemView);
+            address = (TextView) itemView.findViewById(R.id.tv_address);
+            postCode = (TextView) itemView.findViewById(R.id.tv_postcode);
+            residential = (TextView) itemView.findViewById(R.id.tv_residential);
+            typeOfProperty = (TextView) itemView.findViewById(R.id.tv_type_of_property);
+            ageOfProperty = (TextView) itemView.findViewById(R.id.tv_age_of_property);
+        }
     }
 }
