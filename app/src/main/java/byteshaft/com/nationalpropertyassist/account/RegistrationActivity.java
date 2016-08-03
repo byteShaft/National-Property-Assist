@@ -38,7 +38,6 @@ public class RegistrationActivity extends AppCompatActivity {
     private String mMobile;
     private String mHome;
     private String mPasswordEntry;
-    private HttpURLConnection connection;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +60,6 @@ public class RegistrationActivity extends AppCompatActivity {
                 } else {
                     new RegistrationTask().execute();
                 }
-
             }
         });
 //
