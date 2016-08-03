@@ -91,17 +91,17 @@ public class PropertyDetails extends android.support.v4.app.Fragment {
         @Override
         public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
             mViewHolder.address.setText(
-                    "Address: " + (CharSequence) data.get(position).get("address"));
+                    "Address: " + data.get(position).get("address"));
             mViewHolder.ageOfProperty.setText(
-                    "Age of Property: " + (CharSequence) data.get(position).get("property_age"));
+                    "Age of Property: " + data.get(position).get("property_age"));
             mViewHolder.typeOfProperty.setText(
-                    "Type of Property: " + (CharSequence) data.get(position).get("property_type"));
+                    "Type of Property: " + data.get(position).get("property_type"));
             mViewHolder.postCode.setText
-                    ("Postal code: " + (CharSequence) data.get(position).get("postal_code"));
+                    ("Postal code: " + data.get(position).get("postal_code"));
             mViewHolder.residential.setText
-                    ("Residential/Commercial: " + (CharSequence) data.get(position).get("commercial"));
+                    ("Residential/Commercial: " + data.get(position).get("commercial"));
             mViewHolder.typeOfProperty.setText(
-                    "Type of Property: " + (CharSequence) data.get(position).get("property_type"));
+                    "Type of Property: " + data.get(position).get("property_type"));
         }
 
         @Override
@@ -110,7 +110,7 @@ public class PropertyDetails extends android.support.v4.app.Fragment {
         }
     }
 
-    // custom class getting view cardList by giving view in constructor.
+    // custom class getting view  by giving view in constructor.
     public class CustomView extends RecyclerView.ViewHolder {
 
         private TextView address;
