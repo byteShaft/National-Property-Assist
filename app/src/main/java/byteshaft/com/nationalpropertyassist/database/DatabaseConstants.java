@@ -1,10 +1,6 @@
 package byteshaft.com.nationalpropertyassist.database;
 
-/**
- * Created by husnain on 8/1/16.
- */
 public class DatabaseConstants {
-
 
     public static final String DATABASE_NAME = "AddPropertyDetails.db";
     public static final int DATABASE_VERSION = 1;
