@@ -93,7 +93,7 @@ public class PropertyDetails extends android.support.v4.app.Fragment {
             mViewHolder.address.setText(
                     "Address: " + (CharSequence) data.get(position).get("address"));
             mViewHolder.ageOfProperty.setText(
-                    "Age of Property:  " + (CharSequence) data.get(position).get("property_age"));
+                    "Age of Property: " + (CharSequence) data.get(position).get("property_age"));
             mViewHolder.typeOfProperty.setText(
                     "Type of Property: " + (CharSequence) data.get(position).get("property_type"));
             mViewHolder.postCode.setText
@@ -101,7 +101,7 @@ public class PropertyDetails extends android.support.v4.app.Fragment {
             mViewHolder.residential.setText
                     ("Residential/Commercial: " + (CharSequence) data.get(position).get("commercial"));
             mViewHolder.typeOfProperty.setText(
-                    "Type of Property:  " + (CharSequence) data.get(position).get("property_type"));
+                    "Type of Property: " + (CharSequence) data.get(position).get("property_type"));
         }
 
         @Override
