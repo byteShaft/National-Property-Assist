@@ -3,6 +3,7 @@ package byteshaft.com.nationalpropertyassist.activities;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,6 +17,7 @@ import java.net.HttpURLConnection;
 
 import byteshaft.com.nationalpropertyassist.AppGlobals;
 import byteshaft.com.nationalpropertyassist.R;
+import byteshaft.com.nationalpropertyassist.database.AddPropertyDetailsDatabase;
 import byteshaft.com.nationalpropertyassist.utils.Helpers;
 import byteshaft.com.nationalpropertyassist.utils.WebServiceHelper;
 
@@ -26,6 +28,7 @@ public class AddPropertyDetails extends AppCompatActivity implements View.OnClic
     private EditText mResidential;
     private EditText mTypeOfProperty;
     private EditText mAgeOfProperty;
+
     private Button mSaveButton;
 
     private String mAddressString;
@@ -33,6 +36,9 @@ public class AddPropertyDetails extends AppCompatActivity implements View.OnClic
     private String mResidentialString;
     private String mTypeOfPropertyString;
     private String mAgeOfPropertyString;
+
+    private AddPropertyDetailsDatabase addPropertyDetailsDatabase;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +51,8 @@ public class AddPropertyDetails extends AppCompatActivity implements View.OnClic
         mAgeOfProperty = (EditText) findViewById(R.id.et_age_of_property);
         mSaveButton = (Button) findViewById(R.id.save_button);
         mSaveButton.setOnClickListener(this);
+
+        addPropertyDetailsDatabase = new AddPropertyDetailsDatabase(AppGlobals.getContext());
     }
 
     @Override
@@ -151,15 +159,34 @@ public class AddPropertyDetails extends AppCompatActivity implements View.OnClic
                 Helpers.alertDialog(AddPropertyDetails.this, "Connection error",
                         "Check your internet connection");
             } else if (AppGlobals.getResponseCode() == HttpURLConnection.HTTP_CREATED) {
-                Helpers.saveDataToSharedPreferences("type_of_property", mTypeOfPropertyString);
-                Helpers.saveDataToSharedPreferences("postcode", mPostCodeString);
-                Helpers.saveDataToSharedPreferences("residential", mResidentialString);
-                Helpers.saveDataToSharedPreferences("age_of_property", mAgeOfPropertyString);
+                String addpropertyId = null;
                 try {
-                    Helpers.saveInt("id", jsonObject.getInt("id"));
+                    addpropertyId = jsonObject.getString("id");
+
+//                    Helpers.saveInt("id", jsonObject.getInt("id"));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+                addPropertyDetailsDatabase.createNewEntry(
+                        mAddressString,
+                        Integer.valueOf(mTypeOfPropertyString),
+                        Integer.valueOf(mPostCodeString),
+                        Integer.valueOf(mResidentialString),
+                        Integer.valueOf(mAgeOfPropertyString),
+                        Integer.valueOf(addpropertyId));
+
+                Log.e("TAg", "name " + mAddressString);
+
+//                Helpers.saveDataToSharedPreferences("type_of_property", mAddressString);
+//                Helpers.saveDataToSharedPreferences("type_of_property", mTypeOfPropertyString);
+//                Helpers.saveDataToSharedPreferences("postcode", mPostCodeString);
+//                Helpers.saveDataToSharedPreferences("residential", mResidentialString);
+//                Helpers.saveDataToSharedPreferences("age_of_property", mAgeOfPropertyString);
+//                try {
+//                    Helpers.saveDataToSharedPreferences("id", jsonObject.getString("id"));
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
             }
         }
     }
