@@ -2,6 +2,7 @@ package byteshaft.com.nationalpropertyassist;
 
 import android.app.Application;
 import android.content.Context;
+import android.graphics.Typeface;
 
 public class AppGlobals extends Application {
 
@@ -18,11 +19,13 @@ public class AppGlobals extends Application {
     public static int responseCode = 0;
     public static int readresponseCode = 0;
     public static final String KEY_USER_DETAILS = "user_details";
+    public static Typeface typeface;
 
     @Override
     public void onCreate() {
         super.onCreate();
         sContext = getApplicationContext();
+        typeface = Typeface.createFromAsset(getApplicationContext().getAssets(),"fonts/ebrima.ttf");
     }
 
     public static Context getContext() {

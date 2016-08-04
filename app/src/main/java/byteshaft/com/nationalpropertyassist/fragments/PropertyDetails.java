@@ -17,6 +17,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import byteshaft.com.nationalpropertyassist.AppGlobals;
 import byteshaft.com.nationalpropertyassist.R;
 import byteshaft.com.nationalpropertyassist.activities.AddPropertyDetails;
 import byteshaft.com.nationalpropertyassist.database.AddPropertyDetailsDatabase;
@@ -122,10 +123,15 @@ public class PropertyDetails extends android.support.v4.app.Fragment {
         public CustomView(View itemView) {
             super(itemView);
             address = (TextView) itemView.findViewById(R.id.tv_address);
+            address.setTypeface(AppGlobals.typeface);
             postCode = (TextView) itemView.findViewById(R.id.tv_postcode);
+            postCode.setTypeface(AppGlobals.typeface);
             residential = (TextView) itemView.findViewById(R.id.tv_residential);
+            residential.setTypeface(AppGlobals.typeface);
             typeOfProperty = (TextView) itemView.findViewById(R.id.tv_type_of_property);
+            typeOfProperty.setTypeface(AppGlobals.typeface);
             ageOfProperty = (TextView) itemView.findViewById(R.id.tv_age_of_property);
+            ageOfProperty.setTypeface(AppGlobals.typeface);
         }
     }
 }

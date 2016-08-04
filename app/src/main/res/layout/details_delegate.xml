@@ -28,14 +28,15 @@
                 android:id="@+id/tv_address"
                 android:text="Address"
                 android:textStyle="bold"
-                android:layout_marginTop="10dp"
+                android:textSize="18sp"
+                android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
             <TextView
                 android:id="@+id/tv_age_of_property"
                 android:layout_below="@+id/tv_address"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:textStyle="bold"
                 android:text="Age of Property"
                 android:layout_width="match_parent"
@@ -44,7 +45,7 @@
             <TextView
                 android:id="@+id/tv_postcode"
                 android:text="Post code"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:textStyle="bold"
                 android:layout_below="@+id/tv_age_of_property"
                 android:layout_width="match_parent"
@@ -54,7 +55,7 @@
                 android:id="@+id/tv_type_of_property"
                 android:text="Type of Property"
                 android:textStyle="bold"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:layout_below="@+id/tv_postcode"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -62,7 +63,7 @@
             <TextView
                 android:id="@+id/tv_residential"
                 android:text="Residential / Commercial"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:textStyle="bold"
                 android:layout_marginBottom="10dp"
                 android:layout_below="@+id/tv_type_of_property"
