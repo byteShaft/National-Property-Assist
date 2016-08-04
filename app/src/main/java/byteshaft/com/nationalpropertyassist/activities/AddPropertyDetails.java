@@ -134,6 +134,8 @@ public class AddPropertyDetails extends AppCompatActivity implements View.OnClic
                             Integer.valueOf(mPostCodeString),
                             Integer.valueOf(mResidentialString),
                             Integer.valueOf(mAgeOfPropertyString));
+                    finish();
+                    Toast.makeText(AppGlobals.getContext(), "Details has been added" , Toast.LENGTH_SHORT).show();
                 } catch (IOException | JSONException e) {
                     e.printStackTrace();
                 }

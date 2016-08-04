@@ -21,16 +21,21 @@ import com.facebook.GraphResponse;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import byteshaft.com.nationalpropertyassist.AppGlobals;
-import byteshaft.com.nationalpropertyassist.utils.Helpers;
 import byteshaft.com.nationalpropertyassist.MainActivity;
 import byteshaft.com.nationalpropertyassist.R;
+import byteshaft.com.nationalpropertyassist.database.AddPropertyDetailsDatabase;
+import byteshaft.com.nationalpropertyassist.utils.Helpers;
 import byteshaft.com.nationalpropertyassist.utils.WebServiceHelper;
 
 public class LoginActivity extends AppCompatActivity {
@@ -49,6 +54,7 @@ public class LoginActivity extends AppCompatActivity {
     public JSONObject jsonObject;
     private static LoginActivity sInstance;
     private static boolean isForeGround = false;
+    public static AddPropertyDetailsDatabase database;
 
     public static LoginActivity getInstance() {
         return sInstance;
@@ -58,6 +64,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         sInstance = this;
+        database = new AddPropertyDetailsDatabase(getApplicationContext());
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.delegate_login);
         callbackManager = CallbackManager.Factory.create();
@@ -96,7 +103,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 System.out.println(validate());
                 if (validate()) {
-                    new  LoginTask().execute();
+                    new LoginTask().execute();
                 } else {
                     Toast.makeText(LoginActivity.this, "please fix the following errors", Toast.LENGTH_SHORT).show();
                 }
@@ -137,7 +144,7 @@ public class LoginActivity extends AppCompatActivity {
                         try {
                             first_name = jsonObject.getString("first_name");
                             last_name = jsonObject.getString("last_name");
-                            if (!jsonObject.has("email")){
+                            if (!jsonObject.has("email")) {
                                 System.out.println("not found");
                                 startActivity(new Intent(getApplicationContext(), RegistrationActivity.class));
                             }
@@ -210,7 +217,7 @@ public class LoginActivity extends AppCompatActivity {
                 WebServiceHelper.dismissProgressDialog();
                 Helpers.alertDialog(LoginActivity.this, "Connection error",
                         "Check your internet connection");
-            }  else if (AppGlobals.getResponseCode() == HttpURLConnection.HTTP_FORBIDDEN) {
+            } else if (AppGlobals.getResponseCode() == HttpURLConnection.HTTP_FORBIDDEN) {
                 WebServiceHelper.dismissProgressDialog();
                 Toast.makeText(AppGlobals.getContext(), "Login Failed! Account not activated",
                         Toast.LENGTH_SHORT).show();
@@ -271,7 +278,51 @@ public class LoginActivity extends AppCompatActivity {
                 WebServiceHelper.dismissProgressDialog();
                 LoginActivity.getInstance().finish();
             }
+            if (Helpers.isUserLoggedIn()) {
+                new GetSavedProperties().execute();
+            }
 
+        }
+    }
+
+    public static class GetSavedProperties extends AsyncTask<String, String, String> {
+
+        @Override
+        protected String doInBackground(String... strings) {
+            String result = "";
+            String location = "http://178.62.37.43:8000/api/properties";
+            try {
+                URL url = new URL(location);
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                connection.setRequestMethod("GET");
+                connection.setRequestProperty("Authorization", "Token " +
+                        Helpers.getStringFromSharedPreferences("token"));
+                InputStream inputStream = connection.getInputStream();
+                result = WebServiceHelper.convertInputStreamToString(inputStream);
+                JSONArray array = new JSONArray(result);
+                for (int i = 0; i < array.length(); i++) {
+                    JSONObject jsonObject = (JSONObject) array.get(i);
+                    String address = jsonObject.getString("address");
+                    int ageOfProperty = jsonObject.getInt("age");
+                    int categoryPrimary = jsonObject.getInt("category_primary");
+                    int categorySecondary = jsonObject.getInt("category_secondary");
+                    int iD = jsonObject.getInt("id");
+//                    int owner = jsonObject.getInt("owner");
+                    int postCode = jsonObject.getInt("postcode");
+
+                    database.createNewEntry(address, postCode, categoryPrimary,
+                            categorySecondary, ageOfProperty, iD);
+                }
+
+                Log.i("TAG", result);
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return null;
         }
     }
 }

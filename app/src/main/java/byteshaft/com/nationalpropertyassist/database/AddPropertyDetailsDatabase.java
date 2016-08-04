@@ -108,7 +108,7 @@ public class AddPropertyDetailsDatabase extends SQLiteOpenHelper {
             hashMap.put("unique_id", String.valueOf(unique_id));
             hashMap.put("address", address);
             hashMap.put("postal_code", postalCode);
-            hashMap.put("Property_age", PropertyAge);
+            hashMap.put("property_age", PropertyAge);
             hashMap.put("commercial", commercial);
             hashMap.put("property_type", propertyType);
             hashMap.put("property_id", propertyId);

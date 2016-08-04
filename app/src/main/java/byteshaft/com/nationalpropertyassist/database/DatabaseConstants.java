@@ -2,7 +2,6 @@ package byteshaft.com.nationalpropertyassist.database;
 
 public class DatabaseConstants {
 
-
     public static final String DATABASE_NAME = "AddPropertyDetails.db";
     public static final int DATABASE_VERSION = 1;
     public static final String TABLE_NAME = "AddPropertyDatabase";
