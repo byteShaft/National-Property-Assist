@@ -10,9 +10,6 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-/**
- * Created by husnain on 8/1/16.
- */
 public class AddPropertyDetailsDatabase extends SQLiteOpenHelper {
 
     public AddPropertyDetailsDatabase(Context context) {

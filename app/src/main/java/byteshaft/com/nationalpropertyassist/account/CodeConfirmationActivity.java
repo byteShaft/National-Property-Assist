@@ -95,19 +95,19 @@ public class CodeConfirmationActivity extends Activity {
                     System.out.println(jsonObject + "okay");
                     if (AppGlobals.getResponseCode() == HttpURLConnection.HTTP_OK) {
 
-                        String first_name = jsonObject.getString(AppGlobals.KEY_FIRSTNAME);
-                        String last_name = jsonObject.getString(AppGlobals.KEY_LASTNAME);
+                        String first_name = jsonObject.getString(AppGlobals.KEY_FIRST_NAME);
+                        String last_name = jsonObject.getString(AppGlobals.KEY_LAST_NAME);
                         String email = jsonObject.getString(AppGlobals.KEY_EMAIL);
-                        String mobile_phone = jsonObject.getString(AppGlobals.KEY_MOBILEPHONE);
-                        String home_phone = jsonObject.getString(AppGlobals.KEY_HOMEPHONE);
+                        String mobile_phone = jsonObject.getString(AppGlobals.KEY_MOBILE_PHONE);
+                        String home_phone = jsonObject.getString(AppGlobals.KEY_HOME_PHONE);
                         String token = jsonObject.getString(AppGlobals.KEY_USER_TOKEN);
 
-                        Helpers.saveDataToSharedPreferences(AppGlobals.KEY_FIRSTNAME, first_name);
-                        Log.i("First name", " " + Helpers.getStringFromSharedPreferences(AppGlobals.KEY_FIRSTNAME));
-                        Helpers.saveDataToSharedPreferences(AppGlobals.KEY_LASTNAME, last_name);
+                        Helpers.saveDataToSharedPreferences(AppGlobals.KEY_FIRST_NAME, first_name);
+                        Log.i("First name", " " + Helpers.getStringFromSharedPreferences(AppGlobals.KEY_FIRST_NAME));
+                        Helpers.saveDataToSharedPreferences(AppGlobals.KEY_LAST_NAME, last_name);
                         Helpers.saveDataToSharedPreferences(AppGlobals.KEY_EMAIL, email);
-                        Helpers.saveDataToSharedPreferences(AppGlobals.KEY_MOBILEPHONE, mobile_phone);
-                        Helpers.saveDataToSharedPreferences(AppGlobals.KEY_HOMEPHONE, home_phone);
+                        Helpers.saveDataToSharedPreferences(AppGlobals.KEY_MOBILE_PHONE, mobile_phone);
+                        Helpers.saveDataToSharedPreferences(AppGlobals.KEY_HOME_PHONE, home_phone);
                         Helpers.saveDataToSharedPreferences(AppGlobals.KEY_USER_TOKEN, token);
                         Log.i("user token", " " + Helpers.getStringFromSharedPreferences(AppGlobals.KEY_USER_TOKEN));
                         Helpers.saveUserLogin(true);

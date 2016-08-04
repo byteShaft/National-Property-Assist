@@ -17,6 +17,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.github.siyamed.shapeimageview.CircularImageView;
@@ -26,6 +27,7 @@ import java.util.Random;
 import byteshaft.com.nationalpropertyassist.account.CodeConfirmationActivity;
 import byteshaft.com.nationalpropertyassist.account.LoginActivity;
 import byteshaft.com.nationalpropertyassist.activities.AssistMain;
+import byteshaft.com.nationalpropertyassist.fragments.CurrentJobs;
 import byteshaft.com.nationalpropertyassist.fragments.Help;
 import byteshaft.com.nationalpropertyassist.fragments.JobHistory;
 import byteshaft.com.nationalpropertyassist.fragments.PaymentDetails;
@@ -41,6 +43,7 @@ public class MainActivity extends AppCompatActivity
     private View header;
     private TextView mName;
     private TextView mEmail;
+    public static ProgressBar sProgressBar;
 
     public static MainActivity getInstance() {
         return sInstance;
@@ -58,6 +61,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        sProgressBar = (ProgressBar) findViewById(R.id.toolbar_progress_bar);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -79,8 +83,8 @@ public class MainActivity extends AppCompatActivity
         }
         mName = (TextView) header.findViewById(R.id.nav_user_name);
         mEmail = (TextView) header.findViewById(R.id.nav_user_email);
-        if (!Helpers.getStringFromSharedPreferences(AppGlobals.KEY_FIRSTNAME).equals("")) {
-            String simpleName = Helpers.getStringFromSharedPreferences(AppGlobals.KEY_FIRSTNAME);
+        if (!Helpers.getStringFromSharedPreferences(AppGlobals.KEY_FIRST_NAME).equals("")) {
+            String simpleName = Helpers.getStringFromSharedPreferences(AppGlobals.KEY_FIRST_NAME);
             String firstUpperCaseName = simpleName.substring(0, 1).toUpperCase() + simpleName.substring(1);
             mName.setText(firstUpperCaseName);
         } else {
@@ -98,7 +102,7 @@ public class MainActivity extends AppCompatActivity
             int[] array = getResources().getIntArray(R.array.letter_tile_colors);
             final BitmapWithCharacter tileProvider = new BitmapWithCharacter();
             final Bitmap letterTile = tileProvider.getLetterTile(Helpers.
-                            getStringFromSharedPreferences(AppGlobals.KEY_FIRSTNAME),
+                            getStringFromSharedPreferences(AppGlobals.KEY_FIRST_NAME),
                     String.valueOf(array[new Random().nextInt(array.length)]), 100, 100);
             circularImageView.setImageBitmap(letterTile);
         }
@@ -158,6 +162,8 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_help) {
             loadFragment(new Help());
 
+        } else if (id == R.id.nav_current_job) {
+            loadFragment(new CurrentJobs());
         } else if (id == R.id.nav_logout) {
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
             alertDialogBuilder.setTitle("Alert");

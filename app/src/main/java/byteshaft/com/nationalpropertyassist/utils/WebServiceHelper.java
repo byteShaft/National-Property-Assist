@@ -275,4 +275,24 @@ public class WebServiceHelper {
         }
 
     }
+
+    public static String convertInputStreamToString(InputStream is) throws IOException {
+        if (is != null) {
+            StringBuilder sb = new StringBuilder();
+            String line;
+
+            try {
+                BufferedReader r1 = new BufferedReader(new InputStreamReader(
+                        is, "UTF-8"));
+                while ((line = r1.readLine()) != null) {
+                    sb.append(line).append("\n");
+                }
+            } finally {
+                is.close();
+            }
+            return sb.toString();
+        } else {
+            return "";
+        }
+    }
 }

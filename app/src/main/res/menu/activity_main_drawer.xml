@@ -12,6 +12,12 @@
             android:id="@+id/nav_property_details"
             android:icon="@drawable/prp_details"
             android:title="Property Details" />
+
+        <item
+            android:id="@+id/nav_current_job"
+            android:icon="@drawable/ic_current_jobs"
+            android:title="Current Jobs" />
+
         <item
             android:id="@+id/nav_job_history"
             android:icon="@drawable/job_history"

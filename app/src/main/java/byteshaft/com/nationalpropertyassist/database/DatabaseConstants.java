@@ -1,8 +1,5 @@
 package byteshaft.com.nationalpropertyassist.database;
 
-/**
- * Created by husnain on 8/1/16.
- */
 public class DatabaseConstants {
 
 

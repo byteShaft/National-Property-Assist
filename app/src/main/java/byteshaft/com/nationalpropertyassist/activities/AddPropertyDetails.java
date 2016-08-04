@@ -28,9 +28,7 @@ public class AddPropertyDetails extends AppCompatActivity implements View.OnClic
     private EditText mResidential;
     private EditText mTypeOfProperty;
     private EditText mAgeOfProperty;
-
     private Button mSaveButton;
-
     private String mAddressString;
     private String mPostCodeString;
     private String mResidentialString;
@@ -76,12 +74,6 @@ public class AddPropertyDetails extends AppCompatActivity implements View.OnClic
         mResidentialString = mResidential.getText().toString();
         mTypeOfPropertyString = mTypeOfProperty.getText().toString();
         mAgeOfPropertyString = mAgeOfProperty.getText().toString();
-
-        System.out.println(mAddressString);
-        System.out.println(mPostCodeString);
-        System.out.println(mResidentialString);
-        System.out.println(mTypeOfPropertyString);
-        System.out.println(mAgeOfPropertyString);
 
         if (mAddressString.trim().isEmpty()) {
             mAddress.setError("please enter your address");
