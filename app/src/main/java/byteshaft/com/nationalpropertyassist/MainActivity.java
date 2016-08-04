@@ -30,7 +30,6 @@ import byteshaft.com.nationalpropertyassist.activities.AssistMain;
 import byteshaft.com.nationalpropertyassist.fragments.CurrentJobs;
 import byteshaft.com.nationalpropertyassist.fragments.Help;
 import byteshaft.com.nationalpropertyassist.fragments.JobHistory;
-import byteshaft.com.nationalpropertyassist.fragments.PaymentDetails;
 import byteshaft.com.nationalpropertyassist.fragments.PropertyDetails;
 import byteshaft.com.nationalpropertyassist.fragments.Settings;
 import byteshaft.com.nationalpropertyassist.utils.BitmapWithCharacter;
@@ -152,9 +151,6 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_job_history) {
             loadFragment(new JobHistory());
-
-        } else if (id == R.id.nav_payment_details) {
-            loadFragment(new PaymentDetails());
 
         } else if (id == R.id.nav_settings) {
             loadFragment(new Settings());

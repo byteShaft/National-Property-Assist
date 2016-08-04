@@ -2,6 +2,7 @@ package byteshaft.com.nationalpropertyassist.fragments;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -19,14 +20,18 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.paypal.android.sdk.payments.PayPalPayment;
+import com.paypal.android.sdk.payments.PayPalService;
+import com.paypal.android.sdk.payments.PaymentActivity;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -120,11 +125,7 @@ public class CurrentJobs extends Fragment {
                         hashMap.put("address", jsonObject.getString("address"));
                         activeJobs.add(hashMap);
                     }
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (JSONException e) {
+                } catch (IOException | JSONException e) {
                     e.printStackTrace();
                 }
             }
@@ -149,12 +150,12 @@ public class CurrentJobs extends Fragment {
                             Log.i("TAG", "pay click" + item);
                             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
                             alertDialogBuilder.setTitle("Payment");
-                            alertDialogBuilder.setMessage("Do you want to pay via Paypal or Credit card")
+                            alertDialogBuilder.setMessage("Do you want to pay via Paypal/Credit card")
                                     .setCancelable(false).setPositiveButton("Proceed",
                                     new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int id) {
                                             dialog.dismiss();
-
+                                            onBuyPressed();
                                         }
                                     });
                             AlertDialog alertDialog = alertDialogBuilder.create();
@@ -276,6 +277,39 @@ public class CurrentJobs extends Fragment {
             site = (TextView) itemView.findViewById(R.id.active_site);
             purpose = (TextView) itemView.findViewById(R.id.active_purpose);
         }
+    }
+
+    // paypal part
+
+    private PayPalPayment getThingToBuy(String paymentIntent) {
+        return new PayPalPayment(new BigDecimal("2.00"), "USD", "sample item",
+                paymentIntent);
+    }
+
+    public void onBuyPressed() {
+        /*
+         * PAYMENT_INTENT_SALE will cause the payment to complete immediately.
+         * Change PAYMENT_INTENT_SALE to
+         *   - PAYMENT_INTENT_AUTHORIZE to only authorize payment and capture funds later.
+         *   - PAYMENT_INTENT_ORDER to create a payment for authorization and capture
+         *     later via calls from your server.
+         *
+         * Also, to include additional payment details and an item list, see getStuffToBuy() below.
+         */
+        PayPalPayment thingToBuy = getThingToBuy(PayPalPayment.PAYMENT_INTENT_SALE);
+
+        /*
+         * See getStuffToBuy(..) for examples of some available payment options.
+         */
+
+        Intent intent = new Intent(getActivity(), PaymentActivity.class);
+
+        // send the same configuration for restart resiliency
+        intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, AppGlobals.CONFIG);
+
+        intent.putExtra(PaymentActivity.EXTRA_PAYMENT, thingToBuy);
+
+        startActivityForResult(intent, AppGlobals.REQUEST_CODE_PAYMENT);
     }
 
 }
