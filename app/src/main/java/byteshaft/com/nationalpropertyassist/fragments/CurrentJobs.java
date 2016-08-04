@@ -1,10 +1,12 @@
 package byteshaft.com.nationalpropertyassist.fragments;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -89,6 +91,7 @@ public class CurrentJobs extends Fragment {
         protected void onPreExecute() {
             super.onPreExecute();
             MainActivity.sProgressBar.setVisibility(View.VISIBLE);
+            notFoundLayout.setVisibility(View.GONE);
         }
 
         @Override
@@ -132,15 +135,34 @@ public class CurrentJobs extends Fragment {
         protected void onPostExecute(ArrayList<HashMap> arrayList) {
             super.onPostExecute(arrayList);
             MainActivity.sProgressBar.setVisibility(View.GONE);
-            CustomAdapter customAdapter = new CustomAdapter(arrayList);
-            mRecyclerView.setAdapter(customAdapter);
-            mRecyclerView.addOnItemTouchListener(new CustomAdapter(arrayList,
-                    getActivity().getApplicationContext(), new OnItemClickListener() {
-                @Override
-                public void onPayClick(String item) {
-                    Log.i("TAG", "pay click"+ item);
+            mSwipeRefreshLayout.setRefreshing(false);
+            if (arrayList == null) {
+                    notFoundLayout.setVisibility(View.VISIBLE);
+            } else {
+                if (!arrayList.isEmpty()) {
+                    CustomAdapter customAdapter = new CustomAdapter(arrayList);
+                    mRecyclerView.setAdapter(customAdapter);
+                    mRecyclerView.addOnItemTouchListener(new CustomAdapter(arrayList,
+                            AppGlobals.getContext(), new OnItemClickListener() {
+                        @Override
+                        public void onPayClick(String item) {
+                            Log.i("TAG", "pay click" + item);
+                            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+                            alertDialogBuilder.setTitle("Payment");
+                            alertDialogBuilder.setMessage("Do you want to pay via Paypal or Credit card")
+                                    .setCancelable(false).setPositiveButton("Proceed",
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            dialog.dismiss();
+
+                                        }
+                                    });
+                            AlertDialog alertDialog = alertDialogBuilder.create();
+                            alertDialog.show();
+                        }
+                    }));
                 }
-            }));
+            }
         }
     }
 
