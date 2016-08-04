@@ -30,6 +30,7 @@ public class JobHistory extends android.support.v4.app.Fragment {
     public View mBaseView;
     private CustomView mViewHolder;
     private RecyclerView mRecyclerView;
+    private JobHistoryAdapter jobHistoryAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -39,12 +40,11 @@ public class JobHistory extends android.support.v4.app.Fragment {
         mRecyclerView.setLayoutManager(linearLayoutManager);
         mRecyclerView.canScrollVertically(1);
         mRecyclerView.setHasFixedSize(true);
-//        mRecyclerView.setAdapter(mDetailsAdapter);
         new JobHistoryTask().execute();
         return mBaseView;
     }
 
-    class JobHistoryTask extends AsyncTask<String, String, String> {
+    class JobHistoryTask extends AsyncTask<String, String, ArrayList<HashMap>> {
 
         @Override
         protected void onPreExecute() {
@@ -53,8 +53,9 @@ public class JobHistory extends android.support.v4.app.Fragment {
         }
 
         @Override
-        protected String doInBackground(String... params) {
+        protected ArrayList<HashMap> doInBackground(String... params) {
             JSONArray jsonArray = new JSONArray();
+            ArrayList<HashMap> arrayList = new ArrayList<>();
             if (WebServiceHelper.isNetworkAvailable() && WebServiceHelper.isInternetWorking()) {
                 try {
                     jsonArray = WebServiceHelper.getJobHistoryData();
@@ -62,16 +63,32 @@ public class JobHistory extends android.support.v4.app.Fragment {
                     e.printStackTrace();
                 }
                 if (AppGlobals.getResponseCode() == HttpURLConnection.HTTP_OK) {
-                    System.out.println(jsonArray);
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject = null;
+                        try {
+                            jsonObject = (JSONObject) jsonArray.get(i);
+                            HashMap<String, String> hashMap = new HashMap<>();
+                            hashMap.put("site", jsonObject.getString("site"));
+                            hashMap.put("description", jsonObject.getString("description"));
+                            hashMap.put("purpose", jsonObject.getString("purpose"));
+                            hashMap.put("paid_for", jsonObject.getString("paid_for"));
+                            hashMap.put("address", jsonObject.getString("address"));
+                            arrayList.add(hashMap);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
                 }
             }
-            return null;
+            return arrayList;
         }
 
         @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
+        protected void onPostExecute(ArrayList<HashMap> arrayList) {
+            super.onPostExecute(arrayList);
             WebServiceHelper.dismissProgressDialog();
+            jobHistoryAdapter = new JobHistoryAdapter(arrayList);
+            mRecyclerView.setAdapter(jobHistoryAdapter);
         }
     }
 
@@ -96,12 +113,22 @@ public class JobHistory extends android.support.v4.app.Fragment {
 
         @Override
         public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+            mViewHolder.address.setText(
+                    "Address: " + data.get(position).get("address"));
+            mViewHolder.description.setText(
+                    "Description: " + data.get(position).get("description"));
+            mViewHolder.purpose.setText(
+                    "Purpose: " + data.get(position).get("purpose"));
+            mViewHolder.paidFor.setText
+                    ("Paid For: " + data.get(position).get("paid_for"));
+            mViewHolder.site.setText
+                    ("Site: " + data.get(position).get("site"));
 
         }
 
         @Override
         public int getItemCount() {
-            return 0;
+            return data.size();
         }
     }
 
