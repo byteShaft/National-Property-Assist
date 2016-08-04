@@ -146,7 +146,7 @@ public class JobHistory extends android.support.v4.app.Fragment {
             description = (TextView) itemView.findViewById(R.id.tv_description);
             purpose = (TextView) itemView.findViewById(R.id.tv_purpose);
             paidFor = (TextView) itemView.findViewById(R.id.tv_paid_for);
-            site = (TextView) itemView.findViewById(R.id.tv_paid_for);
+            site = (TextView) itemView.findViewById(R.id.tv_site);
         }
     }
 }
