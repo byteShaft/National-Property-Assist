@@ -9,6 +9,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -75,6 +76,18 @@ public class WebServiceHelper {
         return readResponse(connection);
     }
 
+    public static JSONArray getJobHistoryData() throws IOException, JSONException {
+        String urlMe = "http://178.62.37.43:8000/api/services/history";
+        URL url = new URL(urlMe);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestProperty("Content-Type", "application/json");
+        connection.setRequestMethod("GET");
+        connection.setRequestProperty("charset", "utf-8");
+        connection.setRequestProperty("Authorization", "Token " + Helpers.getStringFromSharedPreferences("token"));
+        AppGlobals.setResponseCode(connection.getResponseCode());
+        return readResponseJsonArray(connection);
+    }
+
     public static JSONObject addPropertyDetails(String address,
                                                 int propertyAge,
                                                 int postCode,
@@ -96,8 +109,10 @@ public class WebServiceHelper {
         return readResponse(connection);
     }
 
-    public static JSONObject addServices(String description,
-                                                String purpose) throws IOException, JSONException {
+    public static JSONObject addServices(
+            String description,
+            String purpose
+    ) throws IOException, JSONException {
         String data = getServicesData(
                 description,
                 purpose);
@@ -115,7 +130,7 @@ public class WebServiceHelper {
             String description,
             String purpose) {
         JSONObject object = new JSONObject();
-        Log.e("TAG", " test" +Helpers.getStringFromSharedPreferences("postcode"));
+        Log.e("TAG", " test" + Helpers.getStringFromSharedPreferences("postcode"));
 
         try {
             object.put("description", description);
@@ -236,6 +251,23 @@ public class WebServiceHelper {
         Log.i("TG", response.toString());
         return new JSONObject(response.toString());
     }
+
+    private static JSONArray readResponseJsonArray(HttpURLConnection connection) throws IOException, JSONException {
+        InputStream is = connection.getInputStream();
+        BufferedReader rd = new BufferedReader(new InputStreamReader(is));
+        StringBuilder response = new StringBuilder();
+
+        String line;
+        while ((line = rd.readLine()) != null) {
+            response.append(line);
+            response.append('\r');
+        }
+
+        Log.i("TG", response.toString());
+        return new JSONArray(response.toString());
+    }
+
+
 
     public static boolean isNetworkAvailable() {
         ConnectivityManager cm = (ConnectivityManager)
