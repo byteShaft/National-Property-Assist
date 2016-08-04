@@ -2,6 +2,7 @@ package byteshaft.com.nationalpropertyassist;
 
 import android.app.Application;
 import android.content.Context;
+import android.graphics.Typeface;
 
 import com.paypal.android.sdk.payments.PayPalConfiguration;
 
@@ -20,6 +21,7 @@ public class AppGlobals extends Application {
     public static int responseCode = 0;
     public static int readresponseCode = 0;
     public static final String KEY_USER_DETAILS = "user_details";
+    public static Typeface typeface;
     public static final String GET_ACTIVE_JOBS_URL = "http://178.62.37.43:8000/api/services/active";
 
     // paypal
@@ -35,6 +37,7 @@ public class AppGlobals extends Application {
     public void onCreate() {
         super.onCreate();
         sContext = getApplicationContext();
+        typeface = Typeface.createFromAsset(getApplicationContext().getAssets(),"fonts/ebrima.ttf");
     }
 
     public static Context getContext() {
