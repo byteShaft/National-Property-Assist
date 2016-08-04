@@ -6,6 +6,8 @@
     <color name="gray_200">#EEEEEE</color>
     <color name="light_blue">#4CAF50</color>
     <color name="gray_800">#424242</color>
+    <color name="orange">#FF9900</color>
+    <color name="green">#009900</color>
 
 
     <color name="button_unpressed">#F26B25</color>
