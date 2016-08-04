@@ -8,6 +8,6 @@
         android:title="Add"
         android:orderInCategory="10"
         android:icon="@android:drawable/ic_menu_add"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
 
 </menu>
