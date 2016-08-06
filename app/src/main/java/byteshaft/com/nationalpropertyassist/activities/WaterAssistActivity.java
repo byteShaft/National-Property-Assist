@@ -1,12 +1,14 @@
 package byteshaft.com.nationalpropertyassist.activities;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 
+import byteshaft.com.nationalpropertyassist.AppGlobals;
 import byteshaft.com.nationalpropertyassist.R;
 import byteshaft.com.nationalpropertyassist.utils.ServicesTask;
 
@@ -29,6 +31,16 @@ public class WaterAssistActivity extends Activity implements RadioGroup.OnChecke
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        if (AppGlobals.serverIdForProperty != 2112) {
+            submitButton.setText("Submit");
+        } else {
+            submitButton.setText("Select Property");
+        }
+    }
+
+    @Override
     public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
         switch (checkedId) {
             case R.id.repair_to_leaking:
@@ -47,8 +59,13 @@ public class WaterAssistActivity extends Activity implements RadioGroup.OnChecke
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.submit:
+                if (AppGlobals.serverIdForProperty == 2112) {
+                    Intent intent = new Intent(getApplicationContext(), SelectPropertyActivity.class);
+                    startActivity(intent);
+                } else {
                 String description = details.getText().toString();
                 new ServicesTask(WaterAssistActivity.this, description, mRadioText).execute();
+                }
                 break;
         }
     }

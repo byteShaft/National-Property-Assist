@@ -137,10 +137,11 @@ public class CurrentJobs extends Fragment {
             super.onPostExecute(arrayList);
             MainActivity.sProgressBar.setVisibility(View.GONE);
             mSwipeRefreshLayout.setRefreshing(false);
+            Log.i("TAg", "size" + arrayList.size());
             if (arrayList == null) {
                     notFoundLayout.setVisibility(View.VISIBLE);
             } else {
-                if (!arrayList.isEmpty()) {
+                if (!arrayList.isEmpty() && arrayList.size() > 1) {
                     CustomAdapter customAdapter = new CustomAdapter(arrayList);
                     mRecyclerView.setAdapter(customAdapter);
                     mRecyclerView.addOnItemTouchListener(new CustomAdapter(arrayList,
@@ -162,6 +163,8 @@ public class CurrentJobs extends Fragment {
                             alertDialog.show();
                         }
                     }));
+                } else {
+                    notFoundLayout.setVisibility(View.VISIBLE);
                 }
             }
         }

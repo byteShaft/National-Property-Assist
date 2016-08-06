@@ -1,6 +1,7 @@
 package byteshaft.com.nationalpropertyassist.drainassist;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -8,7 +9,9 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import byteshaft.com.nationalpropertyassist.AppGlobals;
 import byteshaft.com.nationalpropertyassist.R;
+import byteshaft.com.nationalpropertyassist.activities.SelectPropertyActivity;
 import byteshaft.com.nationalpropertyassist.utils.ServicesTask;
 
 public class DrainageSurveyActivity extends Activity implements RadioGroup.OnCheckedChangeListener {
@@ -30,8 +33,13 @@ public class DrainageSurveyActivity extends Activity implements RadioGroup.OnChe
         button_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String description = details.getText().toString();
-                new ServicesTask(DrainageSurveyActivity.this, description, mRadioText).execute();
+                if (AppGlobals.serverIdForProperty == 2112) {
+                    Intent intent = new Intent(getApplicationContext(), SelectPropertyActivity.class);
+                    startActivity(intent);
+                } else {
+                    String description = details.getText().toString();
+                    new ServicesTask(DrainageSurveyActivity.this, description, mRadioText).execute();
+                }
             }
         });
     }

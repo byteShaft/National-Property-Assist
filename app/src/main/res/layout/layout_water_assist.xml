@@ -130,7 +130,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_below="@+id/water_assist_et"
-                    android:text="Submit"
+                    android:text="Select Property"
                     android:textColor="#F76C30" />
 
             </RelativeLayout>

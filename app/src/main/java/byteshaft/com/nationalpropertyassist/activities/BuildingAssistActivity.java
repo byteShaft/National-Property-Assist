@@ -1,12 +1,14 @@
 package byteshaft.com.nationalpropertyassist.activities;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 
+import byteshaft.com.nationalpropertyassist.AppGlobals;
 import byteshaft.com.nationalpropertyassist.R;
 import byteshaft.com.nationalpropertyassist.utils.ServicesTask;
 
@@ -50,8 +52,13 @@ public class BuildingAssistActivity extends Activity implements RadioGroup.OnChe
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.submit:
-                String description = details.getText().toString();
-                new ServicesTask(BuildingAssistActivity.this, description, mRadioText).execute();
+                if (AppGlobals.serverIdForProperty == 2112) {
+                    Intent intent = new Intent(getApplicationContext(), SelectPropertyActivity.class);
+                    startActivity(intent);
+                } else {
+                    String description = details.getText().toString();
+                    new ServicesTask(BuildingAssistActivity.this, description, mRadioText).execute();
+                }
                 break;
         }
     }
