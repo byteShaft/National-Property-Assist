@@ -48,6 +48,7 @@
         <activity android:name=".drainassist.MaintenanceActivity" />
         <activity android:name=".drainassist.NewInstallationActivity" />
         <activity android:name=".drainassist.SepticOrTreatmentTankActivity" />
+        <activity android:name=".activities.SelectPropertyActivity" android:theme="@style/Theme.AppCompat.Dialog"/>
     </application>
 
 </manifest>

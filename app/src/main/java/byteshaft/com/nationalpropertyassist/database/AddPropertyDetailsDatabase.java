@@ -118,4 +118,47 @@ public class AddPropertyDetailsDatabase extends SQLiteOpenHelper {
         cursor.close();
         return list;
     }
+
+    public ArrayList<HashMap<String, Integer>> getidOfProperties() {
+        SQLiteDatabase db = getReadableDatabase();
+        String query = "SELECT * FROM " + DatabaseConstants.TABLE_NAME;
+        Cursor cursor = db.rawQuery(query, null);
+        ArrayList<HashMap<String, Integer>> list = new ArrayList<>();
+        HashMap<String, Integer> hashMap = new HashMap<>();
+        while (cursor.moveToNext()) {
+            String address = cursor.getString(
+                    cursor.getColumnIndex(DatabaseConstants.ADDRESS_COLUMN));
+            int propertyId = cursor.getInt(
+                    cursor.getColumnIndex(DatabaseConstants.ADDRESS_COLUMN));
+            hashMap.put(address, propertyId);
+        }
+        list.add(hashMap);
+        db.close();
+        cursor.close();
+        return list;
+    }
+
+    public ArrayList<HashMap<Integer, String[]>> getAddressOfProperties() {
+        SQLiteDatabase db = getReadableDatabase();
+        String query = "SELECT * FROM " + DatabaseConstants.TABLE_NAME;
+        Cursor cursor = db.rawQuery(query, null);
+        ArrayList<HashMap<Integer, String[]>> list = new ArrayList<>();
+        HashMap<Integer, String[]> hashMap = new HashMap<>();
+        String[] data;
+        while (cursor.moveToNext()) {
+            String address = cursor.getString(
+                    cursor.getColumnIndex(DatabaseConstants.ADDRESS_COLUMN));
+            int propertyId = cursor.getInt(
+                    cursor.getColumnIndex(DatabaseConstants.ID_COLUMN));
+            int propertyIdOnServer = cursor.getInt(
+                    cursor.getColumnIndex(DatabaseConstants.PROPERTY_ID_COLUMN));
+            data = new String[] {String.valueOf(propertyId), String.valueOf(propertyIdOnServer),
+            address};
+            hashMap.put(propertyId, data);
+            list.add(hashMap);
+        }
+        db.close();
+        cursor.close();
+        return list;
+    }
 }

@@ -9,7 +9,6 @@ import com.paypal.android.sdk.payments.PayPalConfiguration;
 public class AppGlobals extends Application {
 
     private static Context sContext;
-
     public static final String KEY_USER_TOKEN = "token";
     public static final String KEY_FIRST_NAME = "first_name";
     public static final String KEY_LAST_NAME = "last_name";
@@ -23,6 +22,7 @@ public class AppGlobals extends Application {
     public static final String KEY_USER_DETAILS = "user_details";
     public static Typeface typeface;
     public static final String GET_ACTIVE_JOBS_URL = "http://178.62.37.43:8000/api/services/active";
+    public static int serverIdForProperty = 2112;
 
     // paypal
 

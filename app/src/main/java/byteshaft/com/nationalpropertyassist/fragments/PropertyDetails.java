@@ -36,18 +36,23 @@ public class PropertyDetails extends android.support.v4.app.Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mBaseView = inflater.inflate(R.layout.fragment_property_details, container, false);
         database = new AddPropertyDetailsDatabase(getActivity().getApplicationContext());
-        mDetailsAdapter = new PropertyDetailsAdapter(database.getAllRecords());
         mRecyclerView = (RecyclerView) mBaseView.findViewById(R.id.property_details_list);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(linearLayoutManager);
         mRecyclerView.canScrollVertically(1);
         mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setAdapter(mDetailsAdapter);
         return mBaseView;
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onResume() {
+        super.onResume();
+        mDetailsAdapter = new PropertyDetailsAdapter(database.getAllRecords());
+        mRecyclerView.setAdapter(mDetailsAdapter);
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
     }
@@ -67,8 +72,6 @@ public class PropertyDetails extends android.support.v4.app.Fragment {
         }
         return super.onOptionsItemSelected(item);
     }
-
-    /// Adapter
 
     class PropertyDetailsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -100,10 +103,14 @@ public class PropertyDetails extends android.support.v4.app.Fragment {
                     "Type of Property: " + data.get(position).get("property_type"));
             mViewHolder.postCode.setText
                     ("Postal code: " + data.get(position).get("postal_code"));
-            mViewHolder.residential.setText
-                    ("Residential/Commercial: " + data.get(position).get("commercial"));
-            mViewHolder.typeOfProperty.setText(
-                    "Type of Property: " + data.get(position).get("property_type"));
+            if (data.get(position).get("commercial").equals("0")) {
+                mViewHolder.residential.setText
+                        ("Residential/Commercial: " + "Residential");
+            } else {
+                mViewHolder.residential.setText
+                        ("Residential/Commercial: " +"Commercial");
+            }
+
         }
 
         @Override
