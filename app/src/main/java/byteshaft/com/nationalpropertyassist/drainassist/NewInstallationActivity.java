@@ -46,6 +46,16 @@ public class NewInstallationActivity extends Activity implements RadioGroup.OnCh
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        if (AppGlobals.serverIdForProperty != 2112) {
+            button_submit.setText("Submit");
+        } else {
+            button_submit.setText("Select Property");
+        }
+    }
+
+    @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
         radioButton = (RadioButton) findViewById(checkedId);
         mRadioText = radioButton.getText().toString();

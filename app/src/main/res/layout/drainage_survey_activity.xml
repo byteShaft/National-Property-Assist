@@ -200,7 +200,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_below="@+id/drainage_survey_et"
-                    android:text="Submit"
+                    android:text="Select Property"
                     android:textColor="#F76C30" />
 
             </RelativeLayout>

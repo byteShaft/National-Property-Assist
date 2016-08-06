@@ -49,6 +49,16 @@ public class BuildingAssistActivity extends Activity implements RadioGroup.OnChe
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        if (AppGlobals.serverIdForProperty != 2112) {
+            submitButton.setText("Submit");
+        } else {
+            submitButton.setText("Select Property");
+        }
+    }
+
+    @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.submit:

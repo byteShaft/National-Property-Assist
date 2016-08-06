@@ -37,4 +37,14 @@ public class MaintenanceActivity extends Activity {
             }
         });
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (AppGlobals.serverIdForProperty != 2112) {
+            submit_button.setText("Submit");
+        } else {
+            submit_button.setText("Select Property");
+        }
+    }
 }

@@ -51,4 +51,14 @@ public class EmergencyUnblockActivity extends Activity implements RadioGroup.OnC
         mRadioText = radioButton.getText().toString();
         System.out.println(mRadioText);
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (AppGlobals.serverIdForProperty != 2112) {
+            button_submit.setText("Submit");
+        } else {
+            button_submit.setText("Select Property");
+        }
+    }
 }
