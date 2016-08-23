@@ -28,9 +28,7 @@ public class SepticOrTreatmentTankActivity extends Activity implements RadioGrou
         button_submit = (Button) findViewById(R.id.submit);
         details = (EditText) findViewById(R.id.septic_or_treatment_tank_et);
         radioGroup.setOnCheckedChangeListener(this);
-
         details_text = details.getText().toString();
-
         button_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

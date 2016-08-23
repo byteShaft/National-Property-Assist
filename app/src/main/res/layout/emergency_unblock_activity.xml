@@ -72,42 +72,35 @@
                     android:id="@+id/toilet"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Toilet"
+                    android:text="Blocked Toilet"
                     android:textSize="15dp" />
 
                 <RadioButton
                     android:id="@+id/kitchen_sink"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Kitchen Sink"
+                    android:text="Blocked Kitchen Facilities"
                     android:textSize="15dp" />
 
                 <RadioButton
                     android:id="@+id/bathroom"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Bathroom"
+                    android:text="Blocked bath/shower"
                     android:textSize="15dp" />
 
                 <RadioButton
                     android:id="@+id/septic_tank"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Septic Tank"
+                    android:text="Blocked Septic Tank"
                     android:textSize="15dp" />
 
                 <RadioButton
                     android:id="@+id/rain_water_gully"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Rain water gully"
-                    android:textSize="15dp" />
-
-                <RadioButton
-                    android:id="@+id/utility_room"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Utility Room"
+                    android:text="Blocked Rain Water Pipes"
                     android:textSize="15dp" />
 
                 <RadioButton
@@ -116,6 +109,7 @@
                     android:layout_height="wrap_content"
                     android:text="Other"
                     android:textSize="15dp" />
+
             </RadioGroup>
 
             <RelativeLayout

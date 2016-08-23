@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import byteshaft.com.nationalpropertyassist.R;
@@ -16,11 +17,15 @@ public class HomeAssistActivity extends Activity implements RadioGroup.OnChecked
     EditText details;
     Button submitButton;
     private String mRadioText;
+    private RadioButton homeSurvey;
+    private RadioButton drainSurvery;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_home_assist);
+        homeSurvey = (RadioButton) findViewById(R.id.home_buyer_survey);
+        drainSurvery = (RadioButton) findViewById(R.id.home_buyer_drain_survey);
         radioGroup = (RadioGroup) findViewById(R.id.radio_group);
         details = (EditText) findViewById(R.id.home_assist_et);
         submitButton = (Button) findViewById(R.id.submit);
@@ -35,9 +40,10 @@ public class HomeAssistActivity extends Activity implements RadioGroup.OnChecked
                 mRadioText = "Home Buyer Survey";
                 break;
             case R.id.home_buyer_drain_survey:
-                mRadioText = "Home Buyer Drain Survey";
+                mRadioText = "Pre Purchase Drain Survey";
                 break;
         }
+        System.out.println(mRadioText);
     }
 
     @Override
