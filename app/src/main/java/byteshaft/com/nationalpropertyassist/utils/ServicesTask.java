@@ -31,7 +31,7 @@ public class ServicesTask extends AsyncTask<String,String,String> {
         JSONObject jsonObject = null;
         if (WebServiceHelper.isNetworkAvailable() && WebServiceHelper.isInternetWorking()) {
             try {
-                jsonObject = WebServiceHelper.addServices(mDescription, mPurpose);
+                jsonObject = WebServiceHelper.addServices(mDescription, mPurpose, mActivity);
                 mActivity.finish();
             } catch (IOException | JSONException e) {
                 e.printStackTrace();

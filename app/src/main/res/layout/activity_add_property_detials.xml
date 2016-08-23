@@ -46,17 +46,15 @@
                 android:textColor="@color/gray_800"
                 android:textSize="14sp"/>
 
-            <EditText
+            <Spinner
                 android:id="@+id/et_residential"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/edit_text_bg"
                 android:drawablePadding="9dp"
-                android:hint="Residential / Commercial"
-                android:inputType="number"
+                android:entries="@array/property_type"
                 android:padding="15dp"
-                android:singleLine="true"
                 android:textColor="@color/gray_800"
                 android:textSize="14sp"/>
 
@@ -81,7 +79,8 @@
                 android:layout_marginTop="20dp"
                 android:background="@drawable/edit_text_bg"
                 android:drawablePadding="9dp"
-                android:hint="Age of Property"
+                android:hint="Age of Property(In months)"
+                android:maxLength="3"
                 android:inputType="number"
                 android:padding="15dp"
                 android:singleLine="true"

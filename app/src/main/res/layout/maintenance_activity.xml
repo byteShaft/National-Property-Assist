@@ -113,7 +113,6 @@
                     android:layout_alignParentRight="true"
                     android:text="Submit"
                     android:textColor="#F76C30" />
-
             </RelativeLayout>
         </LinearLayout>
     </ScrollView>

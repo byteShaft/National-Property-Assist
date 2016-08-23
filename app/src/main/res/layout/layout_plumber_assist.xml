@@ -120,7 +120,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/plumber_assist_et"
                     android:layout_alignParentRight="true"
-                    android:text="Submit"
+                    android:text="Select Property"
                     android:textColor="#F76C30" />
 
             </RelativeLayout>

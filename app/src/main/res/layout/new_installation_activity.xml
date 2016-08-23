@@ -136,7 +136,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/new_installation_et"
                     android:layout_alignParentRight="true"
-                    android:text="Submit"
+                    android:text="Select Property"
                     android:textColor="#F76C30" />
 
             </RelativeLayout>

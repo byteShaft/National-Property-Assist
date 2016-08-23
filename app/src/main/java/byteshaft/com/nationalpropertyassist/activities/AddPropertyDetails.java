@@ -5,8 +5,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -21,11 +23,12 @@ import byteshaft.com.nationalpropertyassist.database.AddPropertyDetailsDatabase;
 import byteshaft.com.nationalpropertyassist.utils.Helpers;
 import byteshaft.com.nationalpropertyassist.utils.WebServiceHelper;
 
-public class AddPropertyDetails extends AppCompatActivity implements View.OnClickListener {
+public class AddPropertyDetails extends AppCompatActivity implements View.OnClickListener,
+        AdapterView.OnItemSelectedListener {
 
     private EditText mAddress;
     private EditText mPostCode;
-    private EditText mResidential;
+    private Spinner mResidential;
     private EditText mTypeOfProperty;
     private EditText mAgeOfProperty;
     private Button mSaveButton;
@@ -44,7 +47,8 @@ public class AddPropertyDetails extends AppCompatActivity implements View.OnClic
         setContentView(R.layout.activity_add_property_detials);
         mAddress = (EditText) findViewById(R.id.et_address);
         mPostCode = (EditText) findViewById(R.id.et_post_code);
-        mResidential = (EditText) findViewById(R.id.et_residential);
+        mResidential = (Spinner) findViewById(R.id.et_residential);
+        mResidential.setOnItemSelectedListener(this);
         mTypeOfProperty = (EditText) findViewById(R.id.et_property_type);
         mAgeOfProperty = (EditText) findViewById(R.id.et_age_of_property);
         mSaveButton = (Button) findViewById(R.id.save_button);
@@ -70,7 +74,7 @@ public class AddPropertyDetails extends AppCompatActivity implements View.OnClic
         boolean valid = true;
         mAddressString = mAddress.getText().toString();
         mPostCodeString = mPostCode.getText().toString();
-        mResidentialString = mResidential.getText().toString();
+//        mResidentialString = mResidential.getText().toString();
         mTypeOfPropertyString = mTypeOfProperty.getText().toString();
         mAgeOfPropertyString = mAgeOfProperty.getText().toString();
 
@@ -88,13 +92,6 @@ public class AddPropertyDetails extends AppCompatActivity implements View.OnClic
             mPostCode.setError(null);
         }
 
-        if (mResidentialString.trim().isEmpty()) {
-            mResidential.setError("please enter property is residential or commercial");
-            valid = false;
-        } else {
-            mResidential.setError(null);
-        }
-
         if (mTypeOfPropertyString.trim().isEmpty()) {
             mTypeOfProperty.setError("please enter property type");
             valid = false;
@@ -109,6 +106,22 @@ public class AddPropertyDetails extends AppCompatActivity implements View.OnClic
             mAgeOfProperty.setError(null);
         }
         return valid;
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        Log.i("TAG", "Item "+ adapterView.getItemAtPosition(i));
+        if (adapterView.getItemAtPosition(i).equals("Residential")) {
+            mResidentialString = "0";
+        } else {
+            mResidentialString = "1";
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+        mResidentialString = "0";
+
     }
 
     class PropertyDetailsTask extends AsyncTask<String, String, JSONObject> {
@@ -132,8 +145,6 @@ public class AddPropertyDetails extends AppCompatActivity implements View.OnClic
                             Integer.valueOf(mPostCodeString),
                             Integer.valueOf(mResidentialString),
                             Integer.valueOf(mAgeOfPropertyString));
-                    finish();
-                    Toast.makeText(AppGlobals.getContext(), "Details have been added" , Toast.LENGTH_SHORT).show();
                 } catch (IOException | JSONException e) {
                     e.printStackTrace();
                 }
@@ -166,6 +177,7 @@ public class AddPropertyDetails extends AppCompatActivity implements View.OnClic
                         Integer.valueOf(addpropertyId));
 
                 Log.e("TAg", "name " + mAddressString);
+                finish();
             }
         }
     }
