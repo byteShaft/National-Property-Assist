@@ -4,11 +4,11 @@ import android.app.Activity;
 import android.os.AsyncTask;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.IOException;
+import java.net.HttpURLConnection;
 
-public class ServicesTask extends AsyncTask<String,String,String> {
+public class ServicesTask extends AsyncTask<String, String, Integer> {
 
     Activity mActivity;
     String mDescription;
@@ -27,23 +27,24 @@ public class ServicesTask extends AsyncTask<String,String,String> {
     }
 
     @Override
-    protected String doInBackground(String... strings) {
-        JSONObject jsonObject = null;
+    protected Integer doInBackground(String... strings) {
+        int response = 0;
         if (WebServiceHelper.isNetworkAvailable() && WebServiceHelper.isInternetWorking()) {
             try {
-                jsonObject = WebServiceHelper.addServices(mDescription, mPurpose, mActivity);
+                response = WebServiceHelper.addServices(mDescription, mPurpose, mActivity);
                 mActivity.finish();
             } catch (IOException | JSONException e) {
                 e.printStackTrace();
             }
-            System.out.println(jsonObject);
         }
-        return null;
+        return response;
     }
 
     @Override
-    protected void onPostExecute(String s) {
-        super.onPostExecute(s);
-        WebServiceHelper.dismissProgressDialog();
+    protected void onPostExecute(Integer response) {
+        super.onPostExecute(response);
+        if (response == HttpURLConnection.HTTP_CREATED) {
+            WebServiceHelper.dismissProgressDialog();
+        }
     }
 }

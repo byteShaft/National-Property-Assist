@@ -21,6 +21,7 @@ import byteshaft.com.nationalpropertyassist.AppGlobals;
 import byteshaft.com.nationalpropertyassist.R;
 import byteshaft.com.nationalpropertyassist.activities.AddPropertyDetails;
 import byteshaft.com.nationalpropertyassist.database.AddPropertyDetailsDatabase;
+import byteshaft.com.nationalpropertyassist.utils.Helpers;
 
 
 public class PropertyDetails extends android.support.v4.app.Fragment {
@@ -95,21 +96,31 @@ public class PropertyDetails extends android.support.v4.app.Fragment {
         @Override
         public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
             holder.setIsRecyclable(false);
+            String address = (String) data.get(position).get("address");
+            String upperCaseString = address.substring(0, 1).toUpperCase() + address.substring(1);
             mViewHolder.address.setText(
-                    "Address: " + data.get(position).get("address"));
+                    Helpers.getFormattedTitle("Address: ", upperCaseString), TextView.BufferType.SPANNABLE);
             mViewHolder.ageOfProperty.setText(
-                    "Age of Property: " + data.get(position).get("property_age"));
+                    Helpers.getFormattedTitle("Age of Property: " , String.valueOf(data.get(position)
+                            .get("property_age"))));
             mViewHolder.typeOfProperty.setText(
-                    "Type of Property: " + data.get(position).get("property_type"));
+                    Helpers.getFormattedTitle("Type of Property: " ,  String.valueOf(data
+                            .get(position).get("property_type"))));
             mViewHolder.postCode.setText
-                    ("Postal code: " + data.get(position).get("postal_code"));
+                    (Helpers.getFormattedTitle("Postal code: " ,  String.valueOf(data
+                            .get(position).get("postal_code"))));
             if (data.get(position).get("commercial").equals("0")) {
                 mViewHolder.residential.setText
-                        ("Residential/Commercial: " + "Residential");
+                        (Helpers.getFormattedTitle("Residential/Commercial: " ,  "Residential"));
             } else {
                 mViewHolder.residential.setText
-                        ("Residential/Commercial: " +"Commercial");
+                        (Helpers.getFormattedTitle("Residential/Commercial: " , "Commercial"));
             }
+            mViewHolder.address.setTypeface(AppGlobals.typefaceItalic);
+            mViewHolder.postCode.setTypeface(AppGlobals.typefaceItalic);
+            mViewHolder.residential.setTypeface(AppGlobals.typefaceItalic);
+            mViewHolder.typeOfProperty.setTypeface(AppGlobals.typefaceItalic);
+            mViewHolder.ageOfProperty.setTypeface(AppGlobals.typefaceItalic);
 
         }
 

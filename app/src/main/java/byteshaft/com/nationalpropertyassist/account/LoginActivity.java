@@ -28,7 +28,6 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 import byteshaft.com.nationalpropertyassist.AppGlobals;
@@ -289,7 +288,7 @@ public class LoginActivity extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... strings) {
-            String result = "";
+            String result;
             String location = "http://178.62.37.43:8000/api/properties";
             try {
                 URL url = new URL(location);
@@ -307,7 +306,6 @@ public class LoginActivity extends AppCompatActivity {
                     int categoryPrimary = jsonObject.getInt("category_primary");
                     int categorySecondary = jsonObject.getInt("category_secondary");
                     int iD = jsonObject.getInt("id");
-//                    int owner = jsonObject.getInt("owner");
                     int postCode = jsonObject.getInt("postcode");
 
                     database.createNewEntry(address, postCode, categoryPrimary,
@@ -315,11 +313,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
 
                 Log.i("TAG", result);
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (JSONException e) {
+            } catch (IOException | JSONException e) {
                 e.printStackTrace();
             }
             return null;
