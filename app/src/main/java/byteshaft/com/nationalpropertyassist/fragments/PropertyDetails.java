@@ -94,6 +94,7 @@ public class PropertyDetails extends android.support.v4.app.Fragment {
 
         @Override
         public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+            holder.setIsRecyclable(false);
             mViewHolder.address.setText(
                     "Address: " + data.get(position).get("address"));
             mViewHolder.ageOfProperty.setText(
