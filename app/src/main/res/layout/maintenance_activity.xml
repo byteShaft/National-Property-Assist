@@ -4,36 +4,17 @@
     android:layout_height="match_parent"
     android:background="@mipmap/test">
 
-    <ImageView
-        android:id="@+id/image_view"
-        android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:layout_marginTop="10dp"
-        android:src="@drawable/drain_assist_for_package" />
-
-    <View
-        android:id="@+id/view"
-        android:layout_width="match_parent"
-        android:layout_height="1dip"
-        android:layout_below="@+id/image_view"
-        android:background="#F76C30" />
-
-    <TextView
-        android:id="@+id/heading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/view"
-        android:layout_marginLeft="110dp"
-        android:text="MAINTENANCE"
-        android:textColor="#1483C8"
-        android:textSize="20dp" />
+    <include
+        android:id="@+id/maintenance_header"
+        layout="@layout/header"
+        />
 
 
     <LinearLayout
         android:id="@+id/layout_et"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/heading"
+        android:layout_below="@+id/maintenance_header"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="50dp"

@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import byteshaft.com.nationalpropertyassist.AppGlobals;
 import byteshaft.com.nationalpropertyassist.R;
@@ -21,11 +22,19 @@ public class DrainageRepairsActivity extends Activity implements RadioGroup.OnCh
     private EditText details;
     private RadioButton radioButton;
     private String mRadioText;
+    private View headerView;
+    private TextView headerStart;
+    private TextView headerEnd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.drainage_repairs_activity);
+        headerView = findViewById(R.id.drain_header);
+        headerStart = (TextView) headerView.findViewById(R.id.header_start);
+        headerEnd = (TextView) headerView.findViewById(R.id.header_end);
+        headerStart.setText("Drainage");
+        headerEnd.setText(" Repair");
         radioGroup = (RadioGroup) findViewById(R.id.radio_group);
         button_submit = (Button) findViewById(R.id.submit);
         details = (EditText) findViewById(R.id.drainage_repairs_et);

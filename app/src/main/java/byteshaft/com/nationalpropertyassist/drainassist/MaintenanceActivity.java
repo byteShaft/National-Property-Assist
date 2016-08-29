@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import byteshaft.com.nationalpropertyassist.AppGlobals;
 import byteshaft.com.nationalpropertyassist.R;
@@ -17,11 +18,19 @@ public class MaintenanceActivity extends Activity {
     private Button submit_button;
     private EditText details;
     private String mRadioText = "Scale Removal";
+    private View headerView;
+    private TextView headerStart;
+    private TextView headerEnd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.maintenance_activity);
+        headerView = findViewById(R.id.maintenance_header);
+        headerStart = (TextView) headerView.findViewById(R.id.header_start);
+        headerEnd = (TextView) headerView.findViewById(R.id.header_end);
+        headerStart.setText("Maintenance");
+//        headerEnd.setText(" Unblock");
         submit_button = (Button) findViewById(R.id.submit);
         details = (EditText) findViewById(R.id.maintenance_et);
         submit_button.setOnClickListener(new View.OnClickListener() {

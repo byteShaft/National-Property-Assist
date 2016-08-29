@@ -20,12 +20,12 @@ public class AppGlobals extends Application {
     public static int responseCode = 0;
     public static int readresponseCode = 0;
     public static final String KEY_USER_DETAILS = "user_details";
-    public static Typeface typeface;
     public static final String GET_ACTIVE_JOBS_URL = "http://178.62.37.43:8000/api/services/active";
     public static int serverIdForProperty = 2112;
+    public static Typeface typeface;
+    public static Typeface typefaceItalic;
 
     // paypal
-
     public static final int REQUEST_CODE_PAYMENT = 1;
     public static final String CONFIG_CLIENT_ID = "ARu_4mdznUCYfwTqE_xt93eZ9U4L17KiWhCnleEdoSjcDNah6FZbGxQIa3u5uNewlGlyNXjuPH7y-MkG";
     public static final String CONFIG_ENVIRONMENT = PayPalConfiguration.ENVIRONMENT_SANDBOX;
@@ -37,7 +37,8 @@ public class AppGlobals extends Application {
     public void onCreate() {
         super.onCreate();
         sContext = getApplicationContext();
-        typeface = Typeface.createFromAsset(getApplicationContext().getAssets(),"fonts/ebrima.ttf");
+        typeface = Typeface.createFromAsset(getApplicationContext().getAssets(),"fonts/bold.ttf");
+        typefaceItalic = Typeface.createFromAsset(getApplicationContext().getAssets(),"fonts/italic.ttf");
     }
 
     public static Context getContext() {
