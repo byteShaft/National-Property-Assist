@@ -3,8 +3,12 @@ package byteshaft.com.nationalpropertyassist.utils;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
+import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
+import android.text.style.ForegroundColorSpan;
 
 import byteshaft.com.nationalpropertyassist.AppGlobals;
 
@@ -29,7 +33,7 @@ public class Helpers {
         sharedPreferences.edit().putInt(key, value).apply();
     }
 
-    public static Integer getInt(String key){
+    public static Integer getInt(String key) {
         SharedPreferences sharedPreferences = getPreferenceManager();
         return sharedPreferences.getInt(key, 0);
     }
@@ -70,16 +74,28 @@ public class Helpers {
         alertDialogBuilder.setTitle(title);
         alertDialogBuilder.setMessage(msg).setCancelable(false).setPositiveButton("Ok",
                 new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                dialog.dismiss();
-            }
-        });
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
+                    }
+                });
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
     }
 
     public static void clearSaveData() {
         getPreferenceManager().edit().clear().apply();
+    }
+
+    public static SpannableStringBuilder getFormattedTitle(String text, String nextText) {
+        SpannableStringBuilder realText = new SpannableStringBuilder();
+        SpannableString mandatorySpannable = new SpannableString(text);
+            mandatorySpannable.setSpan(
+                    new ForegroundColorSpan(Color.parseColor("#6666ff")), 0, text.length(), 0);
+            realText.append(mandatorySpannable);
+        SpannableString whiteSpannable = new SpannableString(nextText);
+        whiteSpannable.setSpan(new ForegroundColorSpan(Color.BLACK), 0, nextText.length(), 0);
+        realText.append(whiteSpannable);
+        return realText;
     }
 }
 

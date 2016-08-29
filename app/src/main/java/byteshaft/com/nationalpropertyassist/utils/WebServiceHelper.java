@@ -8,7 +8,6 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -110,7 +109,7 @@ public class WebServiceHelper {
         return readResponse(connection);
     }
 
-    public static JSONObject addServices(
+    public static int addServices(
             String description,
             String purpose, Activity activity
     ) throws IOException, JSONException {
@@ -124,10 +123,7 @@ public class WebServiceHelper {
         sendRequestData(connection, data);
         AppGlobals.setResponseCode(connection.getResponseCode());
         System.out.println(connection.getResponseCode());
-        if (connection.getResponseCode() == 201) {
-            Toast.makeText(activity, "Success you will hear from us soon", Toast.LENGTH_SHORT).show();
-        }
-        return readResponse(connection);
+        return connection.getResponseCode();
     }
 
     public static String getServicesData(
