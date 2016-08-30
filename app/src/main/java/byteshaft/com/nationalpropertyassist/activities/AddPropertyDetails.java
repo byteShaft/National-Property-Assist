@@ -37,10 +37,8 @@ public class AddPropertyDetails extends AppCompatActivity implements View.OnClic
     private String mResidentialString;
     private String mTypeOfPropertyString;
     private String mAgeOfPropertyString;
-
     private AddPropertyDetailsDatabase addPropertyDetailsDatabase;
-
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
