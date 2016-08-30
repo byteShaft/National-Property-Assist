@@ -15,4 +15,24 @@
         <item>Residential</item>
         <item>Commercial</item>
     </string-array>
+
+    <string-array name="types_of_property">
+        <item>Detached House</item>
+        <item>Semi Detached House</item>
+        <item>Terraced House</item>
+        <item>End of Terrace</item>
+        <item>Detached Bungalow</item>
+        <item>Semi Detached Bungalow</item>
+        <item>Flat/Apartment</item>
+        <item>Cottage</item>
+        <item>Farmhouse</item>
+        <item>Townhouse</item>
+        <item>Converted Property</item>
+        <item>Commercial Property</item>
+        <item>Other</item>
+
+
+
+
+    </string-array>
 </resources>

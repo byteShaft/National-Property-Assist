@@ -51,24 +51,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:background="@drawable/edit_text_bg"
-                android:drawablePadding="9dp"
                 android:entries="@array/property_type"
                 android:padding="15dp"
+                android:background="@drawable/edit_text_bg"
                 android:textColor="@color/gray_800"
                 android:textSize="14sp"/>
 
-            <EditText
-                android:id="@+id/et_property_type"
+            <Spinner
+                android:id="@+id/property_type"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/edit_text_bg"
                 android:drawablePadding="9dp"
-                android:hint="Type of Property"
-                android:inputType="number"
                 android:padding="15dp"
-                android:singleLine="true"
+                android:entries="@array/types_of_property"
                 android:textColor="@color/gray_800"
                 android:textSize="14sp"/>
 

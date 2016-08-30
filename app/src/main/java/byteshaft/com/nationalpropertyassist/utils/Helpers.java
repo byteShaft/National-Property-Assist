@@ -90,10 +90,10 @@ public class Helpers {
         SpannableStringBuilder realText = new SpannableStringBuilder();
         SpannableString mandatorySpannable = new SpannableString(text);
             mandatorySpannable.setSpan(
-                    new ForegroundColorSpan(Color.parseColor("#6666ff")), 0, text.length(), 0);
+                    new ForegroundColorSpan(Color.parseColor("#00BCD4")), 0, text.length(), 0);
             realText.append(mandatorySpannable);
         SpannableString whiteSpannable = new SpannableString(nextText);
-        whiteSpannable.setSpan(new ForegroundColorSpan(Color.BLACK), 0, nextText.length(), 0);
+        whiteSpannable.setSpan(new ForegroundColorSpan(Color.DKGRAY), 0, nextText.length(), 0);
         realText.append(whiteSpannable);
         return realText;
     }

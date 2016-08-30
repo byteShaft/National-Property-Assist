@@ -1,8 +1,10 @@
 package byteshaft.com.nationalpropertyassist.activities;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,6 +25,7 @@ public class BuildingAssistActivity extends Activity implements RadioGroup.OnChe
     private View headerView;
     private TextView headerStart;
     private TextView headerEnd;
+    private static boolean sConfirmPayment = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +67,8 @@ public class BuildingAssistActivity extends Activity implements RadioGroup.OnChe
         super.onResume();
         if (AppGlobals.serverIdForProperty != 2112) {
             submitButton.setText("Submit");
+        } else if (AppGlobals.serverIdForProperty != 2112 && !sConfirmPayment){
+            submitButton.setText("Confirm");
         } else {
             submitButton.setText("Select Property");
         }
@@ -76,9 +81,22 @@ public class BuildingAssistActivity extends Activity implements RadioGroup.OnChe
                 if (AppGlobals.serverIdForProperty == 2112) {
                     Intent intent = new Intent(getApplicationContext(), SelectPropertyActivity.class);
                     startActivity(intent);
+                } else if (AppGlobals.serverIdForProperty != 2112 && !sConfirmPayment) {
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(BuildingAssistActivity.this);
+                    alertDialogBuilder.setTitle("Payment Details");
+                    alertDialogBuilder.setMessage(String.format("You will be charged %d for this services press ok to confirm.", 20)).setCancelable(false).setPositiveButton("Ok",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.dismiss();
+                                }
+                            });
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    alertDialog.show();
+
                 } else {
                     String description = details.getText().toString();
                     new ServicesTask(BuildingAssistActivity.this, description, mRadioText).execute();
+
                 }
                 break;
         }
