@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 
 import byteshaft.com.nationalpropertyassist.AppGlobals;
 import byteshaft.com.nationalpropertyassist.R;
@@ -15,25 +14,15 @@ import byteshaft.com.nationalpropertyassist.utils.ServicesTask;
 
 public class HomeAssistActivity extends Activity implements RadioGroup.OnCheckedChangeListener, View.OnClickListener {
 
-    private RadioGroup radioGroup;
-    private EditText details;
-    private Button submitButton;
+    RadioGroup radioGroup;
+    EditText details;
+    Button submitButton;
     private String mRadioText;
-    private View headerView;
-    private TextView headerStart;
-    private TextView headerEnd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_home_assist);
-        headerView = findViewById(R.id.home_assist_header);
-        headerStart = (TextView) headerView.findViewById(R.id.header_start);
-        headerEnd = (TextView) headerView.findViewById(R.id.header_end);
-        headerStart.setText("Home Buyer");
-        headerEnd.setText(" Assist");
-        headerStart.setTypeface(AppGlobals.typefaceItalic);
-        headerEnd.setTypeface(AppGlobals.typefaceItalic);
         radioGroup = (RadioGroup) findViewById(R.id.radio_group);
         details = (EditText) findViewById(R.id.home_assist_et);
         submitButton = (Button) findViewById(R.id.submit);

@@ -8,7 +8,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 
 import byteshaft.com.nationalpropertyassist.AppGlobals;
 import byteshaft.com.nationalpropertyassist.R;
@@ -22,24 +21,15 @@ public class NewInstallationActivity extends Activity implements RadioGroup.OnCh
     private EditText details;
     private RadioButton radioButton;
     private String mRadioText;
-    private View headerView;
-    private TextView headerStart;
-    private TextView headerEnd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_installation_activity);
-        headerView = findViewById(R.id.new_installation_header);
-        headerStart = (TextView) headerView.findViewById(R.id.header_start);
-        headerEnd = (TextView) headerView.findViewById(R.id.header_end);
-        headerStart.setText("New");
-        headerEnd.setText(" Installation");
         radioGroup = (RadioGroup) findViewById(R.id.radio_group);
         button_submit = (Button) findViewById(R.id.submit);
         details = (EditText) findViewById(R.id.new_installation_et);
         radioGroup.setOnCheckedChangeListener(this);
-
 
         button_submit.setOnClickListener(new View.OnClickListener() {
             @Override

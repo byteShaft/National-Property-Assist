@@ -8,7 +8,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 
 import byteshaft.com.nationalpropertyassist.AppGlobals;
 import byteshaft.com.nationalpropertyassist.R;
@@ -23,19 +22,11 @@ public class SepticOrTreatmentTankActivity extends Activity implements RadioGrou
     private RadioButton radioButton;
     private String details_text;
     private String mRadioText;
-    private View headerView;
-    private TextView headerStart;
-    private TextView headerEnd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.septic_or_treatment_tank_activity);
-        headerView = findViewById(R.id.septic_or_treatment_tank_header);
-        headerStart = (TextView) headerView.findViewById(R.id.header_start);
-        headerEnd = (TextView) headerView.findViewById(R.id.header_end);
-        headerStart.setText("Septic OR");
-        headerEnd.setText(" Treatment Tank");
         radioGroup = (RadioGroup) findViewById(R.id.radio_group);
         button_submit = (Button) findViewById(R.id.submit);
         details = (EditText) findViewById(R.id.septic_or_treatment_tank_et);

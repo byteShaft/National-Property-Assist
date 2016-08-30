@@ -8,7 +8,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 
 import byteshaft.com.nationalpropertyassist.AppGlobals;
 import byteshaft.com.nationalpropertyassist.R;
@@ -22,19 +21,11 @@ public class EmergencyUnblockActivity extends Activity implements RadioGroup.OnC
     private EditText details;
     private RadioButton radioButton;
     private String mRadioText;
-    private View headerView;
-    private TextView headerStart;
-    private TextView headerEnd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.emergency_unblock_activity);
-        headerView = findViewById(R.id.emergency_header);
-        headerStart = (TextView) headerView.findViewById(R.id.header_start);
-        headerEnd = (TextView) headerView.findViewById(R.id.header_end);
-        headerStart.setText("Emergency");
-        headerEnd.setText(" Unblock");
         radioGroup = (RadioGroup) findViewById(R.id.radio_group);
         button_submit = (Button) findViewById(R.id.submit);
         details = (EditText) findViewById(R.id.emergency_unblock_et);
