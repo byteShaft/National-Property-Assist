@@ -16,12 +16,12 @@ import byteshaft.com.nationalpropertyassist.drainassist.SepticOrTreatmentTankAct
 
 public class DrainAssistActivity extends AppCompatActivity implements View.OnClickListener{
 
-    Button drainage_repairs;
-    Button drainage_survey;
-    Button new_installation;
-    Button maintenance;
-    Button septic_or_treatment_tank;
-    Button emergency_unblock;
+    private Button drainage_repairs;
+    private Button drainage_survey;
+    private Button new_installation;
+    private Button maintenance;
+    private Button septic_or_treatment_tank;
+    private Button emergency_unblock;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

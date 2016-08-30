@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import byteshaft.com.nationalpropertyassist.AppGlobals;
 import byteshaft.com.nationalpropertyassist.R;
@@ -18,19 +19,26 @@ public class WaterAssistActivity extends Activity implements RadioGroup.OnChecke
 
     private RadioGroup radioGroup;
     private RadioButton rbLeaking;
-
     private RadioButton rbPipe;
-
     private RadioButton rbInstallation;
 
     private EditText details;
     private Button submitButton;
     private String mRadioText;
 
+    private View headerView;
+    private TextView headerStart;
+    private TextView headerEnd;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_water_assist);
+        headerView = findViewById(R.id.water_assist_header);
+        headerStart = (TextView) headerView.findViewById(R.id.header_start);
+        headerEnd = (TextView) headerView.findViewById(R.id.header_end);
+        headerStart.setText("Water");
+        headerEnd.setText(" Assist");
         radioGroup = (RadioGroup) findViewById(R.id.radio_group);
         details = (EditText) findViewById(R.id.water_assist_et);
         submitButton = (Button) findViewById(R.id.submit);

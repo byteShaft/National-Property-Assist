@@ -29,7 +29,7 @@ public class AddPropertyDetails extends AppCompatActivity implements View.OnClic
     private EditText mAddress;
     private EditText mPostCode;
     private Spinner mResidential;
-    private EditText mTypeOfProperty;
+    private Spinner mTypeOfProperty;
     private EditText mAgeOfProperty;
     private Button mSaveButton;
     private String mAddressString;
@@ -37,10 +37,8 @@ public class AddPropertyDetails extends AppCompatActivity implements View.OnClic
     private String mResidentialString;
     private String mTypeOfPropertyString;
     private String mAgeOfPropertyString;
-
     private AddPropertyDetailsDatabase addPropertyDetailsDatabase;
-
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,11 +47,11 @@ public class AddPropertyDetails extends AppCompatActivity implements View.OnClic
         mPostCode = (EditText) findViewById(R.id.et_post_code);
         mResidential = (Spinner) findViewById(R.id.et_residential);
         mResidential.setOnItemSelectedListener(this);
-        mTypeOfProperty = (EditText) findViewById(R.id.et_property_type);
+        mTypeOfProperty = (Spinner) findViewById(R.id.property_type);
         mAgeOfProperty = (EditText) findViewById(R.id.et_age_of_property);
         mSaveButton = (Button) findViewById(R.id.save_button);
         mSaveButton.setOnClickListener(this);
-        addPropertyDetailsDatabase = new AddPropertyDetailsDatabase(AppGlobals.getContext());
+        addPropertyDetailsDatabase = new AddPropertyDetailsDatabase(getApplicationContext());
     }
 
     @Override
@@ -75,7 +73,7 @@ public class AddPropertyDetails extends AppCompatActivity implements View.OnClic
         mAddressString = mAddress.getText().toString();
         mPostCodeString = mPostCode.getText().toString();
 //        mResidentialString = mResidential.getText().toString();
-        mTypeOfPropertyString = mTypeOfProperty.getText().toString();
+        mTypeOfPropertyString = mTypeOfProperty.getSelectedItem().toString();
         mAgeOfPropertyString = mAgeOfProperty.getText().toString();
 
         if (mAddressString.trim().isEmpty()) {
@@ -92,12 +90,12 @@ public class AddPropertyDetails extends AppCompatActivity implements View.OnClic
             mPostCode.setError(null);
         }
 
-        if (mTypeOfPropertyString.trim().isEmpty()) {
-            mTypeOfProperty.setError("please enter property type");
-            valid = false;
-        } else {
-            mTypeOfProperty.setError(null);
-        }
+//        if (mTypeOfPropertyString.trim().isEmpty()) {
+//            mTypeOfProperty.setError("please enter property type");
+//            valid = false;
+//        } else {
+//            mTypeOfProperty.setError(null);
+//        }
 
         if (mAgeOfPropertyString.trim().isEmpty()) {
             mAgeOfProperty.setError("please enter age of property");

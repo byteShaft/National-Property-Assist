@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import byteshaft.com.nationalpropertyassist.AppGlobals;
 import byteshaft.com.nationalpropertyassist.R;
@@ -23,11 +24,21 @@ public class PlumberActivity extends Activity implements RadioGroup.OnCheckedCha
 
     private RadioButton repairPlumbing;
     private RadioButton renewal;
+    private View headerView;
+    private TextView headerStart;
+    private TextView headerEnd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_plumber_assist);
+        headerView = findViewById(R.id.plumber_assist_header);
+        headerStart = (TextView) headerView.findViewById(R.id.header_start);
+        headerEnd = (TextView) headerView.findViewById(R.id.header_end);
+        headerStart.setText("Plumber");
+        headerEnd.setText(" Assist");
+        radioGroup = (RadioGroup) findViewById(R.id.radio_group);
+        details = (EditText) findViewById(R.id.plumber_assist_et);
         repairPlumbing = (RadioButton) findViewById(R.id.repair_plumbing);
         renewal = (RadioButton) findViewById(R.id.renewal_of_plumbing_installation);
         radioGroup = (RadioGroup) findViewById(R.id.radio_group);

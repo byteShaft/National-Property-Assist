@@ -21,9 +21,9 @@ public class AppGlobals extends Application {
     public static final String USER_ACTIVATION_KEY = "activation_key";
     public static final String KEY_USER_LOGIN = "user_login";
     public static int responseCode = 0;
-    public static int readresponseCode = 0;
     public static final String KEY_USER_DETAILS = "user_details";
     public static Typeface typeface;
+    public static Typeface typefaceItalic;
     public static final String GET_ACTIVE_JOBS_URL = "http://178.62.37.43:8000/api/services/active";
     public static int serverIdForProperty = 2112;
 
@@ -42,7 +42,8 @@ public class AppGlobals extends Application {
         hashMap = new HashMap<>();
         addHashmapValue();
         sContext = getApplicationContext();
-        typeface = Typeface.createFromAsset(getApplicationContext().getAssets(),"fonts/ebrima.ttf");
+        typeface = Typeface.createFromAsset(getApplicationContext().getAssets(),"fonts/bold.ttf");
+        typefaceItalic = Typeface.createFromAsset(getApplicationContext().getAssets(),"fonts/italic.ttf");
     }
 
     private void addHashmapValue() {

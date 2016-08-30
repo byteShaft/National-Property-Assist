@@ -146,8 +146,7 @@ public class WebServiceHelper {
                                                    int propertyAge,
                                                    int PropertyResidentialOrCommercial,
                                                    int typeOfProperty,
-                                                   int postCode
-    ) {
+                                                   int postCode) {
         JSONObject object = new JSONObject();
 
         try {
