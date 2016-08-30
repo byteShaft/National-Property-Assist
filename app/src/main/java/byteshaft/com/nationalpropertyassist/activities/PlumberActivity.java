@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import byteshaft.com.nationalpropertyassist.AppGlobals;
@@ -20,10 +21,15 @@ public class PlumberActivity extends Activity implements RadioGroup.OnCheckedCha
     private Button submitButton;
     private String mRadioText;
 
+    private RadioButton repairPlumbing;
+    private RadioButton renewal;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_plumber_assist);
+        repairPlumbing = (RadioButton) findViewById(R.id.repair_plumbing);
+        renewal = (RadioButton) findViewById(R.id.renewal_of_plumbing_installation);
         radioGroup = (RadioGroup) findViewById(R.id.radio_group);
         details = (EditText) findViewById(R.id.plumber_assist_et);
         submitButton = (Button) findViewById(R.id.submit);
@@ -41,6 +47,8 @@ public class PlumberActivity extends Activity implements RadioGroup.OnCheckedCha
                 mRadioText = "Renewal of plumbing Installation";
                 break;
         }
+
+        System.out.println(mRadioText);
     }
 
     @Override

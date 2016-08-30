@@ -137,7 +137,6 @@ public class AddPropertyDetails extends AppCompatActivity implements View.OnClic
         @Override
         protected JSONObject doInBackground(String... params) {
             JSONObject jsonObject = new JSONObject();
-
             if (WebServiceHelper.isNetworkAvailable() && WebServiceHelper.isInternetWorking()) {
                 try {
                     jsonObject = WebServiceHelper.addPropertyDetails(

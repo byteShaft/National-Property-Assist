@@ -77,14 +77,21 @@
                     android:textSize="15dp" />
 
                 <RadioButton
-                    android:id="@+id/repair_survey"
+                    android:id="@+id/structural_survey"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Surface Water Drainage"
+                    android:text="Structural Survey"
                     android:textSize="15dp" />
 
                 <RadioButton
-                    android:id="@+id/insurance_survey"
+                    android:id="@+id/damage_repair_survey"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Damage and Repair Survey"
+                    android:textSize="15dp" />
+
+                <RadioButton
+                    android:id="@+id/insurance_claim_survey"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Insurance Claim Survey"
