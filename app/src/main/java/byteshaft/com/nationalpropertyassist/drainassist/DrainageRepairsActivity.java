@@ -30,7 +30,7 @@ public class DrainageRepairsActivity extends Activity implements RadioGroup.OnCh
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.drainage_repairs_activity);
-        headerView = findViewById(R.id.drain_header);
+        headerView = findViewById(R.id.repair_header);
         headerStart = (TextView) headerView.findViewById(R.id.header_start);
         headerEnd = (TextView) headerView.findViewById(R.id.header_end);
         headerStart.setText("Drainage");

@@ -51,7 +51,7 @@ public class AddPropertyDetails extends AppCompatActivity implements View.OnClic
         mAgeOfProperty = (EditText) findViewById(R.id.et_age_of_property);
         mSaveButton = (Button) findViewById(R.id.save_button);
         mSaveButton.setOnClickListener(this);
-        addPropertyDetailsDatabase = new AddPropertyDetailsDatabase(AppGlobals.getContext());
+        addPropertyDetailsDatabase = new AddPropertyDetailsDatabase(getApplicationContext());
     }
 
     @Override
@@ -135,7 +135,6 @@ public class AddPropertyDetails extends AppCompatActivity implements View.OnClic
         @Override
         protected JSONObject doInBackground(String... params) {
             JSONObject jsonObject = new JSONObject();
-
             if (WebServiceHelper.isNetworkAvailable() && WebServiceHelper.isInternetWorking()) {
                 try {
                     jsonObject = WebServiceHelper.addPropertyDetails(

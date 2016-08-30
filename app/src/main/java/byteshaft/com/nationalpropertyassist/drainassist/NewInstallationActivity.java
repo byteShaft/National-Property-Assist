@@ -40,7 +40,6 @@ public class NewInstallationActivity extends Activity implements RadioGroup.OnCh
         details = (EditText) findViewById(R.id.new_installation_et);
         radioGroup.setOnCheckedChangeListener(this);
 
-
         button_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
