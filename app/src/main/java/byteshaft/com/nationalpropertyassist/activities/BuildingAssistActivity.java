@@ -102,7 +102,7 @@ public class BuildingAssistActivity extends Activity implements RadioGroup.OnChe
                 } else if (AppGlobals.serverIdForProperty != 2112 && !sConfirmPayment) {
                     AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(BuildingAssistActivity.this);
                     alertDialogBuilder.setTitle("Payment Details");
-                    String price = AppGlobals.getPriceDetails(mRadioText);
+                    final String price = AppGlobals.getPriceDetails(mRadioText);
                     if (isNumeric(price)) {
                         alertDialogBuilder.setMessage(
                                 String.format("You will be charged (%d£) for this service.",
@@ -118,7 +118,7 @@ public class BuildingAssistActivity extends Activity implements RadioGroup.OnChe
                                 public void onClick(DialogInterface dialog, int id) {
                                     dialog.dismiss();
                                     String description = details.getText().toString();
-                                    new ServicesTask(BuildingAssistActivity.this, description, mRadioText).execute();
+                                    new ServicesTask(BuildingAssistActivity.this, description, mRadioText, price).execute();
                                 }
                             });
                     AlertDialog alertDialog = alertDialogBuilder.create();

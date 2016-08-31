@@ -69,7 +69,7 @@ public class NewInstallationActivity extends Activity implements RadioGroup.OnCh
                 } else if (AppGlobals.serverIdForProperty != 2112 && !sConfirmPayment) {
                     AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(NewInstallationActivity.this);
                     alertDialogBuilder.setTitle("Payment Details");
-                    String price = AppGlobals.getPriceDetails(mRadioText);
+                    final String price = AppGlobals.getPriceDetails(mRadioText);
                     if (isNumeric(price)) {
                         alertDialogBuilder.setMessage(
                                 String.format("You will be charged (%d£) for this service.",
@@ -85,7 +85,8 @@ public class NewInstallationActivity extends Activity implements RadioGroup.OnCh
                                 public void onClick(DialogInterface dialog, int id) {
                                     dialog.dismiss();
                                     String description = details.getText().toString();
-                                    new ServicesTask(NewInstallationActivity.this, description, mRadioText).execute();
+                                    new ServicesTask(NewInstallationActivity.this, description,
+                                            mRadioText, price).execute();
                                 }
                             });
                     AlertDialog alertDialog = alertDialogBuilder.create();

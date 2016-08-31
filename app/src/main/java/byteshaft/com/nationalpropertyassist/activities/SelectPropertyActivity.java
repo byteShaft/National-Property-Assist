@@ -1,7 +1,10 @@
 package byteshaft.com.nationalpropertyassist.activities;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,6 +36,28 @@ public class SelectPropertyActivity extends AppCompatActivity implements Adapter
                 AddPropertyDetailsDatabase(getApplicationContext());
         data = addPropertyDetailsDatabase.getAddressOfProperties();
         ids = addPropertyDetailsDatabase.getIdOfSaveProperty();
+        if (ids.size() < 1) {
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(SelectPropertyActivity.this);
+            alertDialogBuilder.setTitle("Enter property");
+            alertDialogBuilder.setMessage("Please provide details of your property " +
+                    "before proceeding further.").setCancelable(false).setPositiveButton("add property",
+
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.dismiss();
+                            startActivity(new Intent(getApplicationContext(), AddPropertyDetails.class));
+                        }
+                    });
+            alertDialogBuilder.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.dismiss();
+                    SelectPropertyActivity.this.finish();
+                }
+            });
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
+        }
         ArrayAdapter<String> arrayAdapter = new Adapter(this,
                 android.R.layout.simple_list_item_1, data, ids);
         mListView.setAdapter(arrayAdapter);

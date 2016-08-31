@@ -12,14 +12,16 @@ import byteshaft.com.nationalpropertyassist.AppGlobals;
 
 public class ServicesTask extends AsyncTask<String, String, Integer> {
 
-    Activity mActivity;
-    String mDescription;
-    String mPurpose;
+    private Activity mActivity;
+    private String mDescription;
+    private String mPurpose;
+    private String price;
 
-    public ServicesTask(Activity activity, String description, String purpose) {
+    public ServicesTask(Activity activity, String description, String purpose, String price) {
         mActivity = activity;
         mDescription = description;
         mPurpose = purpose;
+        this.price = price;
     }
 
     @Override
@@ -33,7 +35,7 @@ public class ServicesTask extends AsyncTask<String, String, Integer> {
         int response = 0;
         if (WebServiceHelper.isNetworkAvailable() && WebServiceHelper.isInternetWorking()) {
             try {
-                response = WebServiceHelper.addServices(mDescription, mPurpose, mActivity);
+                response = WebServiceHelper.addServices(mDescription, mPurpose, price);
                 mActivity.finish();
             } catch (IOException | JSONException e) {
                 e.printStackTrace();

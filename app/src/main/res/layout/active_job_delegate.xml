@@ -36,10 +36,15 @@
                 android:id="@+id/active_description"
                 android:layout_below="@+id/active_address"
                 android:layout_marginTop="10dp"
-                android:layout_toLeftOf="@+id/active_pay_button"
+                android:layout_toLeftOf="@+id/layout_pay"
                 android:text="Description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
+
+            <RelativeLayout
+                android:id="@+id/layout_pay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
             <Button
                 android:id="@+id/active_pay_button"
@@ -59,11 +64,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
+            </RelativeLayout>
+
             <TextView
                 android:id="@+id/active_purpose"
                 android:text="Purpose"
                 android:layout_marginTop="10dp"
-                android:layout_below="@+id/active_pay"
+                android:layout_below="@+id/layout_pay"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 

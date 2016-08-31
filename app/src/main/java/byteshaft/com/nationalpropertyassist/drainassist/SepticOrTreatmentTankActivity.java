@@ -68,7 +68,7 @@ public class SepticOrTreatmentTankActivity extends Activity implements RadioGrou
                 } else if (AppGlobals.serverIdForProperty != 2112 && !sConfirmPayment) {
                     AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(SepticOrTreatmentTankActivity.this);
                     alertDialogBuilder.setTitle("Payment Details");
-                    String price = AppGlobals.getPriceDetails(mRadioText);
+                    final String price = AppGlobals.getPriceDetails(mRadioText);
                     if (isNumeric(price)) {
                         alertDialogBuilder.setMessage(
                                 String.format("You will be charged (%d£) for this service.",
@@ -84,7 +84,8 @@ public class SepticOrTreatmentTankActivity extends Activity implements RadioGrou
                                 public void onClick(DialogInterface dialog, int id) {
                                     dialog.dismiss();
                                     String description = details.getText().toString();
-                                    new ServicesTask(SepticOrTreatmentTankActivity.this, description, mRadioText).execute();
+                                    new ServicesTask(SepticOrTreatmentTankActivity.this, description,
+                                            mRadioText, price).execute();
                                 }
                             });
                     AlertDialog alertDialog = alertDialogBuilder.create();

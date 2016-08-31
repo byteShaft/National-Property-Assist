@@ -28,7 +28,7 @@ public class AddPropertyDetailsDatabase extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void createNewEntry(String address, int postalCode, int propertyCommercial, String propertyType,
+    public void createNewEntry(String address, String postalCode, int propertyCommercial, String propertyType,
                                String ageOfProperty, int propertyId) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();

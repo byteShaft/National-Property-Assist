@@ -140,7 +140,7 @@ public class AddPropertyDetails extends AppCompatActivity implements View.OnClic
                     jsonObject = WebServiceHelper.addPropertyDetails(
                             mAddressString,
                             mTypeOfPropertyString,
-                            Integer.valueOf(mPostCodeString),
+                            mPostCodeString,
                             Integer.valueOf(mResidentialString),
                             Integer.valueOf(mAgeOfPropertyString));
                 } catch (IOException | JSONException e) {
@@ -168,7 +168,7 @@ public class AddPropertyDetails extends AppCompatActivity implements View.OnClic
                 }
                 addPropertyDetailsDatabase.createNewEntry(
                         mAddressString,
-                        Integer.valueOf(mPostCodeString),
+                        mPostCodeString,
                         Integer.valueOf(mResidentialString),
                         mTypeOfPropertyString,
                         mAgeOfPropertyString,
