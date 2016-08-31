@@ -18,7 +18,6 @@ public class AppGlobals extends Application {
     public static final String KEY_EMAIL = "email";
     public static final String KEY_MOBILE_PHONE = "mobile_phone";
     public static final String KEY_HOME_PHONE = "home_phone";
-    public static final String USER_ACTIVATION_KEY = "activation_key";
     public static final String KEY_USER_LOGIN = "user_login";
     public static int responseCode = 0;
     public static final String KEY_USER_DETAILS = "user_details";

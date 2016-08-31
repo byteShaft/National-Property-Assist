@@ -140,6 +140,7 @@ public class LoginActivity extends AppCompatActivity {
                             GraphResponse response) {
                         // Application code
                         jsonObject = response.getJSONObject();
+                        Log.i("TAG", "fb " + jsonObject);
                         try {
                             first_name = jsonObject.getString("first_name");
                             last_name = jsonObject.getString("last_name");
