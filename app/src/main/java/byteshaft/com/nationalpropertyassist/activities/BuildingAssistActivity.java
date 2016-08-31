@@ -3,12 +3,8 @@ package byteshaft.com.nationalpropertyassist.activities;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
-import android.text.SpannableString;
-import android.text.SpannableStringBuilder;
-import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -131,18 +127,6 @@ public class BuildingAssistActivity extends Activity implements RadioGroup.OnChe
                 }
                 break;
         }
-    }
-
-    public static SpannableStringBuilder getFormattedText(String text, String nextText) {
-        SpannableStringBuilder realText = new SpannableStringBuilder();
-        SpannableString mandatorySpannable = new SpannableString(text);
-        mandatorySpannable.setSpan(
-                new ForegroundColorSpan(Color.parseColor("#00BCD4")), 0, text.length(), 0);
-        realText.append(mandatorySpannable);
-        SpannableString whiteSpannable = new SpannableString(nextText);
-        whiteSpannable.setSpan(new ForegroundColorSpan(Color.DKGRAY), 0, nextText.length(), 0);
-        realText.append(whiteSpannable);
-        return realText;
     }
 
     public static boolean isNumeric(String str) {

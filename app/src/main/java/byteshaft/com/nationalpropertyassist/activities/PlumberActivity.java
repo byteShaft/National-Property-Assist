@@ -1,8 +1,10 @@
 package byteshaft.com.nationalpropertyassist.activities;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,6 +29,7 @@ public class PlumberActivity extends Activity implements RadioGroup.OnCheckedCha
     private View headerView;
     private TextView headerStart;
     private TextView headerEnd;
+    private static boolean sConfirmPayment = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +70,8 @@ public class PlumberActivity extends Activity implements RadioGroup.OnCheckedCha
         super.onResume();
         if (AppGlobals.serverIdForProperty != 2112) {
             submitButton.setText("Submit");
+        } else if (AppGlobals.serverIdForProperty != 2112 && !sConfirmPayment){
+            submitButton.setText("Confirm");
         } else {
             submitButton.setText("Select Property");
         }
@@ -79,11 +84,43 @@ public class PlumberActivity extends Activity implements RadioGroup.OnCheckedCha
                 if (AppGlobals.serverIdForProperty == 2112) {
                     Intent intent = new Intent(getApplicationContext(), SelectPropertyActivity.class);
                     startActivity(intent);
-                } else {
-                    String description = details.getText().toString();
-                    new ServicesTask(PlumberActivity.this, description, mRadioText).execute();
+                } else if (AppGlobals.serverIdForProperty != 2112 && !sConfirmPayment) {
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(PlumberActivity.this);
+                    alertDialogBuilder.setTitle("Payment Details");
+                    String price = AppGlobals.getPriceDetails(mRadioText);
+                    if (isNumeric(price)) {
+                        alertDialogBuilder.setMessage(
+                                String.format("You will be charged (%d£) for this services press ok to confirm.",
+                                        Integer.valueOf(price)));
+                    } else {
+                        alertDialogBuilder.setMessage(
+                                String.format("For these services %s.",
+                                        price));
+                    }
+                    System.out.println(price);
+                    alertDialogBuilder.setCancelable(false).setPositiveButton("Submit",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.dismiss();
+                                    String description = details.getText().toString();
+                                    new ServicesTask(PlumberActivity.this, description, mRadioText).execute();
+                                }
+                            });
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    alertDialog.show();
+
                 }
                 break;
         }
+    }
+
+    public static boolean isNumeric(String str) {
+        try {
+            double d = Double.parseDouble(str);
+        }
+        catch(NumberFormatException nfe) {
+            return false;
+        }
+        return true;
     }
 }
