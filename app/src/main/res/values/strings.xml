@@ -1,12 +1,11 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/tools">
     <string name="app_name">National Property Assist</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
-    <string name="facebook_app_id">807799272654477</string>\
-    
+    <string name="facebook_app_id">807799272654477</string>
 
 
     <string name="drain_assist">Drain Assist</string>
