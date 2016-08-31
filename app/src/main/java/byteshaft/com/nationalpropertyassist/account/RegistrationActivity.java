@@ -42,7 +42,7 @@ public class RegistrationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.delegate_registration);
+        setContentView(R.layout.registration);
         mFirstName = (EditText) findViewById(R.id.first_name);
         mLastName = (EditText) findViewById(R.id.last_name);
         mEmailAddress = (EditText) findViewById(R.id.email);
@@ -81,13 +81,6 @@ public class RegistrationActivity extends AppCompatActivity {
         mHome = mHomeNumber.getText().toString();
         mPasswordEntry = mPassword.getText().toString();
         mEmail = mEmailAddress.getText().toString();
-
-        System.out.println(mFname);
-        System.out.println(mLname);
-        System.out.println(mEmail);
-        System.out.println(mMobile);
-        System.out.println(mHome);
-        System.out.println(mPasswordEntry);
 
         if (mFname.trim().isEmpty() || mFname.length() < 3) {
             mFirstName.setError("enter at least 3 characters");
@@ -195,6 +188,7 @@ public class RegistrationActivity extends AppCompatActivity {
                         "Activation code has been sent to you! Please check your Email",
                         Toast.LENGTH_LONG).show();
                 finish();
+                LoginActivity.getInstance().finish();
                 startActivity(new Intent(getApplicationContext(), CodeConfirmationActivity.class));
             } else if (AppGlobals.getResponseCode() == HttpURLConnection.HTTP_BAD_REQUEST) {
                 Toast.makeText(AppGlobals.getContext(), "Registration failed. Email already in use",

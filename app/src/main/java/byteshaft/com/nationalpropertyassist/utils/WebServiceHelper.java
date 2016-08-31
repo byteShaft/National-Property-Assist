@@ -89,7 +89,7 @@ public class WebServiceHelper {
     }
 
     public static JSONObject addPropertyDetails(String address,
-                                                int propertyAge,
+                                                String propertyAge,
                                                 int postCode,
                                                 int PropertyResidentialOrCommercial,
                                                 int typeOfProperty) throws IOException, JSONException {
@@ -119,6 +119,7 @@ public class WebServiceHelper {
         System.out.println(data);
         String url = "http://178.62.37.43:8000/api/services";
         HttpURLConnection connection = openConnectionForUrl(url, "POST");
+        Log.i("TAG", Helpers.getStringFromSharedPreferences("token"));
         connection.setRequestProperty("Authorization", "Token " + Helpers.getStringFromSharedPreferences("token"));
         sendRequestData(connection, data);
         AppGlobals.setResponseCode(connection.getResponseCode());
@@ -143,7 +144,7 @@ public class WebServiceHelper {
     }
 
     public static String getAddPropertyDetailsData(String address,
-                                                   int propertyAge,
+                                                   String propertyAge,
                                                    int PropertyResidentialOrCommercial,
                                                    int typeOfProperty,
                                                    int postCode) {
@@ -296,7 +297,6 @@ public class WebServiceHelper {
         progressDialog.setMessage(message);
         progressDialog.setCancelable(false);
         progressDialog.setIndeterminate(true);
-        progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
     }
 

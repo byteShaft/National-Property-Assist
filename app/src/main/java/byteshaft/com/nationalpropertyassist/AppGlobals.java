@@ -28,7 +28,6 @@ public class AppGlobals extends Application {
     public static int serverIdForProperty = 2112;
 
     // paypal
-
     public static final int REQUEST_CODE_PAYMENT = 1;
     public static final String CONFIG_CLIENT_ID = "ARu_4mdznUCYfwTqE_xt93eZ9U4L17KiWhCnleEdoSjcDNah6FZbGxQIa3u5uNewlGlyNXjuPH7y-MkG";
     public static final String CONFIG_ENVIRONMENT = PayPalConfiguration.ENVIRONMENT_SANDBOX;
@@ -40,20 +39,24 @@ public class AppGlobals extends Application {
     public void onCreate() {
         super.onCreate();
         hashMap = new HashMap<>();
-        addHashmapValue();
+        addHashMapValue();
         sContext = getApplicationContext();
         typeface = Typeface.createFromAsset(getApplicationContext().getAssets(),"fonts/bold.ttf");
         typefaceItalic = Typeface.createFromAsset(getApplicationContext().getAssets(),"fonts/italic.ttf");
     }
 
-    private void addHashmapValue() {
+    public static String getPriceDetails(String key) {
+        return hashMap.get(key);
+    }
+
+    private void addHashMapValue() {
 
         /*  fields that have no price in front of them are "Estimate to be provided" */
         
         // for water assist
         hashMap.put( "Repair to leaking Supply Pipe" , "600");
-        hashMap.put("Renewal of Supply Pipe", "");
-        hashMap.put("New Installation", "");
+        hashMap.put("Renewal of Supply Pipe", "Estimate to be provided");
+        hashMap.put("New Installation", "Estimate to be provided");
 
         // plumbing Installation
         hashMap.put("Repair to leaking plumbing Installation", "250");
@@ -65,7 +68,7 @@ public class AppGlobals extends Application {
 
         // Building assist survey
         hashMap.put("Building Survey", "80");
-        hashMap.put("Structural Survey", "");
+        hashMap.put("Structural Survey", "Estimate to be provided");
         hashMap.put("Damage and Repair Survey", "80");
         hashMap.put("Insurance Claim Survey" , "80");
 
@@ -88,26 +91,26 @@ public class AppGlobals extends Application {
         hashMap.put("Other" , "150");
 
         // Drainage Repairs
-        hashMap.put("Excavation", "");
-        hashMap.put("Lining", "");
-        hashMap.put("Root Cutting", "");
-        hashMap.put("Other", "");
+        hashMap.put("Excavation", "Estimate to be provided");
+        hashMap.put("Lining", "Estimate to be provided");
+        hashMap.put("Root Cutting", "Estimate to be provided");
+        hashMap.put("Other", "Estimate to be provided");
 
         // Septic or treatment tank
         hashMap.put("Maintenance and Desudging", "250");
         hashMap.put("Investigate a Problem", "150");
-        hashMap.put("Repair", "");
-        hashMap.put("Other", "");
+        hashMap.put("Repair", "Estimate to be provided");
+        hashMap.put("Other", "Estimate to be provided");
 
         // new Installation
-        hashMap.put("Foul Drainage", "");
-        hashMap.put("Surface Water Drainage", "");
-        hashMap.put("Septic Tank", "");
-        hashMap.put("Other", "");
+        hashMap.put("Foul Drainage", "Estimate to be provided");
+        hashMap.put("Surface Water Drainage", "Estimate to be provided");
+        hashMap.put("Septic Tank", "Estimate to be provided");
+        hashMap.put("Other", "Estimate to be provided");
 
         // Maintenance
         hashMap.put("Scale Removal", "80");
-        hashMap.put("Repairs to Manhole", "");
+        hashMap.put("Repairs to Manhole", "Estimate to be provided");
     }
     public static Context getContext() {
         return sContext;

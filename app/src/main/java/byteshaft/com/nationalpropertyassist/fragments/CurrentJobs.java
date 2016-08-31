@@ -141,7 +141,7 @@ public class CurrentJobs extends Fragment {
             if (arrayList == null) {
                     notFoundLayout.setVisibility(View.VISIBLE);
             } else {
-                if (!arrayList.isEmpty() && arrayList.size() > 1) {
+                if (!arrayList.isEmpty() && arrayList.size() > 0) {
                     CustomAdapter customAdapter = new CustomAdapter(arrayList);
                     mRecyclerView.setAdapter(customAdapter);
                     mRecyclerView.addOnItemTouchListener(new CustomAdapter(arrayList,
