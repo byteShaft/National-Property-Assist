@@ -88,11 +88,11 @@ public class WebServiceHelper {
         return readResponseJsonArray(connection);
     }
 
-    public static JSONObject addPropertyDetails(String address,
+    public static JSONObject addPropertyDetails(String url, String address,
                                                 String propertyAge,
                                                 String postCode,
                                                 int PropertyResidentialOrCommercial,
-                                                int typeOfProperty) throws IOException, JSONException {
+                                                int typeOfProperty, String requestType) throws IOException, JSONException {
         String data = getAddPropertyDetailsData(
                 address,
                 propertyAge,
@@ -100,8 +100,7 @@ public class WebServiceHelper {
                 typeOfProperty,
                 postCode);
         System.out.println(data);
-        String url = "http://178.62.37.43:8000/api/properties";
-        HttpURLConnection connection = openConnectionForUrl(url, "POST");
+        HttpURLConnection connection = openConnectionForUrl(url, requestType);
         connection.setRequestProperty("Authorization", "Token " + Helpers.getStringFromSharedPreferences("token"));
         sendRequestData(connection, data);
         AppGlobals.setResponseCode(connection.getResponseCode());

@@ -1,15 +1,18 @@
 package byteshaft.com.nationalpropertyassist.fragments;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -47,8 +50,21 @@ public class PropertyDetails extends android.support.v4.app.Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        mDetailsAdapter = new PropertyDetailsAdapter(database.getAllRecords());
+        ArrayList<HashMap> data = database.getAllRecords();
+        Log.i("TAG", String.valueOf(data));
+        mDetailsAdapter = new PropertyDetailsAdapter(data);
         mRecyclerView.setAdapter(mDetailsAdapter);
+        mRecyclerView.addOnItemTouchListener(new PropertyDetailsAdapter(data
+                , getActivity().getApplicationContext(), new OnItemClickListener() {
+            @Override
+            public void onItem(int id) {
+                Intent intent = new Intent(getActivity().getApplicationContext(),
+                        AddPropertyDetails.class);
+                intent.putExtra(AppGlobals.PROPERTY_ID, id);
+                startActivity(intent);
+            }
+        }));
+
     }
 
     @Override
@@ -73,14 +89,34 @@ public class PropertyDetails extends android.support.v4.app.Fragment {
         return super.onOptionsItemSelected(item);
     }
 
-    class PropertyDetailsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    class PropertyDetailsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements
+    RecyclerView.OnItemTouchListener{
 
         private ArrayList<HashMap> data;
+        private OnItemClickListener mListener;
+        private GestureDetector mGestureDetector;
 
         public PropertyDetailsAdapter(ArrayList<HashMap> data) {
             this.data = data;
 
         }
+
+
+        public PropertyDetailsAdapter(ArrayList<HashMap> data, Context context,
+                             OnItemClickListener listener) {
+            this.data = data;
+            mListener = listener;
+            mGestureDetector = new GestureDetector(context,
+                    new GestureDetector.SimpleOnGestureListener() {
+                        @Override
+                        public boolean onSingleTapUp(MotionEvent e) {
+                            return true;
+                        }
+                    });
+        }
+
+
+
 
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -101,7 +137,7 @@ public class PropertyDetails extends android.support.v4.app.Fragment {
                     "Address: " + upperCaseString);
             mViewHolder.ageOfProperty.setText(
                     "Age of Property: " + String.valueOf(data.get(position)
-                            .get("property_age")));
+                            .get("property_age")) + " months");
             mViewHolder.typeOfProperty.setText(
                    "Type of Property: " +  String.valueOf(data
                             .get(position).get("property_type")));
@@ -115,17 +151,39 @@ public class PropertyDetails extends android.support.v4.app.Fragment {
                 mViewHolder.residential.setText
                         ("Residential/Commercial: " + "Commercial");
             }
-            mViewHolder.address.setTypeface(AppGlobals.typefaceItalic);
-            mViewHolder.postCode.setTypeface(AppGlobals.typefaceItalic);
-            mViewHolder.residential.setTypeface(AppGlobals.typefaceItalic);
-            mViewHolder.typeOfProperty.setTypeface(AppGlobals.typefaceItalic);
-            mViewHolder.ageOfProperty.setTypeface(AppGlobals.typefaceItalic);
+//            mViewHolder.address.setTypeface(AppGlobals.typefaceItalic);
+//            mViewHolder.postCode.setTypeface(AppGlobals.typefaceItalic);
+//            mViewHolder.residential.setTypeface(AppGlobals.typefaceItalic);
+//            mViewHolder.typeOfProperty.setTypeface(AppGlobals.typefaceItalic);
+//            mViewHolder.ageOfProperty.setTypeface(AppGlobals.typefaceItalic);
 
         }
 
         @Override
         public int getItemCount() {
             return data.size();
+        }
+
+        @Override
+        public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+            View childView = rv.findChildViewUnder(e.getX(), e.getY());
+            if (childView != null && mListener != null && mGestureDetector.onTouchEvent(e)) {
+                Log.i("TAG", String.valueOf(mListener == null));
+                mListener.onItem(Integer.valueOf((String) data.get(rv.getChildPosition(childView))
+                        .get("property_id")));
+                return true;
+            }
+            return false;
+        }
+
+        @Override
+        public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+
+        }
+
+        @Override
+        public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
         }
     }
 
@@ -151,5 +209,9 @@ public class PropertyDetails extends android.support.v4.app.Fragment {
             ageOfProperty = (TextView) itemView.findViewById(R.id.tv_age_of_property);
             ageOfProperty.setTypeface(AppGlobals.typeface);
         }
+    }
+
+    public interface OnItemClickListener {
+        void onItem(int id);
     }
 }

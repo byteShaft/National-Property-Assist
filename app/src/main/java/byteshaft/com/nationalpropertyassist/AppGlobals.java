@@ -26,6 +26,7 @@ public class AppGlobals extends Application {
     public static Typeface typefaceItalic;
     public static final String GET_ACTIVE_JOBS_URL = "http://178.62.37.43:8000/api/services/active";
     public static int serverIdForProperty = 2112;
+    public static final String PROPERTY_ID = "property_id";
 
     // paypal
     public static final int REQUEST_CODE_PAYMENT = 1;
