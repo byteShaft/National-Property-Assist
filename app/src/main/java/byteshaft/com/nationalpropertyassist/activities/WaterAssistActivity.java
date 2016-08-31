@@ -91,7 +91,7 @@ public class WaterAssistActivity extends Activity implements RadioGroup.OnChecke
                 } else if (AppGlobals.serverIdForProperty != 2112 && !sConfirmPayment) {
                     AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(WaterAssistActivity.this);
                     alertDialogBuilder.setTitle("Payment Details");
-                    String price = AppGlobals.getPriceDetails(mRadioText);
+                    final String price = AppGlobals.getPriceDetails(mRadioText);
                     if (isNumeric(price)) {
                         alertDialogBuilder.setMessage(
                                 String.format("You will be charged (%d£) for this service.",
@@ -107,7 +107,7 @@ public class WaterAssistActivity extends Activity implements RadioGroup.OnChecke
                                 public void onClick(DialogInterface dialog, int id) {
                                     dialog.dismiss();
                                     String description = details.getText().toString();
-                                    new ServicesTask(WaterAssistActivity.this, description, mRadioText).execute();
+                                    new ServicesTask(WaterAssistActivity.this, description, mRadioText, price).execute();
                                 }
                             });
                     AlertDialog alertDialog = alertDialogBuilder.create();

@@ -111,11 +111,11 @@ public class WebServiceHelper {
 
     public static int addServices(
             String description,
-            String purpose, Activity activity
+            String purpose, String price
     ) throws IOException, JSONException {
         String data = getServicesData(
                 description,
-                purpose);
+                purpose, price);
         System.out.println(data);
         String url = "http://178.62.37.43:8000/api/services";
         HttpURLConnection connection = openConnectionForUrl(url, "POST");
@@ -129,7 +129,7 @@ public class WebServiceHelper {
 
     public static String getServicesData(
             String description,
-            String purpose) {
+            String purpose, String price) {
         JSONObject object = new JSONObject();
         Log.e("TAG", " test" + Helpers.getStringFromSharedPreferences("postcode"));
 
@@ -137,6 +137,7 @@ public class WebServiceHelper {
             object.put("description", description);
             object.put("purpose", purpose);
             object.put("site", AppGlobals.serverIdForProperty);
+            object.put("price", price);
         } catch (JSONException var8) {
             var8.printStackTrace();
         }
