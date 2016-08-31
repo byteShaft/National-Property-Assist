@@ -27,8 +27,10 @@
             <TextView
                 android:id="@+id/tv_address"
                 android:text="Address"
+                android:background="@drawable/address_border"
                 android:textStyle="bold"
                 android:textSize="18sp"
+                android:padding="4dp"
                 android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />

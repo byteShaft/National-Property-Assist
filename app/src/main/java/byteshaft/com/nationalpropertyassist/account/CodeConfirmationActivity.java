@@ -1,7 +1,6 @@
 package byteshaft.com.nationalpropertyassist.account;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,9 +16,9 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 
 import byteshaft.com.nationalpropertyassist.AppGlobals;
-import byteshaft.com.nationalpropertyassist.utils.Helpers;
 import byteshaft.com.nationalpropertyassist.MainActivity;
 import byteshaft.com.nationalpropertyassist.R;
+import byteshaft.com.nationalpropertyassist.utils.Helpers;
 import byteshaft.com.nationalpropertyassist.utils.WebServiceHelper;
 
 public class CodeConfirmationActivity extends Activity {
@@ -138,7 +137,6 @@ public class CodeConfirmationActivity extends Activity {
                         Toast.LENGTH_LONG).show();
                 Helpers.setUserActive(true);
                 finish();
-                startActivity(new Intent(getApplicationContext(), MainActivity.class));
             } else {
                 Toast.makeText(AppGlobals.getContext(),
                         "Confirmation failed, check internet and retry", Toast.LENGTH_LONG).show();

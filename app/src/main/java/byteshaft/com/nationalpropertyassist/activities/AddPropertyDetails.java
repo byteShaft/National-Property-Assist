@@ -139,7 +139,7 @@ public class AddPropertyDetails extends AppCompatActivity implements View.OnClic
                 try {
                     jsonObject = WebServiceHelper.addPropertyDetails(
                             mAddressString,
-                            Integer.valueOf(mTypeOfPropertyString),
+                            mTypeOfPropertyString,
                             Integer.valueOf(mPostCodeString),
                             Integer.valueOf(mResidentialString),
                             Integer.valueOf(mAgeOfPropertyString));
@@ -168,10 +168,10 @@ public class AddPropertyDetails extends AppCompatActivity implements View.OnClic
                 }
                 addPropertyDetailsDatabase.createNewEntry(
                         mAddressString,
-                        Integer.valueOf(mTypeOfPropertyString),
                         Integer.valueOf(mPostCodeString),
                         Integer.valueOf(mResidentialString),
-                        Integer.valueOf(mAgeOfPropertyString),
+                        mTypeOfPropertyString,
+                        mAgeOfPropertyString,
                         Integer.valueOf(addpropertyId));
 
                 Log.e("TAg", "name " + mAddressString);

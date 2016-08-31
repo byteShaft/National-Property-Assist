@@ -27,6 +27,7 @@ import java.util.Random;
 import byteshaft.com.nationalpropertyassist.account.CodeConfirmationActivity;
 import byteshaft.com.nationalpropertyassist.account.LoginActivity;
 import byteshaft.com.nationalpropertyassist.activities.AssistMain;
+import byteshaft.com.nationalpropertyassist.database.DatabaseConstants;
 import byteshaft.com.nationalpropertyassist.fragments.CurrentJobs;
 import byteshaft.com.nationalpropertyassist.fragments.Help;
 import byteshaft.com.nationalpropertyassist.fragments.JobHistory;
@@ -167,6 +168,7 @@ public class MainActivity extends AppCompatActivity
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             Helpers.clearSaveData();
+                            deleteDatabase(DatabaseConstants.DATABASE_NAME);
                             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                         }
                     });

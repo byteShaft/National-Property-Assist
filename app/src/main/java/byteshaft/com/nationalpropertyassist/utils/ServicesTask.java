@@ -8,6 +8,8 @@ import org.json.JSONException;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 
+import byteshaft.com.nationalpropertyassist.AppGlobals;
+
 public class ServicesTask extends AsyncTask<String, String, Integer> {
 
     Activity mActivity;
@@ -43,6 +45,7 @@ public class ServicesTask extends AsyncTask<String, String, Integer> {
     @Override
     protected void onPostExecute(Integer response) {
         super.onPostExecute(response);
+        AppGlobals.serverIdForProperty = 2112;
         if (response == HttpURLConnection.HTTP_CREATED) {
             WebServiceHelper.dismissProgressDialog();
         }

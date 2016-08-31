@@ -65,7 +65,7 @@ public class LoginActivity extends AppCompatActivity {
         sInstance = this;
         database = new AddPropertyDetailsDatabase(getApplicationContext());
         FacebookSdk.sdkInitialize(getApplicationContext());
-        setContentView(R.layout.delegate_login);
+        setContentView(R.layout.login);
         callbackManager = CallbackManager.Factory.create();
         mEmailAddress = (EditText) findViewById(R.id.email_address);
         mPassword = (EditText) findViewById(R.id.password_entry);
@@ -302,9 +302,9 @@ public class LoginActivity extends AppCompatActivity {
                 for (int i = 0; i < array.length(); i++) {
                     JSONObject jsonObject = (JSONObject) array.get(i);
                     String address = jsonObject.getString("address");
-                    int ageOfProperty = jsonObject.getInt("age");
+                    String ageOfProperty = jsonObject.getString("age");
                     int categoryPrimary = jsonObject.getInt("category_primary");
-                    int categorySecondary = jsonObject.getInt("category_secondary");
+                    String categorySecondary = jsonObject.getString("category_secondary");
                     int iD = jsonObject.getInt("id");
                     int postCode = jsonObject.getInt("postcode");
 

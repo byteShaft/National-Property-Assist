@@ -28,8 +28,8 @@ public class AddPropertyDetailsDatabase extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void createNewEntry(String address, int postalCode, int propertyCommercial, int propertyType,
-                               int ageOfProperty, int propertyId) {
+    public void createNewEntry(String address, int postalCode, int propertyCommercial, String propertyType,
+                               String ageOfProperty, int propertyId) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(DatabaseConstants.ADDRESS_COLUMN, address);
