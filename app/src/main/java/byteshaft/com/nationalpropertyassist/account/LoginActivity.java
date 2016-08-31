@@ -306,7 +306,7 @@ public class LoginActivity extends AppCompatActivity {
                     int categoryPrimary = jsonObject.getInt("category_primary");
                     String categorySecondary = jsonObject.getString("category_secondary");
                     int iD = jsonObject.getInt("id");
-                    int postCode = jsonObject.getInt("postcode");
+                    String postCode = jsonObject.getString("postcode");
 
                     database.createNewEntry(address, postCode, categoryPrimary,
                             categorySecondary, ageOfProperty, iD);

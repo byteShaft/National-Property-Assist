@@ -40,7 +40,7 @@
                 android:background="@drawable/edit_text_bg"
                 android:drawablePadding="9dp"
                 android:hint="PostCode"
-                android:inputType="textPhonetic"
+                android:inputType="textPostalAddress"
                 android:padding="15dp"
                 android:singleLine="true"
                 android:textColor="@color/gray_800"

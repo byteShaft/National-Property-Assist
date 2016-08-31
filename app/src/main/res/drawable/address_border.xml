@@ -10,7 +10,7 @@
     <!-- view border color and width -->
     <stroke
         android:width="2dp"
-        android:color="@color/gray" >
+        android:color="@color/colorPrimary" >
     </stroke>
 
     <!-- The radius makes the corners rounded -->

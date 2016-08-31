@@ -116,6 +116,7 @@ public class CurrentJobs extends Fragment {
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = (JSONObject) jsonArray.get(i);
                         HashMap<String, String> hashMap = new HashMap<>();
+                        Log.i("TAG", String.valueOf(jsonObject));
                         hashMap.put("id", jsonObject.getString("id"));
                         hashMap.put("site", jsonObject.getString("site"));
                         hashMap.put("status", jsonObject.getString("status"));
@@ -123,6 +124,7 @@ public class CurrentJobs extends Fragment {
                         hashMap.put("purpose", jsonObject.getString("purpose"));
                         hashMap.put("paid_for", jsonObject.getString("paid_for"));
                         hashMap.put("address", jsonObject.getString("address"));
+                        hashMap.put("price", jsonObject.getString("price"));
                         activeJobs.add(hashMap);
                     }
                 } catch (IOException | JSONException e) {
@@ -147,7 +149,7 @@ public class CurrentJobs extends Fragment {
                     mRecyclerView.addOnItemTouchListener(new CustomAdapter(arrayList,
                             AppGlobals.getContext(), new OnItemClickListener() {
                         @Override
-                        public void onPayClick(String item) {
+                        public void onPayClick(String item, final String product, final String price) {
                             Log.i("TAG", "pay click" + item);
                             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
                             alertDialogBuilder.setTitle("Payment");
@@ -156,7 +158,7 @@ public class CurrentJobs extends Fragment {
                                     new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int id) {
                                             dialog.dismiss();
-                                            onBuyPressed();
+                                            onBuyPressed(price, product);
                                         }
                                     });
                             AlertDialog alertDialog = alertDialogBuilder.create();
@@ -211,19 +213,22 @@ public class CurrentJobs extends Fragment {
                 viewHolder.payButton.setBackground(AppGlobals.getContext().getResources()
                         .getDrawable(R.drawable.paid));
                 viewHolder.payTextView.setText("Paid");
+                viewHolder.relativeLayout.setClickable(false);
             } else {
                 viewHolder.payButton.setBackground(AppGlobals.getContext().getResources()
                         .getDrawable(R.drawable.unpaid));
-                viewHolder.payTextView.setText("unPaid");
+                viewHolder.payTextView.setText("Pay Now");
+                viewHolder.relativeLayout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        System.out.println(mListener == null);
+                        System.out.println(items == null);
+                        mListener.onPayClick((String) items.get(position).get("id"),
+                                (String) items.get(position).get("purpose"),
+                                (String) items.get(position).get("price"));
+                    }
+                });
             }
-            viewHolder.payButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    System.out.println(mListener == null);
-                    System.out.println(items == null);
-                    mListener.onPayClick((String) items.get(position).get("id"));
-                }
-            });
 
         }
 
@@ -257,7 +262,7 @@ public class CurrentJobs extends Fragment {
     }
 
     public interface OnItemClickListener {
-        void onPayClick(String item);
+        void onPayClick(String item, String product, String price);
     }
 
     // custom viewHolder to access xml elements requires a view in constructor
@@ -269,6 +274,7 @@ public class CurrentJobs extends Fragment {
         public TextView description;
         public TextView site;
         public TextView purpose;
+        public RelativeLayout relativeLayout;
 
         public CustomView(View itemView) {
             super(itemView);
@@ -279,17 +285,18 @@ public class CurrentJobs extends Fragment {
             description = (TextView) itemView.findViewById(R.id.active_description);
             site = (TextView) itemView.findViewById(R.id.active_site);
             purpose = (TextView) itemView.findViewById(R.id.active_purpose);
+            relativeLayout = (RelativeLayout) itemView.findViewById(R.id.layout_pay);
         }
     }
 
     // paypal part
 
-    private PayPalPayment getThingToBuy(String paymentIntent) {
-        return new PayPalPayment(new BigDecimal("2.00"), "USD", "sample item",
+    private PayPalPayment getThingToBuy(String paymentIntent, String price, String thing) {
+        return new PayPalPayment(new BigDecimal(price+".00"), "GBP", thing,
                 paymentIntent);
     }
 
-    public void onBuyPressed() {
+    public void onBuyPressed(String price, String thing) {
         /*
          * PAYMENT_INTENT_SALE will cause the payment to complete immediately.
          * Change PAYMENT_INTENT_SALE to
@@ -299,7 +306,7 @@ public class CurrentJobs extends Fragment {
          *
          * Also, to include additional payment details and an item list, see getStuffToBuy() below.
          */
-        PayPalPayment thingToBuy = getThingToBuy(PayPalPayment.PAYMENT_INTENT_SALE);
+        PayPalPayment thingToBuy = getThingToBuy(PayPalPayment.PAYMENT_INTENT_SALE, price, thing);
 
         /*
          * See getStuffToBuy(..) for examples of some available payment options.
