@@ -72,7 +72,7 @@ public class EmergencyUnblockActivity extends Activity implements RadioGroup.OnC
                     String price = AppGlobals.getPriceDetails(mRadioText);
                     if (isNumeric(price)) {
                         alertDialogBuilder.setMessage(
-                                String.format("You will be charged (%d£) for this services press ok to confirm.",
+                                String.format("You will be charged (%d£) for this service.",
                                         Integer.valueOf(price)));
                     } else {
                         alertDialogBuilder.setMessage(

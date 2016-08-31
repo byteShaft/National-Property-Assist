@@ -16,7 +16,8 @@ import byteshaft.com.nationalpropertyassist.AppGlobals;
 import byteshaft.com.nationalpropertyassist.R;
 import byteshaft.com.nationalpropertyassist.utils.ServicesTask;
 
-public class HomeAssistActivity extends Activity implements RadioGroup.OnCheckedChangeListener, View.OnClickListener {
+public class HomeAssistActivity extends Activity implements RadioGroup.OnCheckedChangeListener,
+        View.OnClickListener {
 
     private RadioGroup radioGroup;
     private EditText details;
@@ -87,7 +88,7 @@ public class HomeAssistActivity extends Activity implements RadioGroup.OnChecked
                     String price = AppGlobals.getPriceDetails(mRadioText);
                     if (isNumeric(price)) {
                         alertDialogBuilder.setMessage(
-                                String.format("You will be charged (%d£) for this services press ok to confirm.",
+                                String.format("You will be charged (%d£) for this service.",
                                         Integer.valueOf(price)));
                     } else {
                         alertDialogBuilder.setMessage(
@@ -105,7 +106,6 @@ public class HomeAssistActivity extends Activity implements RadioGroup.OnChecked
                             });
                     AlertDialog alertDialog = alertDialogBuilder.create();
                     alertDialog.show();
-
                 }
                 break;
         }
