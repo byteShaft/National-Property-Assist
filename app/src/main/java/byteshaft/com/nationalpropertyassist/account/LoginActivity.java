@@ -15,7 +15,6 @@ import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginResult;
@@ -64,7 +63,6 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         sInstance = this;
         database = new AddPropertyDetailsDatabase(getApplicationContext());
-        FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.login);
         callbackManager = CallbackManager.Factory.create();
         mEmailAddress = (EditText) findViewById(R.id.email_address);
@@ -75,6 +73,7 @@ public class LoginActivity extends AppCompatActivity {
         fbLoginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
+                Log.i("TAG", loginResult.getAccessToken().toString());
 
             }
 
@@ -85,6 +84,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onError(FacebookException error) {
+                Log.i("TAG", error.getMessage());
 
             }
 
@@ -131,6 +131,7 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
         GraphRequest request = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(),
                 new GraphRequest.GraphJSONObjectCallback() {
@@ -140,7 +141,6 @@ public class LoginActivity extends AppCompatActivity {
                             GraphResponse response) {
                         // Application code
                         jsonObject = response.getJSONObject();
-                        Log.i("TAG", "fb " + jsonObject);
                         try {
                             first_name = jsonObject.getString("first_name");
                             last_name = jsonObject.getString("last_name");
@@ -157,7 +157,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 });
         Bundle parameters = new Bundle();
-        parameters.putString("fields", "email,first_name,last_name");
+        parameters.putString("fields", "id, first_name, last_name, email,gender, birthday, location");
         request.setParameters(parameters);
         request.executeAsync();
     }

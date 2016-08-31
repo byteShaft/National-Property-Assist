@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.graphics.Typeface;
 
+import com.facebook.FacebookSdk;
 import com.paypal.android.sdk.payments.PayPalConfiguration;
 
 import java.util.HashMap;
@@ -37,6 +38,7 @@ public class AppGlobals extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        FacebookSdk.sdkInitialize(getApplicationContext());
         hashMap = new HashMap<>();
         addHashMapValue();
         sContext = getApplicationContext();
