@@ -17,7 +17,12 @@
         android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        card_view:cardCornerRadius="4dp">
+        card_view:cardCornerRadius="4dp"
+        android:focusable="true"
+        android:clickable="true"
+        android:background="?android:attr/selectableItemBackground"
+        android:backgroundTint="@android:color/holo_blue_bright"
+        android:foreground="?android:attr/selectableItemBackground">
 
         <RelativeLayout
             android:layout_margin="5dp"

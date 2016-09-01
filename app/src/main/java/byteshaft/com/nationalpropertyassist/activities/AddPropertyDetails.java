@@ -16,6 +16,9 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 
 import byteshaft.com.nationalpropertyassist.AppGlobals;
 import byteshaft.com.nationalpropertyassist.R;
@@ -38,6 +41,10 @@ public class AddPropertyDetails extends AppCompatActivity implements View.OnClic
     private String mTypeOfPropertyString;
     private String mAgeOfPropertyString;
     private AddPropertyDetailsDatabase addPropertyDetailsDatabase;
+    private int propertyId = 0;
+    private boolean mUpdate = false;
+    private int mDataBaseId = 0;
+
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +59,28 @@ public class AddPropertyDetails extends AppCompatActivity implements View.OnClic
         mSaveButton = (Button) findViewById(R.id.save_button);
         mSaveButton.setOnClickListener(this);
         addPropertyDetailsDatabase = new AddPropertyDetailsDatabase(getApplicationContext());
+        if (getIntent() != null) {
+            propertyId = getIntent().getIntExtra(AppGlobals.PROPERTY_ID, 0);
+            if (propertyId != 0) {
+                mUpdate = true;
+                HashMap<String, String> property = addPropertyDetailsDatabase.getPropertyById(propertyId);
+                mAddress.setText(property.get("address"));
+                mPostCode.setText(property.get("postal_code"));
+                if (property.get("commercial").equals("0")) {
+                    mResidential.setSelection(0);
+                } else {
+                    mResidential.setSelection(1);
+                }
+                List arrayList;
+                arrayList = Arrays.asList(getResources().getStringArray(R.array.types_of_property));
+                Log.i("TAG", String.valueOf(arrayList));
+                int index = arrayList.indexOf(property.get("property_type"));
+
+                mTypeOfProperty.setSelection(index);
+                mAgeOfProperty.setText(property.get("property_age"));
+                mDataBaseId = Integer.parseInt(property.get("unique_id"));
+            }
+        }
     }
 
     @Override
@@ -62,8 +91,11 @@ public class AddPropertyDetails extends AppCompatActivity implements View.OnClic
                     Toast.makeText(getApplicationContext(), "invalid credentials",
                             Toast.LENGTH_SHORT).show();
                 } else {
-
-                    new PropertyDetailsTask().execute();
+                    if (mUpdate) {
+                        new PropertyDetailsTask().execute("PUT");
+                    } else {
+                        new PropertyDetailsTask().execute("POST");
+                    }
                 }
         }
     }
@@ -129,20 +161,28 @@ public class AddPropertyDetails extends AppCompatActivity implements View.OnClic
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            WebServiceHelper.showProgressDialog(AddPropertyDetails.this, "saving property details");
+            if (mUpdate) {
+                WebServiceHelper.showProgressDialog(AddPropertyDetails.this, "Updating property details");
+            } else {
+                WebServiceHelper.showProgressDialog(AddPropertyDetails.this, "Saving property details");
+            }
         }
 
         @Override
         protected JSONObject doInBackground(String... params) {
             JSONObject jsonObject = new JSONObject();
             if (WebServiceHelper.isNetworkAvailable() && WebServiceHelper.isInternetWorking()) {
+                String url = "http://178.62.37.43:8000/api/properties";
+                if (mUpdate) {
+                    url = url + "/" + propertyId;
+                }
                 try {
-                    jsonObject = WebServiceHelper.addPropertyDetails(
+                    jsonObject = WebServiceHelper.addPropertyDetails(url,
                             mAddressString,
-                            mTypeOfPropertyString,
+                            mAgeOfPropertyString,
                             mPostCodeString,
                             Integer.valueOf(mResidentialString),
-                            Integer.valueOf(mAgeOfPropertyString));
+                            mTypeOfPropertyString, params[0]);
                 } catch (IOException | JSONException e) {
                     e.printStackTrace();
                 }
@@ -176,6 +216,25 @@ public class AddPropertyDetails extends AppCompatActivity implements View.OnClic
 
                 Log.e("TAg", "name " + mAddressString);
                 finish();
+            }  else if (AppGlobals.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                if (mUpdate) {
+                    try {
+                        addPropertyDetailsDatabase.updateEntries(mDataBaseId,
+                                mAddressString,
+                                mPostCodeString,
+                                Integer.valueOf(mResidentialString),
+                                mTypeOfPropertyString,
+                                mAgeOfPropertyString,
+                                jsonObject.getInt("id"));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    Log.e("TAg", "name " + mAddressString);
+                    Toast.makeText(AddPropertyDetails.this, "Updated", Toast.LENGTH_SHORT).show();
+
+                    finish();
+                }
             }
         }
     }

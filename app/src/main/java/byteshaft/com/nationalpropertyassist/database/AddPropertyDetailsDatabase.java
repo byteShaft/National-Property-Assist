@@ -48,8 +48,8 @@ public class AddPropertyDetailsDatabase extends SQLiteOpenHelper {
     }
 
     public void updateEntries(
-            int id, String address, int postalCode, int propertyCommercial, int propertyType,
-            int ageOfProperty, int propertyId) {
+            int id, String address, String postalCode, int propertyCommercial, String propertyType,
+            String ageOfProperty, int propertyId) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(DatabaseConstants.POSTAL_CODE_COLUMN, postalCode);
@@ -117,6 +117,47 @@ public class AddPropertyDetailsDatabase extends SQLiteOpenHelper {
         db.close();
         cursor.close();
         return list;
+    }
+
+
+    public HashMap<String, String> getPropertyById(int id) {
+        HashMap<String, String> hashMap = new HashMap<>();
+        SQLiteDatabase db = getReadableDatabase();
+        String query = "SELECT * FROM " + DatabaseConstants.TABLE_NAME + " WHERE " +
+                DatabaseConstants.PROPERTY_ID_COLUMN +" = "  +id + " LIMIT 1";
+        Cursor cursor = db.rawQuery(query, null);
+        while (cursor.moveToNext()) {
+            int unique_id = cursor.getInt(
+                    cursor.getColumnIndex(DatabaseConstants.ID_COLUMN));
+
+            String address = cursor.getString(
+                    cursor.getColumnIndex(DatabaseConstants.ADDRESS_COLUMN));
+            String postalCode = cursor.getString(
+                    cursor.getColumnIndex(DatabaseConstants.POSTAL_CODE_COLUMN));
+
+            String PropertyAge = cursor.getString(
+                    cursor.getColumnIndex(DatabaseConstants.PROPERTY_AGE_COLUMN));
+
+            String commercial = cursor.getString(
+                    cursor.getColumnIndex(DatabaseConstants.RESIDENTIAL_COMMERCIAL_COLUMN));
+
+            String propertyType = cursor.getString(
+                    cursor.getColumnIndex(DatabaseConstants.PROPERTY_TYPE_COLUMN));
+
+            String propertyId = cursor.getString(
+                    cursor.getColumnIndex(DatabaseConstants.PROPERTY_ID_COLUMN));
+
+            hashMap.put("unique_id", String.valueOf(unique_id));
+            hashMap.put("address", address);
+            hashMap.put("postal_code", postalCode);
+            hashMap.put("property_age", PropertyAge);
+            hashMap.put("commercial", commercial);
+            hashMap.put("property_type", propertyType);
+            hashMap.put("property_id", propertyId);
+        }
+        db.close();
+        cursor.close();
+        return hashMap;
     }
 
     public ArrayList<HashMap<String, Integer>> getidOfProperties() {
