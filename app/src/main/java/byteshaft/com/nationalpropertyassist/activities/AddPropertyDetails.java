@@ -179,10 +179,10 @@ public class AddPropertyDetails extends AppCompatActivity implements View.OnClic
                 try {
                     jsonObject = WebServiceHelper.addPropertyDetails(url,
                             mAddressString,
-                            mTypeOfPropertyString,
+                            mAgeOfPropertyString,
                             mPostCodeString,
                             Integer.valueOf(mResidentialString),
-                            Integer.valueOf(mAgeOfPropertyString), params[0]);
+                            mTypeOfPropertyString, params[0]);
                 } catch (IOException | JSONException e) {
                     e.printStackTrace();
                 }

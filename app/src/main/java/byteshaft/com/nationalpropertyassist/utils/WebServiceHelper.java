@@ -92,7 +92,7 @@ public class WebServiceHelper {
                                                 String propertyAge,
                                                 String postCode,
                                                 int PropertyResidentialOrCommercial,
-                                                int typeOfProperty, String requestType) throws IOException, JSONException {
+                                                String typeOfProperty, String requestType) throws IOException, JSONException {
         String data = getAddPropertyDetailsData(
                 address,
                 propertyAge,
@@ -146,7 +146,7 @@ public class WebServiceHelper {
     public static String getAddPropertyDetailsData(String address,
                                                    String propertyAge,
                                                    int PropertyResidentialOrCommercial,
-                                                   int typeOfProperty,
+                                                   String typeOfProperty,
                                                    String postCode) {
         JSONObject object = new JSONObject();
 
